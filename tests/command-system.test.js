@@ -118,8 +118,8 @@ describe('Phase 5 - Command System Implementation', () => {
     let autocomplete;
 
     beforeEach(() => {
-      parser = new CollectiveCommandParser();
-      autocomplete = new CommandAutocomplete(parser);
+      parser = commandSystem.parser;
+      autocomplete = commandSystem.autocomplete;
     });
 
     afterEach(() => {
