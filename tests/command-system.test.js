@@ -36,7 +36,8 @@ describe('Phase 5 - Command System Implementation', () => {
     let parser;
 
     beforeEach(() => {
-      parser = new CollectiveCommandParser();
+      // 确保使用从 commandSystem 实例中正确初始化的解析器
+      parser = commandSystem.parser;
     });
 
     test('should parse basic collective commands', async () => {
@@ -114,11 +115,10 @@ describe('Phase 5 - Command System Implementation', () => {
   });
 
   describe('CommandAutocomplete', () => {
-    let parser;
     let autocomplete;
 
     beforeEach(() => {
-      parser = commandSystem.parser;
+      // 确保 CommandAutocomplete 使用与其他测试相同的, 已经正确配置了临时目录的 CommandSystem 实例
       autocomplete = commandSystem.autocomplete;
     });
 
