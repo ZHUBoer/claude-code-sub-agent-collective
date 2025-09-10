@@ -7,10 +7,10 @@
     "claude-code-collective": "./bin/claude-code-collective.js"
   },
   "scripts": {
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:jest": "jest",
-    "test:jest:watch": "jest --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:vitest": "vitest run",
+    "test:vitest:watch": "vitest",
     "test:coverage": "jest --coverage",
     "test:contracts": "jest --testPathPattern=contracts",
     "test:handoffs": "jest --testPathPattern=handoffs",
