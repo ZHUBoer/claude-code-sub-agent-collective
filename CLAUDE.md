@@ -8,7 +8,7 @@ This is the **Claude Code Sub-Agent Collective** - an NPX-distributed framework 
 
 ## CRITICAL REPOSITORY INFORMATION
 
-**Git Remote URL:** https://github.com/vanzan01/claude-code-sub-agent-collective.git
+**Git Remote URL:** https://github.com/ZHUBoer/claude-code-sub-agent-collective.git
 **NEVER CHANGE THIS URL** - Always use this exact repository URL for all git operations.
 
 ## Architecture
