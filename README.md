@@ -7,6 +7,24 @@
 
 This installs a collection of AI agents designed for Test-Driven Development and rapid prototyping. It's experimental, opinionated, and I built it to speed up my own MVP development work.
 
+## SIGMA (DPTR × Collective) Quick Start
+
+- Docs: `docs/SIGMA/ARCHITECTURE.md`, `docs/SIGMA/PROTOCOL_AND_CONTRACTS.md`
+- User Guide section: `USER-GUIDE.md` → “SIGMA: DPTR × Collective（Plan → TDD → Review → Status）”
+
+```bash
+# Generate plan from design.md
+npx sigma plan <module> --memory-bank ./memory-bank/modules
+
+# Execute TDD cycles with coverage gates
+npx sigma tdd <module> --memory-bank ./memory-bank/modules --parallel 1 \
+  --cov-lines 60 --cov-funcs 50 --cov-branches 40 --cov-statements 60
+
+# Review & Status
+npx sigma review <module> --memory-bank ./memory-bank/modules
+npx sigma status <module> --memory-bank ./memory-bank/modules
+```
+
 ## What this installs
 
 ```bash

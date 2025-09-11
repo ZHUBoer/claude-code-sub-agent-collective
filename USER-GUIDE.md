@@ -523,4 +523,48 @@ npx claude-code-collective init
 - Health diagnostics: `/van check --detailed`
 - Support report: `/van report --support`
 
-The Claude Code Sub-Agent Collective provides a powerful, self-healing ecosystem for AI-assisted development with hub-and-spoke coordination, natural language interfaces, and comprehensive research validation capabilities.
+---
+
+## 🧭 SIGMA: DPTR × Collective（Plan → TDD → Review → Status）
+
+### 1) 生成计划（Ω₂）
+```bash
+# 在 memory-bank/modules/<module>/design.md 基础上生成 tdd_plan.md
+npx sigma plan <module> --memory-bank ./memory-bank/modules [--overwrite]
+```
+
+### 2) 执行 TDD（Ω₃）
+```bash
+# 并行执行 cycles，按 RED→GREEN→REFACTOR 三阶段运行真实 jest
+# 支持覆盖率门槛与自定义工作目录
+npx sigma tdd <module> \
+  --memory-bank ./memory-bank/modules \
+  --parallel 1 \
+  --cov-lines 60 --cov-funcs 50 --cov-branches 40 --cov-statements 60 \
+  --out ./.work/sigma
+
+# 失败 cycles 将导致非零退出码（2），便于 CI 使用
+```
+
+产物：
+- 工作区：`.work/sigma/<module>/<cycle>/`（未指定 --out 时默认 `.claude-collective/sigma/...`）
+- 指标与事件：`.claude-collective/metrics/sigma/<module>/`
+  - `latest-plan.json` / `latest-tdd.json` / `events.log`
+
+### 3) 审查（Ω₄）
+```bash
+# 汇总生成 review.json 与 review.md
+npx sigma review <module> --memory-bank ./memory-bank/modules
+```
+产物：`.claude-collective/metrics/sigma/<module>/review.json|review.md`
+
+### 4) 状态（总览）
+```bash
+# 查看最新计划/TDD/审查摘要与失败 cycles、覆盖率阈值
+npx sigma status <module> --memory-bank ./memory-bank/modules
+```
+
+### 说明
+- 覆盖率门槛：四维（lines/functions/branches/statements）全部达标视为通过。
+- 事件流：RED/GREEN/REFACTOR 三阶段写入 `events.log`（一行一事件），含状态码与覆盖率。
+- 设计对齐：完整遵循 DPTR（Ω₂/Ω₃/Ω₄）与 σ Memory-Bank 组织。
