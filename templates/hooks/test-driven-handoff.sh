@@ -227,7 +227,8 @@ agent_tdd_checkpoint() {
     # Run vitest from .claude-collective directory where dependencies are installed
     log "🧪 Running vitest validation for $agent_name..."
     
-    timeout 60 bash -c "cd .claude-collective && npx vitest run" > /tmp/agent-test-$agent_name.log 2>&1
+    # timeout 60 bash -c "cd .claude-collective && npx vitest run" > /tmp/agent-test-$agent_name.log 2>&1
+    bash -c "npm test" > /tmp/agent-test-$agent_name.log 2>&1
     local exit_code=$?
     
     # DUAL VALIDATION: Check both exit code AND output parsing
