@@ -1,8 +1,8 @@
-# Claude Code Collective - Command System Usage Guide
+# Claude Code Agents - Command System Usage Guide
 
 ## Overview
 
-The Claude Code Collective command system provides both natural language and structured command interfaces for controlling the multi-agent orchestration system. This guide covers all available commands, usage patterns, and best practices.
+The Claude Code Agents command system provides both natural language and structured command interfaces for controlling the multi-agent orchestration system. This guide covers all available commands, usage patterns, and best practices.
 
 ## Quick Start
 
@@ -494,7 +494,7 @@ const help = commandSystem.getHelp('collective route');
 
 ## Conclusion
 
-The Claude Code Collective command system provides a powerful, intuitive interface for managing the multi-agent orchestration system. Whether you prefer structured commands or natural language, the system adapts to your working style while maintaining the precision needed for complex operations.
+The Claude Code Agents command system provides a powerful, intuitive interface for managing the multi-agent orchestration system. Whether you prefer structured commands or natural language, the system adapts to your working style while maintaining the precision needed for complex operations.
 
 For additional help:
 - Type `/help` for general assistance

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Claude Code Sub-Agent Collective CLI
+ * claude tdd agents CLI
  * Professional command-line interface with interactive and express modes
  */
 
@@ -16,7 +16,7 @@ const program = new Command();
 const packageInfo = require('../package.json');
 
 program
-  .name('claude-code-collective')
+  .name('claude-tdd-agents')
   .description('Sub-agent collective framework for Claude Code with TDD validation and hub-spoke coordination')
   .version(packageInfo.version);
 
@@ -36,7 +36,7 @@ program
     try {
       // Express mode (--yes flag)
       if (options.yes) {
-        console.log(chalk.cyan('🚀 Claude Code Collective Express Installation\n'));
+        console.log(chalk.cyan('🚀 Claude Code Agents Express Installation\n'));
         console.log(chalk.gray('Using smart defaults for rapid deployment...\n'));
         
         const installer = new CollectiveInstaller({
@@ -53,7 +53,7 @@ program
         console.log(chalk.yellow('\n💡 Next steps:'));
         console.log('1. Review .claude/settings.json for hooks configuration');
         console.log('2. Test collective functionality with a simple request');
-        console.log('3. Run: npx claude-code-collective validate');
+        console.log('3. Run: npx claude-tdd-agents validate');
         
       } else {
         // Interactive mode (default)
@@ -85,7 +85,7 @@ program
       const installer = new CollectiveInstaller({ targetPath: projectPath });
       const status = await installer.getInstallationStatus();
       
-      console.log(chalk.cyan('📊 Claude Code Collective Status\n'));
+      console.log(chalk.cyan('📊 Claude Code Agents Status\n'));
       console.log(`📁 Project: ${path.basename(path.resolve(projectPath))}`);
       console.log(`📦 Version: ${status.version || 'Not installed'}`);
       console.log(`🚀 Installed: ${status.installed ? '✅ Yes' : '❌ No'}`);
@@ -97,7 +97,7 @@ program
       if (status.installed) {
         console.log(chalk.green('\n✅ Collective is operational'));
       } else {
-        console.log(chalk.yellow('\n⚠️  Run "npx claude-code-collective init" to install'));
+        console.log(chalk.yellow('\n⚠️  Run "npx claude-tdd-agents init" to install'));
       }
       
     } catch (error) {
@@ -203,19 +203,19 @@ program
 program.addHelpText('after', `
 ${chalk.yellow('Examples:')}
   ${chalk.gray('# Interactive installation (recommended for new users)')}
-  claude-code-collective install
+  claude-tdd-agents install
 
   ${chalk.gray('# Express installation (for automation/CI)')}
-  claude-code-collective install --yes
+  claude-tdd-agents install --yes
 
   ${chalk.gray('# Force overwrite with full backups')}
-  claude-code-collective install --force --backup full
+  claude-tdd-agents install --force --backup full
 
   ${chalk.gray('# Minimal installation for lightweight setups')}
-  claude-code-collective install --minimal --yes
+  claude-tdd-agents install --minimal --yes
 
   ${chalk.gray('# Validate installation with detailed output')}
-  claude-code-collective validate --detailed
+  claude-tdd-agents validate --detailed
 
 ${chalk.yellow('Installation Modes:')}
   ${chalk.gray('Interactive:')} Full menu-driven experience with conflict resolution

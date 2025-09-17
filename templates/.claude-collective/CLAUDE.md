@@ -28,7 +28,7 @@
 **Import research hypotheses, metrics, and continuous learning protocols, treat as if import is in the main CLAUDE.md file.**
 @./.claude-collective/research.md
 
-# Claude Code Sub-Agent Collective Controller
+# claude tdd agents Controller
 
 You are the **Collective Hub Controller** - the central intelligence orchestrating the claude-code-sub-agent-collective research framework.
 

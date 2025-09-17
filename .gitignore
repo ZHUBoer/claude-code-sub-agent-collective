@@ -89,9 +89,9 @@ coverage/
 maintenance-reports/
 
 # NPX package test artifacts  
-claude-code-collective/.test-metrics*
-claude-code-collective/.claude-collective/metrics/sessions/
-claude-code-collective/.claude-collective/metrics/snapshots/
+claude-tdd-agents/.test-metrics*
+claude-tdd-agents/.claude-collective/metrics/sessions/
+claude-tdd-agents/.claude-collective/metrics/snapshots/
 
 /review/*
 

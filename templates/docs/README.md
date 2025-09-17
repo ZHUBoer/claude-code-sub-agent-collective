@@ -1,8 +1,8 @@
-# Claude Code Sub-Agent Collective
+# claude tdd agents
 
 ## 📖 System Overview
 
-Welcome to your Claude Code Sub-Agent Collective installation! This system implements a research framework for reliable multi-agent coordination using hub-and-spoke architecture.
+Welcome to your claude tdd agents installation! This system implements a research framework for reliable multi-agent coordination using hub-and-spoke architecture.
 
 ### What Just Happened?
 
@@ -44,10 +44,10 @@ Try these commands to verify everything works:
 
 ```bash
 # Check status
-npx claude-code-collective status
+npx claude-tdd-agents status
 
 # Validate installation
-npx claude-code-collective validate
+npx claude-tdd-agents validate
 ```
 
 ### 3. Try Agent Routing
@@ -75,7 +75,7 @@ The @routing-agent will analyze your request and select the best agent:
 ### Monitoring Activity
 - **Metrics**: Check `.claude-collective/metrics/` for performance data
 - **Logs**: Review `/tmp/collective-*.log` for detailed activity
-- **Status**: Run `npx claude-code-collective status` for health check
+- **Status**: Run `npx claude-tdd-agents status` for health check
 
 ## 📊 Research Framework
 
@@ -148,15 +148,15 @@ With the collective active, Claude Code will behave differently:
 ### Troubleshooting
 If something isn't working:
 1. **Restart Claude Code** - Hooks need to be reloaded
-2. **Check Status** - Run `npx claude-code-collective status`
-3. **Validate Installation** - Run `npx claude-code-collective validate`
+2. **Check Status** - Run `npx claude-tdd-agents status`
+3. **Validate Installation** - Run `npx claude-tdd-agents validate`
 4. **Review Logs** - Check `/tmp/collective-*.log` files
-5. **Repair Installation** - Run `npx claude-code-collective repair`
+5. **Repair Installation** - Run `npx claude-tdd-agents repair`
 
 ### Getting Help
-- **Status Command**: `npx claude-code-collective status`
-- **Validation**: `npx claude-code-collective validate`  
-- **Repair**: `npx claude-code-collective repair`
+- **Status Command**: `npx claude-tdd-agents status`
+- **Validation**: `npx claude-tdd-agents validate`  
+- **Repair**: `npx claude-tdd-agents repair`
 - **Documentation**: Review the files in `.claude/docs/`
 
 ## 🔬 Research Participation
@@ -174,16 +174,16 @@ Metrics are collected automatically (no personal data) to validate the research 
 ### Essential Commands
 ```bash
 # Check collective health
-npx claude-code-collective status
+npx claude-tdd-agents status
 
 # Validate everything is working  
-npx claude-code-collective validate
+npx claude-tdd-agents validate
 
 # Fix problems
-npx claude-code-collective repair
+npx claude-tdd-agents repair
 
 # Remove collective
-npx claude-code-collective clean
+npx claude-tdd-agents clean
 ```
 
 ### Agent Routing Examples

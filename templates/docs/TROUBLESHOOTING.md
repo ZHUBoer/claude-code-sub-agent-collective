@@ -1,13 +1,13 @@
-# Claude Code Sub-Agent Collective - Troubleshooting Guide
+# claude tdd agents - Troubleshooting Guide
 
 ## Common Installation Issues
 
 ### Template Files Not Found
 **Problem**: Warning messages about missing template files during installation.
 **Solution**: 
-1. Ensure you're using the latest version: `npx claude-code-collective@latest`
+1. Ensure you're using the latest version: `npx claude-tdd-agents@latest`
 2. Clear npm cache: `npm cache clean --force`
-3. Try installing with `--force` flag: `npx claude-code-collective --force`
+3. Try installing with `--force` flag: `npx claude-tdd-agents --force`
 
 ### Permission Errors
 **Problem**: EACCES errors when installing hooks or files.
@@ -87,7 +87,7 @@ Enable verbose logging for detailed troubleshooting:
 export DEBUG=claude-collective:*
 
 # Run with verbose output
-npx claude-code-collective --verbose --debug
+npx claude-tdd-agents --verbose --debug
 ```
 
 ## Getting Help
@@ -120,7 +120,7 @@ rm -rf .claude/hooks/*
 rm -rf .claude-collective/
 
 # Reinstall
-npx claude-code-collective --force
+npx claude-tdd-agents --force
 ```
 
 **Warning**: This will remove all customizations and configurations.

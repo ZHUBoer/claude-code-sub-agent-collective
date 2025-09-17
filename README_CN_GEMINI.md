@@ -1,8 +1,8 @@
-# Claude Code Sub-Agent Collective 中文指南 (由 Gemini 生成)
+# claude tdd agents 中文指南 (由 Gemini 生成)
 
 ## 1. 项目概述
 
-`Claude Code Sub-Agent Collective` 是一个通过 NPX 分发的框架，旨在为以测试驱动开发（TDD）为中心的工作流安装专门的 AI 代理（agents）、钩子（hooks）和行为系统。该系统通过自动化的交付验证（handoff validation）来强制执行测试驱动开发，并通过中心辐射型（hub-and-spoke）架构提供智能任务路由。
+`claude tdd agents` 是一个通过 NPX 分发的框架，旨在为以测试驱动开发（TDD）为中心的工作流安装专门的 AI 代理（agents）、钩子（hooks）和行为系统。该系统通过自动化的交付验证（handoff validation）来强制执行测试驱动开发，并通过中心辐射型（hub-and-spoke）架构提供智能任务路由。
 
 该项目本质上是一个为 Claude Code AI 助手定制的“操作系统”，通过一系列规则和工具来规范其行为，确保开发过程的严谨性和一致性。
 
@@ -52,7 +52,7 @@
     *   系统只在需要时加载相关上下文，以最大限度地减少内存使用和提高效率。
 
 *   **关键组件**:
-    *   **NPX 包 (`claude-code-collective`)**: 项目的入口，通过 `npx` 命令进行安装和初始化。
+    *   **NPX 包 (`claude-tdd-agents`)**: 项目的入口，通过 `npx` 命令进行安装和初始化。
     *   **代理系统 (`templates/agents/`)**: 包含超过 30 个为特定任务（如代码审查、测试生成、重构等）设计的专业 AI 代理。
     *   **钩子系统 (`templates/hooks/`)**: 强制执行 TDD 流程的钩子脚本，例如在 git commit 前自动运行测试。
     *   **命令系统 (`lib/command-*.js`)**: 处理自然语言和结构化命令，将其转化为可执行的操作。
@@ -73,7 +73,7 @@
         ```
 
 *   **核心配置**:
-    *   项目的主要配置模板位于 `templates/settings.json`。当用户运行 `npx claude-code-collective init` 时，此模板会被复制到用户的环境中（通常是 `.claude/settings.json`），并由 Claude Code 使用。
+    *   项目的主要配置模板位于 `templates/settings.json`。当用户运行 `npx claude-tdd-agents init` 时，此模板会被复制到用户的环境中（通常是 `.claude/settings.json`），并由 Claude Code 使用。
     *   开发者不应直接修改 `.claude/` 目录下的文件，而应修改 `templates/` 中的源文件来更新配置。
 
 ## 4. 如何使用
@@ -82,25 +82,25 @@
 
 ### 4.1 作为用户：安装和使用
 
-你可以通过 `npx` 在任何项目目录中使用 `claude-code-collective`。
+你可以通过 `npx` 在任何项目目录中使用 `claude-tdd-agents`。
 
 1.  **初始化和安装**:
     *   在你的项目根目录运行以下命令，它会引导你完成安装过程，将代理、钩子等集成到你的项目中。
         ```bash
-        npx claude-code-collective init
+        npx claude-tdd-agents init
         ```
     *   你也可以使用非交互模式进行最小化安装：
         ```bash
-        npx claude-code-collective init --minimal
+        npx claude-tdd-agents init --minimal
         ```
 
 2.  **查看帮助和状态**:
     ```bash
     # 获取帮助信息
-    npx claude-code-collective --help
+    npx claude-tdd-agents --help
 
     # 查看当前状态
-    npx claude-code-collective status
+    npx claude-tdd-agents status
     ```
 
 ### 4.2 作为开发者：开发与测试流程
@@ -157,11 +157,11 @@
     *   在上一步的测试目录中，你可以像真实用户一样使用 `npx` 命令来测试你的更改。
         ```bash
         # 运行交互式安装
-        npx claude-code-collective init
+        npx claude-tdd-agents init
 
         # 测试其他命令
-        npx claude-code-collective status
-        npx claude-code-collective validate
+        npx claude-tdd-agents status
+        npx claude-tdd-agents validate
         ```
 
 4.  **修复与迭代**:

@@ -20,7 +20,7 @@ I am a specialized agent for Phase 4 - NPX Package Distribution. I create NPX in
 
 **NPX Package Structure:**
 ```
-claude-code-collective/
+claude-tdd-agents/
 ├── package.json              # NPX package configuration
 ├── bin/
 │   └── install-collective.js  # Main installer script
@@ -38,11 +38,11 @@ claude-code-collective/
 ```
 
 **Installation Modes:**
-- `npx claude-code-collective init` - Full system installation
-- `npx claude-code-collective init --minimal` - Core agents only
-- `npx claude-code-collective init --custom` - Interactive configuration
-- `npx claude-code-collective update` - Update existing installation
-- `npx claude-code-collective validate` - Verify installation integrity
+- `npx claude-tdd-agents init` - Full system installation
+- `npx claude-tdd-agents init --minimal` - Core agents only
+- `npx claude-tdd-agents init --custom` - Interactive configuration
+- `npx claude-tdd-agents update` - Update existing installation
+- `npx claude-tdd-agents validate` - Verify installation integrity
 
 **Template System:**
 - Parameterized agent definitions with variable substitution
@@ -106,11 +106,11 @@ main().catch(console.error);
 **Package.json Configuration:**
 ```json
 {
-  "name": "claude-code-collective",
+  "name": "claude-tdd-agents",
   "version": "1.0.0",
   "description": "NPX installer for claude-code-sub-agent-collective system",
   "bin": {
-    "claude-code-collective": "./bin/install-collective.js"
+    "claude-tdd-agents": "./bin/install-collective.js"
   },
   "files": [
     "bin/",
@@ -213,19 +213,19 @@ class Installer {
 **Test Scenarios:**
 ```bash
 # Test fresh installation
-npx claude-code-collective init --test
+npx claude-tdd-agents init --test
 
 # Test minimal installation
-npx claude-code-collective init --minimal --test
+npx claude-tdd-agents init --minimal --test
 
 # Test custom configuration
-npx claude-code-collective init --custom --test
+npx claude-tdd-agents init --custom --test
 
 # Test update mechanism
-npx claude-code-collective update --test
+npx claude-tdd-agents update --test
 
 # Test validation
-npx claude-code-collective validate
+npx claude-tdd-agents validate
 ```
 
 **Validation Checks:**

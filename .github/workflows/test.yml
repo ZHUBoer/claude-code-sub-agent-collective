@@ -38,5 +38,5 @@ jobs:
         mkdir test-install
         cd test-install
         npm init -y
-        npm install ../claude-code-collective-*.tgz
+        npm install ../claude-tdd-agents-*.tgz
         echo "NPX package installs successfully"

@@ -1,4 +1,4 @@
-# Claude Code Sub-Agent Collective - User Guide
+# claude tdd agents - User Guide
 
 ## 🚀 Quick Start
 
@@ -7,33 +7,33 @@
 Install the collective system in any project with a single command:
 
 ```bash
-npx claude-code-collective init
+npx claude-tdd-agents init
 ```
 
 **Installation Options:**
 ```bash
 # Full installation (recommended)
-npx claude-code-collective init
+npx claude-tdd-agents init
 
 # Minimal installation (core agents only)
-npx claude-code-collective init --minimal
+npx claude-tdd-agents init --minimal
 
 # Interactive configuration
-npx claude-code-collective init --interactive
+npx claude-tdd-agents init --interactive
 
 # Testing framework only
-npx claude-code-collective init --testing-only
+npx claude-tdd-agents init --testing-only
 
 # Hook system only
-npx claude-code-collective init --hooks-only
+npx claude-tdd-agents init --hooks-only
 ```
 
 ### Verification
 
 Verify your installation:
 ```bash
-npx claude-code-collective status
-npx claude-code-collective validate
+npx claude-tdd-agents status
+npx claude-tdd-agents validate
 ```
 
 ## 🎯 Core Concepts
@@ -324,16 +324,16 @@ Main configuration files:
 
 ```bash
 # View current configuration
-npx claude-code-collective status --config
+npx claude-tdd-agents status --config
 
 # Update installation
-npx claude-code-collective update
+npx claude-tdd-agents update
 
 # Repair corrupted installation
-npx claude-code-collective repair
+npx claude-tdd-agents repair
 
 # Clean installation (reset to defaults)
-npx claude-code-collective clean --confirm
+npx claude-tdd-agents clean --confirm
 ```
 
 ## 🚨 Troubleshooting
@@ -343,10 +343,10 @@ npx claude-code-collective clean --confirm
 **Command not found:**
 ```bash
 # Check installation
-npx claude-code-collective status
+npx claude-tdd-agents status
 
 # Reinstall if needed
-npx claude-code-collective init --force
+npx claude-tdd-agents init --force
 ```
 
 **Hooks not working:**
@@ -394,7 +394,7 @@ npx claude-code-collective init --force
 /van help
 
 # System diagnostics
-npx claude-code-collective validate --verbose
+npx claude-tdd-agents validate --verbose
 
 # Generate support report
 /van report --support
@@ -425,13 +425,13 @@ The collective is distributed as an NPX package for easy installation:
 
 ```bash
 # Anyone can install with:
-npx claude-code-collective init
+npx claude-tdd-agents init
 
 # Package information
-npm info claude-code-collective
+npm info claude-tdd-agents
 
 # Version management
-npx claude-code-collective@latest init
+npx claude-tdd-agents@latest init
 ```
 
 ### Project Integration
@@ -439,10 +439,10 @@ npx claude-code-collective@latest init
 ```bash
 # Add to existing projects
 cd your-project
-npx claude-code-collective init
+npx claude-tdd-agents init
 
 # Integration validation
-npx claude-code-collective validate --integration
+npx claude-tdd-agents validate --integration
 ```
 
 ## 📈 Advanced Usage
@@ -497,7 +497,7 @@ Create your own agent templates:
 ### Essential Commands
 ```bash
 # Installation
-npx claude-code-collective init
+npx claude-tdd-agents init
 
 # Health check
 /van check
@@ -523,4 +523,4 @@ npx claude-code-collective init
 - Health diagnostics: `/van check --detailed`
 - Support report: `/van report --support`
 
-The Claude Code Sub-Agent Collective provides a powerful, self-healing ecosystem for AI-assisted development with hub-and-spoke coordination, natural language interfaces, and comprehensive research validation capabilities.
+The claude tdd agents provides a powerful, self-healing ecosystem for AI-assisted development with hub-and-spoke coordination, natural language interfaces, and comprehensive research validation capabilities.

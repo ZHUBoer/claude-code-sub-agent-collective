@@ -2,7 +2,7 @@
 # Load Collective Behavioral System
 # SessionStart hook to inject behavioral files into Claude's context
 
-echo "🚀 CLAUDE CODE COLLECTIVE INITIALIZATION SEQUENCE"
+echo "🚀 Claude Code Agents INITIALIZATION SEQUENCE"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "🤖 Activating Multi-Agent Behavioral Operating System..."
 echo "⚡ Loading Hub-Spoke Coordination Protocols..."
@@ -45,5 +45,5 @@ echo "📊 TDD Framework: ENGAGED"
 echo "🔄 Auto-Delegation: READY"
 echo "📡 Hub-Spoke Coordination: OPERATIONAL"
 echo ""
-echo "🌟 Claude Code Collective v1.4.3 - Ready for Enhanced Development"
+echo "🌟 Claude Code Agents - Ready for Enhanced Development"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

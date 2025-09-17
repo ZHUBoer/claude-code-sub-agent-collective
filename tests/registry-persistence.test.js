@@ -1,12 +1,12 @@
 /**
- * Claude Code Sub-Agent Collective - Registry Persistence Tests
+ * claude tdd agents - Registry Persistence Tests
  * 
  * Phase 7: Dynamic Agent Creation
  * 
  * Comprehensive test suite for validating agent registry persistence across system restarts
  * and recovery capabilities including orphaned agent detection and data migration.
  * 
- * @author Claude Code Sub-Agent Collective
+ * @author claude tdd agents
  * @version 1.0.0
  */
 

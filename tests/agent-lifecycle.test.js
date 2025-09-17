@@ -1,12 +1,12 @@
 /**
- * Claude Code Sub-Agent Collective - Agent Lifecycle Tests
+ * claude tdd agents - Agent Lifecycle Tests
  * 
  * Phase 7: Dynamic Agent Creation
  * 
  * Comprehensive test suite covering complete agent lifecycle from spawn to cleanup.
  * Tests error scenarios, resource management, and concurrent operations.
  * 
- * @author Claude Code Sub-Agent Collective
+ * @author claude tdd agents
  * @version 1.0.0
  */
 

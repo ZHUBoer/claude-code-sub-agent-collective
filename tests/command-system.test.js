@@ -253,7 +253,7 @@ describe('Phase 5 - Command System Implementation', () => {
     test('should provide general help', () => {
       const generalHelp = help.getHelp();
       
-      expect(generalHelp).toContain('Claude Code Sub-Agent Collective');
+      expect(generalHelp).toContain('claude tdd agents');
       expect(generalHelp).toContain('/collective');
       expect(generalHelp).toContain('/agent');
       expect(generalHelp).toContain('/gate');
