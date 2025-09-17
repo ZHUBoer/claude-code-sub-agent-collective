@@ -4,8 +4,8 @@
 echo "🧹 Cleaning up test files..."
 
 # Remove tarballs from current directory
-if ls claude-tdd-agentsz 1> /dev/null 2>&1; then
-    rm claude-tdd-agentsz
+if ls claude-code-collective-*.tgz 1> /dev/null 2>&1; then
+    rm claude-code-collective-*.tgz
     echo "✅ Removed tarball files"
 else
     echo "ℹ️  No tarball files to remove"

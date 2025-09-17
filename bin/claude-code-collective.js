@@ -16,7 +16,7 @@ const program = new Command();
 const packageInfo = require('../package.json');
 
 program
-  .name('claude-tdd-agents
+  .name('claude-code-collective')
   .description('Sub-agent collective framework for Claude Code with TDD validation and hub-spoke coordination')
   .version(packageInfo.version);
 
@@ -53,7 +53,7 @@ program
         console.log(chalk.yellow('\n💡 Next steps:'));
         console.log('1. Review .claude/settings.json for hooks configuration');
         console.log('2. Test collective functionality with a simple request');
-        console.log('3. Run: npx claude-tdd-agentsdate');
+        console.log('3. Run: npx claude-code-collective validate');
         
       } else {
         // Interactive mode (default)
@@ -97,7 +97,7 @@ program
       if (status.installed) {
         console.log(chalk.green('\n✅ Collective is operational'));
       } else {
-        console.log(chalk.yellow('\n⚠️  Run "npx claude-tdd-agents" to install'));
+        console.log(chalk.yellow('\n⚠️  Run "npx claude-code-collective init" to install'));
       }
       
     } catch (error) {
@@ -203,19 +203,19 @@ program
 program.addHelpText('after', `
 ${chalk.yellow('Examples:')}
   ${chalk.gray('# Interactive installation (recommended for new users)')}
-  claude-tdd-agentsall
+  claude-code-collective install
 
   ${chalk.gray('# Express installation (for automation/CI)')}
-  claude-tdd-agentsall --yes
+  claude-code-collective install --yes
 
   ${chalk.gray('# Force overwrite with full backups')}
-  claude-tdd-agentsall --force --backup full
+  claude-code-collective install --force --backup full
 
   ${chalk.gray('# Minimal installation for lightweight setups')}
-  claude-tdd-agentsall --minimal --yes
+  claude-code-collective install --minimal --yes
 
   ${chalk.gray('# Validate installation with detailed output')}
-  claude-tdd-agentsdate --detailed
+  claude-code-collective validate --detailed
 
 ${chalk.yellow('Installation Modes:')}
   ${chalk.gray('Interactive:')} Full menu-driven experience with conflict resolution

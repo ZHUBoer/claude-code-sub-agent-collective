@@ -7,33 +7,33 @@
 使用一个简单的命令即可在任何项目中安装本智能体集合系统：
 
 ```bash
-npx claude-tdd-agents
+npx claude-code-collective init
 ```
 
 **安装选项：**
 ```bash
 # 完整安装（推荐）
-npx claude-tdd-agents
+npx claude-code-collective init
 
 # 最小化安装（仅包含核心智能体）
-npx claude-tdd-agents --minimal
+npx claude-code-collective init --minimal
 
 # 交互式配置
-npx claude-tdd-agents --interactive
+npx claude-code-collective init --interactive
 
 # 仅安装测试框架
-npx claude-tdd-agents --testing-only
+npx claude-code-collective init --testing-only
 
 # 仅安装钩子系统
-npx claude-tdd-agents --hooks-only
+npx claude-code-collective init --hooks-only
 ```
 
 ### 验证
 
 验证您的安装是否成功：
 ```bash
-npx claude-tdd-agentsus
-npx claude-tdd-agentsdate
+npx claude-code-collective status
+npx claude-code-collective validate
 ```
 
 ## 🎯 核心概念
@@ -325,16 +325,16 @@ ls .claude-collective/tests/contracts/
 
 ```bash
 # 查看当前配置
-npx claude-tdd-agentsus --config
+npx claude-code-collective status --config
 
 # 更新安装
-npx claude-tdd-agentste
+npx claude-code-collective update
 
 # 修复损坏的安装
-npx claude-tdd-agentsir
+npx claude-code-collective repair
 
 # 清理安装（重置为默认设置）
-npx claude-tdd-agentsn --confirm
+npx claude-code-collective clean --confirm
 ```
 
 ## 🚨 故障排查
@@ -344,10 +344,10 @@ npx claude-tdd-agentsn --confirm
 **命令未找到：**
 ```bash
 # 检查安装状态
-npx claude-tdd-agentsus
+npx claude-code-collective status
 
 # 如有需要，强制重新安装
-npx claude-tdd-agents --force
+npx claude-code-collective init --force
 ```
 
 **钩子不工作：**
@@ -395,7 +395,7 @@ npx claude-tdd-agents --force
 /van help
 
 # 系统诊断
-npx claude-tdd-agentsdate --verbose
+npx claude-code-collective validate --verbose
 
 # 生成用于技术支持的报告
 /van report --support
@@ -426,13 +426,13 @@ npx claude-tdd-agentsdate --verbose
 
 ```bash
 # 任何人都可以使用以下命令进行安装：
-npx claude-tdd-agents
+npx claude-code-collective init
 
 # 查看包信息
-npm info claude-tdd-agents
+npm info claude-code-collective
 
 # 版本管理
-npx claude-tdd-agentsst init
+npx claude-code-collective@latest init
 ```
 
 ### 项目集成
@@ -440,10 +440,10 @@ npx claude-tdd-agentsst init
 ```bash
 # 添加到现有项目
 cd your-project
-npx claude-tdd-agents
+npx claude-code-collective init
 
 # 集成验证
-npx claude-tdd-agentsdate --integration
+npx claude-code-collective validate --integration
 ```
 
 ## 📈 高级用法
@@ -498,7 +498,7 @@ npx claude-tdd-agentsdate --integration
 ### 核心命令
 ```bash
 # 安装
-npx claude-tdd-agents
+npx claude-code-collective init
 
 # 健康检查
 /van check

@@ -20,7 +20,7 @@ This is the **Claude Code Sub-Agent Collective** - an NPX-distributed framework 
 - **Just-in-time context loading** to minimize memory usage
 
 ### Key Components
-- **NPX Package**: `claude-tdd-agentsnstallable via `npx claudclaude-tdd-agents
+- **NPX Package**: `claude-code-collective` - Installable via `npx claude-code-collective init`
 - **Agent System**: 30+ specialized agents in `templates/agents/`
 - **Hook System**: TDD enforcement hooks in `templates/hooks/`
 - **Command System**: Natural language + structured commands in `lib/command-*.js`
@@ -62,9 +62,9 @@ For testing changes before publishing (see ai-docs/Simple-Local-Testing-Workflow
 # - Leaves you in the test directory ready for more testing
 
 # Additional manual testing (you're already in test directory after script)
-npx claude-tdd-agents            # Interactive mode
-npx claude-tdd-agents --minimal  # Minimal installation  
-npx claude-tdd-agentslp          # Help information
+npx claude-code-collective init            # Interactive mode
+npx claude-code-collective init --minimal  # Minimal installation  
+npx claude-code-collective --help          # Help information
 
 # Return to main directory and cleanup when done
 cd ../claude-code-sub-agent-collective
@@ -103,7 +103,7 @@ npx . validate            # Test validation
 - [`lib/AgentLifecycleManager.js`](lib/AgentLifecycleManager.js) - Manages agent state and transitions
 - [`lib/AgentSpawner.js`](lib/AgentSpawner.js) - Handles agent creation and instantiation
 - [`lib/configurator.js`](lib/configurator.js) - Handles configuration setup and management
-- [`bin/claude-tdd-agents(bin/claudclaude-tdd-agents interface
+- [`bin/claude-code-collective.js`](bin/claude-code-collective.js) - CLI interface
 
 ### Testing Infrastructure
 - [`jest.config.js`](jest.config.js) - Jest configuration for comprehensive testing
@@ -141,12 +141,12 @@ npx . validate            # Test validation
 3. **Manual Testing** (you'll be in test directory)
    ```bash
    # Non-interactive testing (for validation/CI)
-   npx claude-tdd-agents --yes --force
-   npx claude-tdd-agentsus  
-   npx claude-tdd-agentsdate
+   npx claude-code-collective init --yes --force
+   npx claude-code-collective status  
+   npx claude-code-collective validate
    
    # Interactive testing (for development)
-   npx claude-tdd-agents
+   npx claude-code-collective init
    # Test all functionality you changed
    ```
 
@@ -295,7 +295,7 @@ This codebase implements a sophisticated agent collective system with strong TDD
 - **即时上下文加载**，以最小化内存使用
 
 ### 关键组件
-- **NPX 包**: `claude-tdd-agents通过 `npx claudclaude-tdd-agents
+- **NPX 包**: `claude-code-collective` - 可通过 `npx claude-code-collective init` 安装
 - **代理系统**: 30多个专用代理位于 `templates/agents/`
 - **钩子系统**: TDD 强制执行钩子位于 `templates/hooks/`
 - **命令系统**: 自然语言 + 结构化命令位于 `lib/command-*.js`
@@ -337,9 +337,9 @@ npm run metrics:report    # 查看指标数据
 # - 将您留在测试目录中，以准备进行更多测试
 
 # 额外的手动测试 (脚本运行后您已在测试目录中)
-npx claude-tdd-agents            # 交互模式
-npx claude-tdd-agents --minimal  # 最小化安装  
-npx claude-tdd-agentslp          # 帮助信息
+npx claude-code-collective init            # 交互模式
+npx claude-code-collective init --minimal  # 最小化安装  
+npx claude-code-collective --help          # 帮助信息
 
 # 完成后返回主目录并进行清理
 cd ../taskmaster-agent-claude-code
@@ -375,7 +375,7 @@ npx . validate            # 测试 validation 命令
 - `lib/installer.js` - NPX 安装逻辑
 - `lib/command-system.js` - 自然语言命令处理
 - `lib/AgentRegistry.js` - 代理管理和生命周期
-- `bin/claude-tdd-agents- CLI 界面
+- `bin/claude-code-collective.js` - CLI 界面
 
 ### 测试基础设施
 - `jest.config.js` - 用于全面测试的 Jest 配置
@@ -413,12 +413,12 @@ npx . validate            # 测试 validation 命令
 3. **手动测试** (您将位于测试目录中)
    ```bash
    # 非交互式测试 (用于验证/CI)
-   npx claude-tdd-agents --yes --force
-   npx claude-tdd-agentsus  
-   npx claude-tdd-agentsdate
+   npx claude-code-collective init --yes --force
+   npx claude-code-collective status  
+   npx claude-code-collective validate
    
    # 交互式测试 (用于开发)
-   npx claude-tdd-agents
+   npx claude-code-collective init
    # 测试您更改的所有功能
    ```
 

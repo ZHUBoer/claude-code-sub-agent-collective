@@ -27,7 +27,7 @@ echo "# Test Project" > README.md
 
 ```bash
 # Test command from USER-GUIDE
-npx claude-tdd-agents
+npx claude-code-collective init
 
 # Validation checks
 [ -f "CLAUDE.md" ] && echo "✅ CLAUDE.md created" || echo "❌ CLAUDE.md missing"
@@ -49,7 +49,7 @@ npx claude-tdd-agents
 ```bash
 # Test minimal installation in new directory
 mkdir test-minimal && cd test-minimal
-npx claude-tdd-agents --minimal
+npx claude-code-collective init --minimal
 
 # Count installed components
 echo "Agents installed: $(ls .claude/agents/ 2>/dev/null | wc -l)"
@@ -57,7 +57,7 @@ echo "Hooks installed: $(ls .claude/hooks/ 2>/dev/null | wc -l)"
 
 # Test interactive mode (if available)
 cd .. && mkdir test-interactive && cd test-interactive
-echo -e "full\nmy-project\ny" | npx claude-tdd-agents --interactive
+echo -e "full\nmy-project\ny" | npx claude-code-collective init --interactive
 ```
 
 **Expected Results:**
@@ -70,14 +70,14 @@ echo -e "full\nmy-project\ny" | npx claude-tdd-agents --interactive
 
 ```bash
 # Test verification commands from USER-GUIDE
-npx claude-tdd-agentsus
-npx claude-tdd-agentsdate
+npx claude-code-collective status
+npx claude-code-collective validate
 
 # Capture exit codes
-npx claude-tdd-agentsus
+npx claude-code-collective status
 echo "Status exit code: $?"
 
-npx claude-tdd-agentsdate  
+npx claude-code-collective validate  
 echo "Validate exit code: $?"
 ```
 
@@ -97,10 +97,10 @@ echo "Testing natural language commands..."
 
 # Note: These would be tested through the actual command interface
 # For file-based testing, we verify the command parser exists
-[ -f "claude-tdd-agentscommand-parser.js" ] && echo "✅ Command parser exists" || echo "❌ Command parser missing"
+[ -f "claude-code-collective/lib/command-parser.js" ] && echo "✅ Command parser exists" || echo "❌ Command parser missing"
 
 # Test command recognition patterns
-if [ -f "claude-tdd-agentscommand-parser.js" ]; then
+if [ -f "claude-code-collective/lib/command-parser.js" ]; then
     echo "✅ Natural language processing capability available"
 else
     echo "❌ Natural language processing not found"
@@ -120,16 +120,16 @@ fi
 echo "Validating command system structure..."
 
 # Check for command system implementation
-[ -f "claude-tdd-agentscommand-system.js" ] && echo "✅ Command system exists" || echo "❌ Command system missing"
-[ -f "claude-tdd-agentscommand-registry.js" ] && echo "✅ Command registry exists" || echo "❌ Command registry missing"
+[ -f "claude-code-collective/lib/command-system.js" ] && echo "✅ Command system exists" || echo "❌ Command system missing"
+[ -f "claude-code-collective/lib/command-registry.js" ] && echo "✅ Command registry exists" || echo "❌ Command registry missing"
 
 # Verify namespaces are implemented
-if [ -f "claude-tdd-agentscommand-system.js" ]; then
+if [ -f "claude-code-collective/lib/command-system.js" ]; then
     # Check for namespace implementations in the code
-    grep -q "/collective" claude-tdd-agentscommand-system.js && echo "✅ /collective namespace found" || echo "❌ /collective namespace missing"
-    grep -q "/agent" claude-tdd-agentscommand-system.js && echo "✅ /agent namespace found" || echo "❌ /agent namespace missing"
-    grep -q "/gate" claude-tdd-agentscommand-system.js && echo "✅ /gate namespace found" || echo "❌ /gate namespace missing"
-    grep -q "/van" claude-tdd-agentscommand-system.js && echo "✅ /van namespace found" || echo "❌ /van namespace missing"
+    grep -q "/collective" claude-code-collective/lib/command-system.js && echo "✅ /collective namespace found" || echo "❌ /collective namespace missing"
+    grep -q "/agent" claude-code-collective/lib/command-system.js && echo "✅ /agent namespace found" || echo "❌ /agent namespace missing"
+    grep -q "/gate" claude-code-collective/lib/command-system.js && echo "✅ /gate namespace found" || echo "❌ /gate namespace missing"
+    grep -q "/van" claude-code-collective/lib/command-system.js && echo "✅ /van namespace found" || echo "❌ /van namespace missing"
 fi
 ```
 
@@ -145,13 +145,13 @@ fi
 # Test alias system implementation
 echo "Testing command aliases..."
 
-if [ -f "claude-tdd-agentscommand-system.js" ]; then
+if [ -f "claude-code-collective/lib/command-system.js" ]; then
     # Check for alias patterns in implementation
-    grep -q "alias" claude-tdd-agentscommand-system.js && echo "✅ Alias system implemented" || echo "❌ Alias system missing"
+    grep -q "alias" claude-code-collective/lib/command-system.js && echo "✅ Alias system implemented" || echo "❌ Alias system missing"
     
     # Verify specific aliases mentioned in USER-GUIDE
-    grep -q "/c" claude-tdd-agentscommand-system.js && echo "✅ /c alias found" || echo "❌ /c alias missing"
-    grep -q "/status" claude-tdd-agentscommand-system.js && echo "✅ /status alias found" || echo "❌ /status alias missing"
+    grep -q "/c" claude-code-collective/lib/command-system.js && echo "✅ /c alias found" || echo "❌ /c alias missing"
+    grep -q "/status" claude-code-collective/lib/command-system.js && echo "✅ /status alias found" || echo "❌ /status alias missing"
 fi
 ```
 
@@ -210,12 +210,12 @@ echo "Total agents found: $(ls .claude/agents/ 2>/dev/null | wc -l)"
 # Test agent registry implementation
 echo "Testing agent registry system..."
 
-[ -f "claude-tdd-agentsAgentRegistry.js" ] && echo "✅ AgentRegistry exists" || echo "❌ AgentRegistry missing"
-[ -f "claude-tdd-agentsAgentSpawner.js" ] && echo "✅ AgentSpawner exists" || echo "❌ AgentSpawner missing"
-[ -f "claude-tdd-agentsAgentTemplateSystem.js" ] && echo "✅ AgentTemplateSystem exists" || echo "❌ AgentTemplateSystem missing"
+[ -f "claude-code-collective/lib/AgentRegistry.js" ] && echo "✅ AgentRegistry exists" || echo "❌ AgentRegistry missing"
+[ -f "claude-code-collective/lib/AgentSpawner.js" ] && echo "✅ AgentSpawner exists" || echo "❌ AgentSpawner missing"
+[ -f "claude-code-collective/lib/AgentTemplateSystem.js" ] && echo "✅ AgentTemplateSystem exists" || echo "❌ AgentTemplateSystem missing"
 
 # Check for template system
-[ -d "claude-tdd-agentslates" ] && echo "✅ Template system exists" || echo "❌ Template system missing"
+[ -d "claude-code-collective/templates" ] && echo "✅ Template system exists" || echo "❌ Template system missing"
 ```
 
 **Expected Results:**
@@ -232,13 +232,13 @@ echo "Testing agent registry system..."
 # Verify metrics collection system
 echo "Testing research metrics system..."
 
-[ -f "claude-tdd-agentsmetrics/MetricsCollector.js" ] && echo "✅ MetricsCollector exists" || echo "❌ MetricsCollector missing"
-[ -f "claude-tdd-agentsmetrics/JITLoadingMetrics.js" ] && echo "✅ JIT metrics exists" || echo "❌ JIT metrics missing"
-[ -f "claude-tdd-agentsmetrics/HubSpokeMetrics.js" ] && echo "✅ Hub-Spoke metrics exists" || echo "❌ Hub-Spoke metrics missing"
-[ -f "claude-tdd-agentsmetrics/TDDHandoffMetrics.js" ] && echo "✅ TDD metrics exists" || echo "❌ TDD metrics missing"
+[ -f "claude-code-collective/lib/metrics/MetricsCollector.js" ] && echo "✅ MetricsCollector exists" || echo "❌ MetricsCollector missing"
+[ -f "claude-code-collective/lib/metrics/JITLoadingMetrics.js" ] && echo "✅ JIT metrics exists" || echo "❌ JIT metrics missing"
+[ -f "claude-code-collective/lib/metrics/HubSpokeMetrics.js" ] && echo "✅ Hub-Spoke metrics exists" || echo "❌ Hub-Spoke metrics missing"
+[ -f "claude-code-collective/lib/metrics/TDDHandoffMetrics.js" ] && echo "✅ TDD metrics exists" || echo "❌ TDD metrics missing"
 
 # Check for A/B testing framework
-[ -f "claude-tdd-agentsmetrics/ExperimentFramework.js" ] && echo "✅ A/B testing framework exists" || echo "❌ A/B testing framework missing"
+[ -f "claude-code-collective/lib/metrics/ExperimentFramework.js" ] && echo "✅ A/B testing framework exists" || echo "❌ A/B testing framework missing"
 ```
 
 **Expected Results:**
@@ -253,12 +253,12 @@ echo "Testing research metrics system..."
 # Test metrics system structure
 echo "Validating metrics collection capability..."
 
-if [ -d "claude-tdd-agentsmetrics" ]; then
+if [ -d "claude-code-collective/lib/metrics" ]; then
     echo "✅ Metrics directory exists"
-    echo "Metrics modules found: $(ls claude-tdd-agentsmetrics/ 2>/dev/null | wc -l)"
+    echo "Metrics modules found: $(ls claude-code-collective/lib/metrics/ 2>/dev/null | wc -l)"
     
     # Check for research orchestration
-    [ -f "claude-tdd-agentsmetrics/ResearchMetricsSystem.js" ] && echo "✅ Research orchestration exists" || echo "❌ Research orchestration missing"
+    [ -f "claude-code-collective/lib/metrics/ResearchMetricsSystem.js" ] && echo "✅ Research orchestration exists" || echo "❌ Research orchestration missing"
 fi
 ```
 
@@ -277,11 +277,11 @@ fi
 echo "Testing van maintenance system..."
 
 # Check for van maintenance implementation
-if [ -f "claude-tdd-agentsVanMaintenanceSystem.js" ]; then
+if [ -f "claude-code-collective/lib/VanMaintenanceSystem.js" ]; then
     echo "✅ VanMaintenanceSystem exists"
     
     # Check for health check capabilities
-    grep -q "healthCheck" claude-tdd-agentsVanMaintenanceSystem.js && echo "✅ Health checks implemented" || echo "❌ Health checks missing"
+    grep -q "healthCheck" claude-code-collective/lib/VanMaintenanceSystem.js && echo "✅ Health checks implemented" || echo "❌ Health checks missing"
 fi
 ```
 
@@ -297,10 +297,10 @@ fi
 # Test auto-repair functionality
 echo "Testing auto-repair system..."
 
-if [ -f "claude-tdd-agentsVanMaintenanceSystem.js" ]; then
+if [ -f "claude-code-collective/lib/VanMaintenanceSystem.js" ]; then
     # Check for repair capabilities
-    grep -q "repair" claude-tdd-agentsVanMaintenanceSystem.js && echo "✅ Auto-repair implemented" || echo "❌ Auto-repair missing"
-    grep -q "optimize" claude-tdd-agentsVanMaintenanceSystem.js && echo "✅ Optimization implemented" || echo "❌ Optimization missing"
+    grep -q "repair" claude-code-collective/lib/VanMaintenanceSystem.js && echo "✅ Auto-repair implemented" || echo "❌ Auto-repair missing"
+    grep -q "optimize" claude-code-collective/lib/VanMaintenanceSystem.js && echo "✅ Optimization implemented" || echo "❌ Optimization missing"
 fi
 ```
 
@@ -326,7 +326,7 @@ if [ -d ".claude-collective" ]; then
 fi
 
 # Check for Jest configuration
-[ -f ".claude-collective/jest.config.js" ] || [ -f "claude-tdd-agentslates/jest.config.js" ] && echo "✅ Jest configuration exists" || echo "❌ Jest configuration missing"
+[ -f ".claude-collective/jest.config.js" ] || [ -f "claude-code-collective/templates/jest.config.js" ] && echo "✅ Jest configuration exists" || echo "❌ Jest configuration missing"
 ```
 
 **Expected Results:**
@@ -342,7 +342,7 @@ fi
 echo "Testing quality gate validation..."
 
 # Check for validation scripts
-if [ -f "claude-tdd-agentsQualityGateValidator.js" ] || grep -r "quality.*gate" claudclaude-tdd-agentsll 2>&1; then
+if [ -f "claude-code-collective/lib/QualityGateValidator.js" ] || grep -r "quality.*gate" claude-code-collective/ >/dev/null 2>&1; then
     echo "✅ Quality gate system found"
 else
     echo "❌ Quality gate system missing"
@@ -350,7 +350,7 @@ fi
 
 # Check for phase validation
 for phase in behavioral testing hooks distribution commands metrics agents maintenance; do
-    if grep -r "$phase" claude-tdd-agentsev/null 2>&1; then
+    if grep -r "$phase" claude-code-collective/ >/dev/null 2>&1; then
         echo "✅ $phase validation found"
     else
         echo "❌ $phase validation missing"
@@ -404,16 +404,16 @@ fi
 echo "Testing troubleshooting capabilities..."
 
 # Verify repair capabilities exist
-if [ -f "claude-tdd-agentsinstaller.js" ]; then
-    grep -q "repair" claude-tdd-agentsinstaller.js && echo "✅ Repair functionality exists" || echo "❌ Repair functionality missing"
+if [ -f "claude-code-collective/lib/installer.js" ]; then
+    grep -q "repair" claude-code-collective/lib/installer.js && echo "✅ Repair functionality exists" || echo "❌ Repair functionality missing"
 fi
 
 # Test validation tools
-npx claude-tdd-agentsdate --verbose >/dev/null 2>&1 && echo "✅ Verbose validation works" || echo "❌ Verbose validation failed"
+npx claude-code-collective validate --verbose >/dev/null 2>&1 && echo "✅ Verbose validation works" || echo "❌ Verbose validation failed"
 
 # Check for support report capability
-if [ -f "claude-tdd-agentsVanMaintenanceSystem.js" ]; then
-    grep -q "report" claude-tdd-agentsVanMaintenanceSystem.js && echo "✅ Report generation exists" || echo "❌ Report generation missing"
+if [ -f "claude-code-collective/lib/VanMaintenanceSystem.js" ]; then
+    grep -q "report" claude-code-collective/lib/VanMaintenanceSystem.js && echo "✅ Report generation exists" || echo "❌ Report generation missing"
 fi
 ```
 
@@ -431,15 +431,15 @@ fi
 # Test NPX package structure
 echo "Testing NPX package distribution..."
 
-[ -f "claude-tdd-agentsage.json" ] && echo "✅ package.json exists" || echo "❌ package.json missing"
+[ -f "claude-code-collective/package.json" ] && echo "✅ package.json exists" || echo "❌ package.json missing"
 
-if [ -f "claude-tdd-agentsage.json" ]; then
+if [ -f "claude-code-collective/package.json" ]; then
     # Validate package.json structure
-    grep -q "claude-tdd-agentsudclaude-tdd-agentsson && echo "✅ Package name correct" || echo "❌ Package name incorrect"
-    grep -q "bin" claude-tdd-agentsage.json && echo "✅ Bin configuration exists" || echo "❌ Bin configuration missing"
+    grep -q "claude-code-collective" claude-code-collective/package.json && echo "✅ Package name correct" || echo "❌ Package name incorrect"
+    grep -q "bin" claude-code-collective/package.json && echo "✅ Bin configuration exists" || echo "❌ Bin configuration missing"
 fi
 
-[ -f "claude-tdd-agentsinstall-collective.js" ] && echo "✅ Main executable exists" || echo "❌ Main executable missing"
+[ -f "claude-code-collective/bin/install-collective.js" ] && echo "✅ Main executable exists" || echo "❌ Main executable missing"
 ```
 
 **Expected Results:**
@@ -460,13 +460,13 @@ cd test-integration
 echo '{"name": "existing-project", "version": "1.0.0"}' > package.json
 
 # Test integration
-npx claude-tdd-agents
+npx claude-code-collective init
 
 # Verify integration doesn't break existing files
 [ -f "package.json" ] && echo "✅ Existing files preserved" || echo "❌ Existing files damaged"
 
 # Check for integration validation
-npx claude-tdd-agentsdate --integration >/dev/null 2>&1 && echo "✅ Integration validation works" || echo "❌ Integration validation failed"
+npx claude-code-collective validate --integration >/dev/null 2>&1 && echo "✅ Integration validation works" || echo "❌ Integration validation failed"
 
 cd ..
 ```
@@ -512,32 +512,32 @@ run_test() {
 
 # Run all test suites
 echo "📋 Test Suite 1: Installation Validation"
-run_test "Basic Installation" "npx claude-tdd-agents && [ -f CLAUDE.md ]"
-run_test "Installation Verification" "npx claude-tdd-agentsus"
+run_test "Basic Installation" "npx claude-code-collective init && [ -f CLAUDE.md ]"
+run_test "Installation Verification" "npx claude-code-collective status"
 
 echo "📋 Test Suite 2: Command System Validation"  
-run_test "Command Parser Exists" "[ -f claude-tdd-agentscommand-parser.js ]"
-run_test "Command System Exists" "[ -f claude-tdd-agentscommand-system.js ]"
+run_test "Command Parser Exists" "[ -f claude-code-collective/lib/command-parser.js ]"
+run_test "Command System Exists" "[ -f claude-code-collective/lib/command-system.js ]"
 
 echo "📋 Test Suite 3: Agent System Validation"
 run_test "Core Agents Exist" "[ -f .claude/agents/routing-agent.md ]"
-run_test "Agent Registry System" "[ -f claude-tdd-agentsAgentRegistry.js ]"
+run_test "Agent Registry System" "[ -f claude-code-collective/lib/AgentRegistry.js ]"
 
 echo "📋 Test Suite 4: Research and Metrics Validation"
-run_test "Metrics Collector Exists" "[ -f claude-tdd-agentsmetrics/MetricsCollector.js ]"
-run_test "Research Framework Exists" "[ -f claude-tdd-agentsmetrics/ExperimentFramework.js ]"
+run_test "Metrics Collector Exists" "[ -f claude-code-collective/lib/metrics/MetricsCollector.js ]"
+run_test "Research Framework Exists" "[ -f claude-code-collective/lib/metrics/ExperimentFramework.js ]"
 
 echo "📋 Test Suite 5: Maintenance and Health Validation"
-run_test "Van Maintenance System" "[ -f claude-tdd-agentsVanMaintenanceSystem.js ]"
+run_test "Van Maintenance System" "[ -f claude-code-collective/lib/VanMaintenanceSystem.js ]"
 
 echo "📋 Test Suite 6: Testing and Validation"
-run_test "Testing Framework" "[ -d .claude-collective ] || [ -d claude-tdd-agentslates ]"
+run_test "Testing Framework" "[ -d .claude-collective ] || [ -d claude-code-collective/templates ]"
 
 echo "📋 Test Suite 7: Configuration and Troubleshooting"
 run_test "Configuration Files" "[ -f .claude/settings.json ] && [ -f CLAUDE.md ]"
 
 echo "📋 Test Suite 8: Distribution and Integration"
-run_test "NPX Package Structure" "[ -f claude-tdd-agentsage.json ]"
+run_test "NPX Package Structure" "[ -f claude-code-collective/package.json ]"
 
 # Final results
 echo "=================================================================="

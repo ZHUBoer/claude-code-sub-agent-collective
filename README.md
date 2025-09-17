@@ -1,6 +1,6 @@
 # Claude Code Sub-Agent Collective
 
-[![npm version](https://badge.fury.io/js/claude-tdd-agents](https://badge.fury.io/js/claudclaude-tdd-agents
+[![npm version](https://badge.fury.io/js/claude-code-collective.svg)](https://badge.fury.io/js/claude-code-collective)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Experimental NPX installer for TDD-focused AI agents**
@@ -10,7 +10,7 @@ This installs a collection of AI agents designed for Test-Driven Development and
 ## What this installs
 
 ```bash
-npx claude-tdd-agents
+npx claude-code-collective init
 ```
 
 You get 30+ specialized agents that enforce TDD methodology and try to be smarter about using real documentation instead of guessing.
@@ -63,22 +63,22 @@ So I built agents that:
 
 ### Quick install (recommended for trying it out)
 ```bash
-npx claude-tdd-agents
+npx claude-code-collective init
 ```
 
 ### Other options if you want to be selective
 ```bash
 # Just core agents for lightweight projects
-npx claude-tdd-agents --minimal
+npx claude-code-collective init --minimal
 
 # Focus on testing framework only
-npx claude-tdd-agents --testing-only
+npx claude-code-collective init --testing-only
 
 # Just the behavioral system and hooks
-npx claude-tdd-agents --hooks-only
+npx claude-code-collective init --hooks-only
 
 # Interactive setup with choices
-npx claude-tdd-agents --interactive
+npx claude-code-collective init --interactive
 ```
 
 ## What actually gets installed
@@ -126,19 +126,19 @@ your-project/
 
 ```bash
 # Check what's installed and working
-npx claude-tdd-agentsus
+npx claude-code-collective status
 
 # Validate installation integrity
-npx claude-tdd-agentsdate
+npx claude-code-collective validate
 
 # Fix broken installations
-npx claude-tdd-agentsir
+npx claude-code-collective repair
 
 # Remove everything
-npx claude-tdd-agentsn
+npx claude-code-collective clean
 
 # Get help
-npx claude-tdd-agentslp
+npx claude-code-collective --help
 ```
 
 ## Current state (honest assessment)
@@ -167,10 +167,10 @@ After installing:
 
 ```bash
 # 1. Validate everything installed correctly
-npx claude-tdd-agentsdate
+npx claude-code-collective validate
 
 # 2. Check status
-npx claude-tdd-agentsus
+npx claude-code-collective status
 
 # 3. Restart Claude Code (required for hooks)
 
@@ -184,12 +184,12 @@ npx claude-tdd-agentsus
 ### Installation fails
 - Check Node.js version: `node --version` (need >= 16)
 - Clear npm cache: `npm cache clean --force`
-- Try force install: `npx claude-tdd-agents --force`
+- Try force install: `npx claude-code-collective init --force`
 
 ### Agents don't work
 - Restart Claude Code (hooks need to load)
 - Check `.claude/settings.json` exists
-- Run `npx claude-tdd-agentsdate`
+- Run `npx claude-code-collective validate`
 
 ### Tests don't run
 - Make sure your project has a test runner (Jest, Vitest, etc.)
@@ -276,7 +276,7 @@ This is a personal project, but:
 - **PRs welcome** for small fixes or better agent prompts  
 - **Don't expect rapid responses** - this is a side project
 
-**Get help**: Run `npx claude-tdd-agentsdate` for diagnostics
+**Get help**: Run `npx claude-code-collective validate` for diagnostics
 
 ## License
 

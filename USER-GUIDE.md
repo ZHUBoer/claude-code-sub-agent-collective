@@ -7,33 +7,33 @@
 Install the collective system in any project with a single command:
 
 ```bash
-npx claude-tdd-agents
+npx claude-code-collective init
 ```
 
 **Installation Options:**
 ```bash
 # Full installation (recommended)
-npx claude-tdd-agents
+npx claude-code-collective init
 
 # Minimal installation (core agents only)
-npx claude-tdd-agents --minimal
+npx claude-code-collective init --minimal
 
 # Interactive configuration
-npx claude-tdd-agents --interactive
+npx claude-code-collective init --interactive
 
 # Testing framework only
-npx claude-tdd-agents --testing-only
+npx claude-code-collective init --testing-only
 
 # Hook system only
-npx claude-tdd-agents --hooks-only
+npx claude-code-collective init --hooks-only
 ```
 
 ### Verification
 
 Verify your installation:
 ```bash
-npx claude-tdd-agentsus
-npx claude-tdd-agentsdate
+npx claude-code-collective status
+npx claude-code-collective validate
 ```
 
 ## 🎯 Core Concepts
@@ -324,16 +324,16 @@ Main configuration files:
 
 ```bash
 # View current configuration
-npx claude-tdd-agentsus --config
+npx claude-code-collective status --config
 
 # Update installation
-npx claude-tdd-agentste
+npx claude-code-collective update
 
 # Repair corrupted installation
-npx claude-tdd-agentsir
+npx claude-code-collective repair
 
 # Clean installation (reset to defaults)
-npx claude-tdd-agentsn --confirm
+npx claude-code-collective clean --confirm
 ```
 
 ## 🚨 Troubleshooting
@@ -343,10 +343,10 @@ npx claude-tdd-agentsn --confirm
 **Command not found:**
 ```bash
 # Check installation
-npx claude-tdd-agentsus
+npx claude-code-collective status
 
 # Reinstall if needed
-npx claude-tdd-agents --force
+npx claude-code-collective init --force
 ```
 
 **Hooks not working:**
@@ -394,7 +394,7 @@ npx claude-tdd-agents --force
 /van help
 
 # System diagnostics
-npx claude-tdd-agentsdate --verbose
+npx claude-code-collective validate --verbose
 
 # Generate support report
 /van report --support
@@ -425,13 +425,13 @@ The collective is distributed as an NPX package for easy installation:
 
 ```bash
 # Anyone can install with:
-npx claude-tdd-agents
+npx claude-code-collective init
 
 # Package information
-npm info claude-tdd-agents
+npm info claude-code-collective
 
 # Version management
-npx claude-tdd-agentsst init
+npx claude-code-collective@latest init
 ```
 
 ### Project Integration
@@ -439,10 +439,10 @@ npx claude-tdd-agentsst init
 ```bash
 # Add to existing projects
 cd your-project
-npx claude-tdd-agents
+npx claude-code-collective init
 
 # Integration validation
-npx claude-tdd-agentsdate --integration
+npx claude-code-collective validate --integration
 ```
 
 ## 📈 Advanced Usage
@@ -497,7 +497,7 @@ Create your own agent templates:
 ### Essential Commands
 ```bash
 # Installation
-npx claude-tdd-agents
+npx claude-code-collective init
 
 # Health check
 /van check

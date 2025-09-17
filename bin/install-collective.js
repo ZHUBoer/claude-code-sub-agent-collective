@@ -20,7 +20,7 @@ console.log(chalk.cyan(banner));
 
 // Configure CLI
 program
-  .name('claude-tdd-agents
+  .name('claude-code-collective')
   .description('NPX installer for claude-code-sub-agent-collective system')
   .version(version);
 
@@ -71,7 +71,7 @@ program
         console.log(chalk.bold('\n🔄 Next Steps:'));
         console.log('1. Restart Claude Code to activate hooks and agents');
         console.log('2. Review CLAUDE.md for behavioral directives');
-        console.log('3. Test installation: npx claude-tdd-agentsdate');
+        console.log('3. Test installation: npx claude-code-collective validate');
         console.log('4. Try a simple request to test agent routing');
         
         console.log(chalk.blue('\n💡 Quick Test: Ask Claude to route a request through @routing-agent'));
@@ -91,8 +91,8 @@ program
       console.log('5. Run with --interactive for guided setup');
       
       console.log(chalk.bold('\n📞 Getting Help:'));
-      console.log('• Check status: npx claude-tdd-agentsus');
-      console.log('• Validate setup: npx claude-tdd-agentsdate');
+      console.log('• Check status: npx claude-code-collective status');
+      console.log('• Validate setup: npx claude-code-collective validate');
       console.log('• View logs in /tmp/collective-install.log');
       
       process.exit(1);
@@ -123,7 +123,7 @@ program
       if (status.issues.length > 0) {
         console.log(chalk.yellow('\n⚠️ Issues detected:'));
         status.issues.forEach(issue => console.log(`  - ${issue}`));
-        console.log(chalk.blue('\n💡 Run "npx claude-tdd-agents" to fix issues'));
+        console.log(chalk.blue('\n💡 Run "npx claude-code-collective init" to fix issues'));
       } else if (status.installed) {
         console.log(chalk.green('\n✅ Installation is healthy!'));
       }
@@ -160,7 +160,7 @@ program
         console.log(chalk.blue('\n🚀 Collective is ready for use!'));
       } else {
         console.log(chalk.red(`\n❌ Validation failed (${passed}/${total})`));
-        console.log(chalk.yellow('\n🔧 Run "npx claude-tdd-agents --force" to repair'));
+        console.log(chalk.yellow('\n🔧 Run "npx claude-code-collective init --force" to repair'));
         process.exit(1);
       }
       
@@ -179,9 +179,9 @@ program
   .action((options) => {
     console.log(chalk.yellow('⚠️ Update functionality coming in next version'));
     console.log('\nFor now, you can:');
-    console.log('• Update manually: npx claude-tdd-agents --force');
-    console.log('• Check current version: npx claude-tdd-agentsrsion');
-    console.log('• Validate installation: npx claude-tdd-agentsdate');
+    console.log('• Update manually: npx claude-code-collective init --force');
+    console.log('• Check current version: npx claude-code-collective --version');
+    console.log('• Validate installation: npx claude-code-collective validate');
   });
 
 // Repair command
@@ -234,7 +234,7 @@ program
       
     } catch (error) {
       console.error(chalk.red('❌ Repair failed:'), error.message);
-      console.log('\nTry manual reinstallation: npx claude-tdd-agents --force');
+      console.log('\nTry manual reinstallation: npx claude-code-collective init --force');
       process.exit(1);
     }
   });
@@ -298,5 +298,5 @@ program.parse(process.argv);
 // Show help if no command provided
 if (!process.argv.slice(2).length) {
   program.outputHelp();
-  console.log(chalk.yellow('\n💡 Quick start: npx claude-tdd-agents'));
+  console.log(chalk.yellow('\n💡 Quick start: npx claude-code-collective init'));
 }

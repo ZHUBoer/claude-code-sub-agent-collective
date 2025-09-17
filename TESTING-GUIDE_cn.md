@@ -27,7 +27,7 @@ echo "# 测试项目" > README.md
 
 ```bash
 # 执行《用户指南》中的测试命令
-npx claude-tdd-agents
+npx claude-code-collective init
 
 # 验证性检查
 [ -f "CLAUDE.md" ] && echo "✅ CLAUDE.md 已创建" || echo "❌ CLAUDE.md 缺失"
@@ -49,7 +49,7 @@ npx claude-tdd-agents
 ```bash
 # 在新目录中测试最小化安装
 mkdir test-minimal && cd test-minimal
-npx claude-tdd-agents --minimal
+npx claude-code-collective init --minimal
 
 # 统计已安装的组件数量
 echo "已安装的智能体数量： $(ls .claude/agents/ 2>/dev/null | wc -l)"
@@ -57,7 +57,7 @@ echo "已安装的钩子数量： $(ls .claude/hooks/ 2>/dev/null | wc -l)"
 
 # 测试交互模式（若可用）
 cd .. && mkdir test-interactive && cd test-interactive
-echo -e "full\nmy-project\ny" | npx claude-tdd-agents --interactive
+echo -e "full\nmy-project\ny" | npx claude-code-collective init --interactive
 ```
 
 **预期结果：**
@@ -70,14 +70,14 @@ echo -e "full\nmy-project\ny" | npx claude-tdd-agents --interactive
 
 ```bash
 # 执行《用户指南》中的验证命令
-npx claude-tdd-agentsus
-npx claude-tdd-agentsdate
+npx claude-code-collective status
+npx claude-code-collective validate
 
 # 捕获命令的退出码
-npx claude-tdd-agentsus
+npx claude-code-collective status
 echo "status 命令的退出码： $?"
 
-npx claude-tdd-agentsdate  
+npx claude-code-collective validate  
 echo "validate 命令的退出码： $?"
 ```
 
@@ -97,10 +97,10 @@ echo "正在测试自然语言命令..."
 
 # 注意：这些命令需要通过实际的命令接口进行测试。
 # 在基于文件的测试中，我们仅验证命令解析器是否存在。
-[ -f "claude-tdd-agentscommand-parser.js" ] && echo "✅ 命令解析器存在" || echo "❌ 命令解析器缺失"
+[ -f "claude-code-collective/lib/command-parser.js" ] && echo "✅ 命令解析器存在" || echo "❌ 命令解析器缺失"
 
 # 测试命令识别模式
-if [ -f "claude-tdd-agentscommand-parser.js" ]; then
+if [ -f "claude-code-collective/lib/command-parser.js" ]; then
     echo "✅ 自然语言处理能力可用"
 else
     echo "❌ 未找到自然语言处理能力"
@@ -120,16 +120,16 @@ fi
 echo "正在验证命令系统结构..."
 
 # 检查命令系统的实现文件
-[ -f "claude-tdd-agentscommand-system.js" ] && echo "✅ 命令系统存在" || echo "❌ 命令系统缺失"
-[ -f "claude-tdd-agentscommand-registry.js" ] && echo "✅ 命令注册表存在" || echo "❌ 命令注册表缺失"
+[ -f "claude-code-collective/lib/command-system.js" ] && echo "✅ 命令系统存在" || echo "❌ 命令系统缺失"
+[ -f "claude-code-collective/lib/command-registry.js" ] && echo "✅ 命令注册表存在" || echo "❌ 命令注册表缺失"
 
 # 验证命名空间是否已实现
-if [ -f "claude-tdd-agentscommand-system.js" ]; then
+if [ -f "claude-code-collective/lib/command-system.js" ]; then
     # 在代码中检查命名空间的实现
-    grep -q "/collective" claude-tdd-agentscommand-system.js && echo "✅ /collective 命名空间已找到" || echo "❌ /collective 命名空间缺失"
-    grep -q "/agent" claude-tdd-agentscommand-system.js && echo "✅ /agent 命名空间已找到" || echo "❌ /agent 命名空间缺失"
-    grep -q "/gate" claude-tdd-agentscommand-system.js && echo "✅ /gate 命名空间已找到" || echo "❌ /gate 命名空间缺失"
-    grep -q "/van" claude-tdd-agentscommand-system.js && echo "✅ /van 命名空间已找到" || echo "❌ /van 命名空间缺失"
+    grep -q "/collective" claude-code-collective/lib/command-system.js && echo "✅ /collective 命名空间已找到" || echo "❌ /collective 命名空间缺失"
+    grep -q "/agent" claude-code-collective/lib/command-system.js && echo "✅ /agent 命名空间已找到" || echo "❌ /agent 命名空间缺失"
+    grep -q "/gate" claude-code-collective/lib/command-system.js && echo "✅ /gate 命名空间已找到" || echo "❌ /gate 命名空间缺失"
+    grep -q "/van" claude-code-collective/lib/command-system.js && echo "✅ /van 命名空间已找到" || echo "❌ /van 命名空间缺失"
 fi
 ```
 
@@ -145,13 +145,13 @@ fi
 # 测试别名系统的实现
 echo "正在测试命令别名..."
 
-if [ -f "claude-tdd-agentscommand-system.js" ]; then
+if [ -f "claude-code-collective/lib/command-system.js" ]; then
     # 检查实现代码中的别名模式
-    grep -q "alias" claude-tdd-agentscommand-system.js && echo "✅ 别名系统已实现" || echo "❌ 别名系统缺失"
+    grep -q "alias" claude-code-collective/lib/command-system.js && echo "✅ 别名系统已实现" || echo "❌ 别名系统缺失"
     
     # 验证《用户指南》中提到的特定别名
-    grep -q "/c" claude-tdd-agentscommand-system.js && echo "✅ /c 别名已找到" || echo "❌ /c 别名缺失"
-    grep -q "/status" claude-tdd-agentscommand-system.js && echo "✅ /status 别名已找到" || echo "❌ /status 别名缺失"
+    grep -q "/c" claude-code-collective/lib/command-system.js && echo "✅ /c 别名已找到" || echo "❌ /c 别名缺失"
+    grep -q "/status" claude-code-collective/lib/command-system.js && echo "✅ /status 别名已找到" || echo "❌ /status 别名缺失"
 fi
 ```
 
@@ -210,12 +210,12 @@ echo "找到的智能体总数： $(ls .claude/agents/ 2>/dev/null | wc -l)"
 # 测试智能体注册系统的实现
 echo "正在测试智能体注册系统..."
 
-[ -f "claude-tdd-agentsAgentRegistry.js" ] && echo "✅ AgentRegistry 存在" || echo "❌ AgentRegistry 缺失"
-[ -f "claude-tdd-agentsAgentSpawner.js" ] && echo "✅ AgentSpawner 存在" || echo "❌ AgentSpawner 缺失"
-[ -f "claude-tdd-agentsAgentTemplateSystem.js" ] && echo "✅ AgentTemplateSystem 存在" || echo "❌ AgentTemplateSystem 缺失"
+[ -f "claude-code-collective/lib/AgentRegistry.js" ] && echo "✅ AgentRegistry 存在" || echo "❌ AgentRegistry 缺失"
+[ -f "claude-code-collective/lib/AgentSpawner.js" ] && echo "✅ AgentSpawner 存在" || echo "❌ AgentSpawner 缺失"
+[ -f "claude-code-collective/lib/AgentTemplateSystem.js" ] && echo "✅ AgentTemplateSystem 存在" || echo "❌ AgentTemplateSystem 缺失"
 
 # 检查模板系统
-[ -d "claude-tdd-agentslates" ] && echo "✅ 模板系统存在" || echo "❌ 模板系统缺失"
+[ -d "claude-code-collective/templates" ] && echo "✅ 模板系统存在" || echo "❌ 模板系统缺失"
 ```
 
 **预期结果：**
@@ -232,13 +232,13 @@ echo "正在测试智能体注册系统..."
 # 验证指标收集系统
 echo "正在测试研究指标系统..."
 
-[ -f "claude-tdd-agentsmetrics/MetricsCollector.js" ] && echo "✅ MetricsCollector 存在" || echo "❌ MetricsCollector 缺失"
-[ -f "claude-tdd-agentsmetrics/JITLoadingMetrics.js" ] && echo "✅ JIT 指标模块存在" || echo "❌ JIT 指标模块缺失"
-[ -f "claude-tdd-agentsmetrics/HubSpokeMetrics.js" ] && echo "✅ 中心-辐射模型指标模块存在" || echo "❌ 中心-辐射模型指标模块缺失"
-[ -f "claude-tdd-agentsmetrics/TDDHandoffMetrics.js" ] && echo "✅ TDD 指标模块存在" || echo "❌ TDD 指标模块缺失"
+[ -f "claude-code-collective/lib/metrics/MetricsCollector.js" ] && echo "✅ MetricsCollector 存在" || echo "❌ MetricsCollector 缺失"
+[ -f "claude-code-collective/lib/metrics/JITLoadingMetrics.js" ] && echo "✅ JIT 指标模块存在" || echo "❌ JIT 指标模块缺失"
+[ -f "claude-code-collective/lib/metrics/HubSpokeMetrics.js" ] && echo "✅ 中心-辐射模型指标模块存在" || echo "❌ 中心-辐射模型指标模块缺失"
+[ -f "claude-code-collective/lib/metrics/TDDHandoffMetrics.js" ] && echo "✅ TDD 指标模块存在" || echo "❌ TDD 指标模块缺失"
 
 # 检查 A/B 测试框架
-[ -f "claude-tdd-agentsmetrics/ExperimentFramework.js" ] && echo "✅ A/B 测试框架存在" || echo "❌ A/B 测试框架缺失"
+[ -f "claude-code-collective/lib/metrics/ExperimentFramework.js" ] && echo "✅ A/B 测试框架存在" || echo "❌ A/B 测试框架缺失"
 ```
 
 **预期结果：**
@@ -253,12 +253,12 @@ echo "正在测试研究指标系统..."
 # 测试指标系统结构
 echo "正在验证指标收集能力..."
 
-if [ -d "claude-tdd-agentsmetrics" ]; then
+if [ -d "claude-code-collective/lib/metrics" ]; then
     echo "✅ 指标目录存在"
-    echo "找到的指标模块数量： $(ls claude-tdd-agentsmetrics/ 2>/dev/null | wc -l)"
+    echo "找到的指标模块数量： $(ls claude-code-collective/lib/metrics/ 2>/dev/null | wc -l)"
     
     # 检查研究协调功能
-    [ -f "claude-tdd-agentsmetrics/ResearchMetricsSystem.js" ] && echo "✅ 研究协调功能存在" || echo "❌ 研究协调功能缺失"
+    [ -f "claude-code-collective/lib/metrics/ResearchMetricsSystem.js" ] && echo "✅ 研究协调功能存在" || echo "❌ 研究协调功能缺失"
 fi
 ```
 
@@ -277,11 +277,11 @@ fi
 echo "正在测试 van 维护系统..."
 
 # 检查 van 维护系统的实现
-if [ -f "claude-tdd-agentsVanMaintenanceSystem.js" ]; then
+if [ -f "claude-code-collective/lib/VanMaintenanceSystem.js" ]; then
     echo "✅ VanMaintenanceSystem 存在"
     
     # 检查健康检查能力
-    grep -q "healthCheck" claude-tdd-agentsVanMaintenanceSystem.js && echo "✅ 健康检查功能已实现" || echo "❌ 健康检查功能缺失"
+    grep -q "healthCheck" claude-code-collective/lib/VanMaintenanceSystem.js && echo "✅ 健康检查功能已实现" || echo "❌ 健康检查功能缺失"
 fi
 ```
 
@@ -297,10 +297,10 @@ fi
 # 测试自动修复功能
 echo "正在测试自动修复系统..."
 
-if [ -f "claude-tdd-agentsVanMaintenanceSystem.js" ]; then
+if [ -f "claude-code-collective/lib/VanMaintenanceSystem.js" ]; then
     # 检查修复能力
-    grep -q "repair" claude-tdd-agentsVanMaintenanceSystem.js && echo "✅ 自动修复功能已实现" || echo "❌ 自动修复功能缺失"
-    grep -q "optimize" claude-tdd-agentsVanMaintenanceSystem.js && echo "✅ 优化功能已实现" || echo "❌ 优化功能缺失"
+    grep -q "repair" claude-code-collective/lib/VanMaintenanceSystem.js && echo "✅ 自动修复功能已实现" || echo "❌ 自动修复功能缺失"
+    grep -q "optimize" claude-code-collective/lib/VanMaintenanceSystem.js && echo "✅ 优化功能已实现" || echo "❌ 优化功能缺失"
 fi
 ```
 
@@ -326,7 +326,7 @@ if [ -d ".claude-collective" ]; then
 fi
 
 # 检查 Jest 配置
-[ -f ".claude-collective/jest.config.js" ] || [ -f "claude-tdd-agentslates/jest.config.js" ] && echo "✅ Jest 配置存在" || echo "❌ Jest 配置缺失"
+[ -f ".claude-collective/jest.config.js" ] || [ -f "claude-code-collective/templates/jest.config.js" ] && echo "✅ Jest 配置存在" || echo "❌ Jest 配置缺失"
 ```
 
 **预期结果：**
@@ -342,7 +342,7 @@ fi
 echo "正在测试质量门验证..."
 
 # 检查验证脚本
-if [ -f "claude-tdd-agentsQualityGateValidator.js" ] || grep -r "quality.*gate" claudclaude-tdd-agentsll 2>&1; then
+if [ -f "claude-code-collective/lib/QualityGateValidator.js" ] || grep -r "quality.*gate" claude-code-collective/ >/dev/null 2>&1; then
     echo "✅ 质量门系统已找到"
 else
     echo "❌ 质量门系统缺失"
@@ -350,7 +350,7 @@ fi
 
 # 检查阶段验证
 for phase in behavioral testing hooks distribution commands metrics agents maintenance; do
-    if grep -r "$phase" claude-tdd-agentsev/null 2>&1; then
+    if grep -r "$phase" claude-code-collective/ >/dev/null 2>&1; then
         echo "✅ $phase 验证已找到"
     else
         echo "❌ $phase 验证缺失"
@@ -404,16 +404,16 @@ fi
 echo "正在测试故障排查能力..."
 
 # 验证修复能力是否存在
-if [ -f "claude-tdd-agentsinstaller.js" ]; then
-    grep -q "repair" claude-tdd-agentsinstaller.js && echo "✅ 修复功能存在" || echo "❌ 修复功能缺失"
+if [ -f "claude-code-collective/lib/installer.js" ]; then
+    grep -q "repair" claude-code-collective/lib/installer.js && echo "✅ 修复功能存在" || echo "❌ 修复功能缺失"
 fi
 
 # 测试验证工具
-npx claude-tdd-agentsdate --verbose >/dev/null 2>&1 && echo "✅ 详细模式验证工作正常" || echo "❌ 详细模式验证失败"
+npx claude-code-collective validate --verbose >/dev/null 2>&1 && echo "✅ 详细模式验证工作正常" || echo "❌ 详细模式验证失败"
 
 # 检查支持报告生成能力
-if [ -f "claude-tdd-agentsVanMaintenanceSystem.js" ]; then
-    grep -q "report" claude-tdd-agentsVanMaintenanceSystem.js && echo "✅ 报告生成功能存在" || echo "❌ 报告生成功能缺失"
+if [ -f "claude-code-collective/lib/VanMaintenanceSystem.js" ]; then
+    grep -q "report" claude-code-collective/lib/VanMaintenanceSystem.js && echo "✅ 报告生成功能存在" || echo "❌ 报告生成功能缺失"
 fi
 ```
 
@@ -431,15 +431,15 @@ fi
 # 测试 NPX 包结构
 echo "正在测试 NPX 包分发..."
 
-[ -f "claude-tdd-agentsage.json" ] && echo "✅ package.json 存在" || echo "❌ package.json 缺失"
+[ -f "claude-code-collective/package.json" ] && echo "✅ package.json 存在" || echo "❌ package.json 缺失"
 
-if [ -f "claude-tdd-agentsage.json" ]; then
+if [ -f "claude-code-collective/package.json" ]; then
     # 验证 package.json 结构
-    grep -q "claude-tdd-agentsudclaude-tdd-agentsson && echo "✅ 包名正确" || echo "❌ 包名不正确"
-    grep -q "bin" claude-tdd-agentsage.json && echo "✅ bin 配置存在" || echo "❌ bin 配置缺失"
+    grep -q "claude-code-collective" claude-code-collective/package.json && echo "✅ 包名正确" || echo "❌ 包名不正确"
+    grep -q "bin" claude-code-collective/package.json && echo "✅ bin 配置存在" || echo "❌ bin 配置缺失"
 fi
 
-[ -f "claude-tdd-agentsinstall-collective.js" ] && echo "✅ 主可执行文件存在" || echo "❌ 主可执行文件缺失"
+[ -f "claude-code-collective/bin/install-collective.js" ] && echo "✅ 主可执行文件存在" || echo "❌ 主可执行文件缺失"
 ```
 
 **预期结果：**
@@ -460,13 +460,13 @@ cd test-integration
 echo '{"name": "existing-project", "version": "1.0.0"}' > package.json
 
 # 测试集成
-npx claude-tdd-agents
+npx claude-code-collective init
 
 # 验证集成不会破坏现有文件
 [ -f "package.json" ] && echo "✅ 现有文件被保留" || echo "❌ 现有文件被损坏"
 
 # 检查集成验证
-npx claude-tdd-agentsdate --integration >/dev/null 2>&1 && echo "✅ 集成验证工作正常" || echo "❌ 集成验证失败"
+npx claude-code-collective validate --integration >/dev/null 2>&1 && echo "✅ 集成验证工作正常" || echo "❌ 集成验证失败"
 
 cd ..
 ```
@@ -512,32 +512,32 @@ run_test() {
 
 # 运行所有测试套件
 echo "📋 测试套件 1：安装验证"
-run_test "基本安装" "npx claude-tdd-agents && [ -f CLAUDE.md ]"
-run_test "安装验证" "npx claude-tdd-agentsus"
+run_test "基本安装" "npx claude-code-collective init && [ -f CLAUDE.md ]"
+run_test "安装验证" "npx claude-code-collective status"
 
 echo "📋 测试套件 2：命令系统验证"  
-run_test "命令解析器存在" "[ -f claude-tdd-agentscommand-parser.js ]"
-run_test "命令系统存在" "[ -f claude-tdd-agentscommand-system.js ]"
+run_test "命令解析器存在" "[ -f claude-code-collective/lib/command-parser.js ]"
+run_test "命令系统存在" "[ -f claude-code-collective/lib/command-system.js ]"
 
 echo "📋 测试套件 3：智能体系统验证"
 run_test "核心智能体存在" "[ -f .claude/agents/routing-agent.md ]"
-run_test "智能体注册系统" "[ -f claude-tdd-agentsAgentRegistry.js ]"
+run_test "智能体注册系统" "[ -f claude-code-collective/lib/AgentRegistry.js ]"
 
 echo "📋 测试套件 4：研究与指标验证"
-run_test "指标收集器存在" "[ -f claude-tdd-agentsmetrics/MetricsCollector.js ]"
-run_test "研究框架存在" "[ -f claude-tdd-agentsmetrics/ExperimentFramework.js ]"
+run_test "指标收集器存在" "[ -f claude-code-collective/lib/metrics/MetricsCollector.js ]"
+run_test "研究框架存在" "[ -f claude-code-collective/lib/metrics/ExperimentFramework.js ]"
 
 echo "📋 测试套件 5：维护与健康验证"
-run_test "Van 维护系统" "[ -f claude-tdd-agentsVanMaintenanceSystem.js ]"
+run_test "Van 维护系统" "[ -f claude-code-collective/lib/VanMaintenanceSystem.js ]"
 
 echo "📋 测试套件 6：测试与验证"
-run_test "测试框架" "[ -d .claude-collective ] || [ -d claude-tdd-agentslates ]"
+run_test "测试框架" "[ -d .claude-collective ] || [ -d claude-code-collective/templates ]"
 
 echo "📋 测试套件 7：配置与故障排查"
 run_test "配置文件" "[ -f .claude/settings.json ] && [ -f CLAUDE.md ]"
 
 echo "📋 测试套件 8：分发与集成"
-run_test "NPX 包结构" "[ -f claude-tdd-agentsage.json ]"
+run_test "NPX 包结构" "[ -f claude-code-collective/package.json ]"
 
 # 输出最终结果
 echo "=================================================================="
