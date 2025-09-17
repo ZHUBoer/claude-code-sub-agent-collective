@@ -500,7 +500,7 @@ npx . validate            # 测试 validation 命令
 
 ### 开发环境
 - **Node.js**: 需要 >= 16.0.0 版本
-- **依赖**: 使用 `npm install` 而不是 `yarn`
+- **依赖**: 使用 `npm install` 而不是 `yarn`，如果权限不足，可以使用 `npm ci`
 - **测试**: Vitest 和 Jest 均已配置，用于不同的使用场景
 
 ### 发布流程

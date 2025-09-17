@@ -33,7 +33,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ZHUBoer/claude-code-sub-agent-collective.git"
+    "url": "https://github.com/ZHUBoer/claude-tdd-agents.git"
   },
   "engines": {
     "node": ">=16.0.0"
