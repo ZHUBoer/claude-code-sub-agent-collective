@@ -2,12 +2,12 @@
 
 > 实验性 NPX 安装器与子代理（Sub-Agent）协作框架：以 TDD 驱动、Hub-Spoke 路由协调、契约化交接与可验证交付为核心，助力快速原型与高质量实现。
 
-- 项目名称：`claude-code-collective`
+- 项目名称：`claude-tdd-agents
 - 运行环境：Node.js >= 16，NPM >= 8
 - 主要能力：TDD 校验、Hub-Spoke 协调、行为系统（CLAUDE.md）、钩子与命令体系、研究与指标收集、动态 Agent 生成
 - 安装方式（推荐）：
 ```bash
-npx claude-code-collective init
+npx claude-tdd-agents
 ```
 
 ---
@@ -83,7 +83,7 @@ your-project/
 ```
 
 ### 4. CLI 与核心模块
-- 可执行入口：`bin/claude-code-collective.js`
+- 可执行入口：`bin/claude-tdd-agents
   - `init|install`：安装框架（交互/快速模式）
   - `status`：检测安装状态
   - `validate`：校验安装完整性（支持 `--detailed`）
@@ -96,7 +96,7 @@ your-project/
 ```mermaid
 graph TD
   subgraph CLI
-    BCC[bin/claude-code-collective.js]
+    BCC[bin/claude-tdd-agents
   end
   subgraph Core
     IDX[lib/index.js]
@@ -119,13 +119,13 @@ graph TD
 ### 1. 安装命令
 ```bash
 # 快速体验（推荐）
-npx claude-code-collective init
+npx claude-tdd-agents
 
 # 其它模式
-npx claude-code-collective init --minimal      # 核心轻量安装
-npx claude-code-collective init --interactive  # 强制交互
-npx claude-code-collective init --yes          # 快速/无人值守
-npx claude-code-collective init --force        # 冲突强制覆盖（会备份）
+npx claude-tdd-agents --minimal      # 核心轻量安装
+npx claude-tdd-agents --interactive  # 强制交互
+npx claude-tdd-agents --yes          # 快速/无人值守
+npx claude-tdd-agents --force        # 冲突强制覆盖（会备份）
 ```
 
 ### 2. 安装过程要点（来源：installer.js）
@@ -170,16 +170,16 @@ flowchart TD
 ### 1. CLI 命令
 ```bash
 # 安装
-npx claude-code-collective init
+npx claude-tdd-agents
 
 # 查看状态
-npx claude-code-collective status
+npx claude-tdd-agentsus
 
 # 校验（含详细输出）
-npx claude-code-collective validate --detailed
+npx claude-tdd-agentsdate --detailed
 
 # 查看信息
-npx claude-code-collective info
+npx claude-tdd-agents
 ```
 
 ### 2. 典型使用流程
@@ -269,12 +269,12 @@ flowchart LR
 
 - 安装失败：
   - 确认 Node.js 版本（>=16），清理 npm 缓存：`npm cache clean --force`；
-  - 尝试：`npx claude-code-collective init --force`；
+  - 尝试：`npx claude-tdd-agents --force`；
   - 查看 CLI 错误与栈（加 `--verbose`）。
 - 钩子不生效：
   - 确保 `.claude/hooks/*.sh` 具有执行权限（安装器会设置为 755）；
   - 某些运行环境需重启以重新加载；
-  - 运行 `npx claude-code-collective status` 与 `validate --detailed` 查看详情。
+  - 运行 `npx claude-tdd-agentsus` 与 `validate --detailed` 查看详情。
 - 测试无法运行：
   - 检查 `.claude-collective/package.json` 是否包含 Jest 依赖与 `scripts.test`；
   - 进入 `.claude-collective/` 执行 `npm install` 后再试。
@@ -287,7 +287,7 @@ flowchart LR
 ## 七、开发者参考
 
 - 源码入口：`lib/index.js`
-- CLI：`bin/claude-code-collective.js`
+- CLI：`bin/claude-tdd-agents
 - 安装器：`lib/installer.js`（创建目录、模板安装、钩子权限、代理安装、TaskMaster 预配置与校验）
 - 校验器：`lib/validator.js`（存在性、可执行性、配置结构、测试框架与简单试跑）
 - 模板映射：`lib/file-mapping.js`（必需文件、最小安装过滤、占位符替换）
@@ -304,11 +304,11 @@ flowchart LR
 
 ```bash
 # 安装（交互或快速）
-npx claude-code-collective init
-npx claude-code-collective init --yes --minimal
+npx claude-tdd-agents
+npx claude-tdd-agents --yes --minimal
 
 # 状态/校验/信息
-npx claude-code-collective status
-npx claude-code-collective validate --detailed
-npx claude-code-collective info
+npx claude-tdd-agentsus
+npx claude-tdd-agentsdate --detailed
+npx claude-tdd-agents
 ```

@@ -122,7 +122,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.6] - 2025-08-09
 
 ### Added
-- **NPX Distribution System**: One-command deployment with `npx claude-code-collective`
+- **NPX Distribution System**: One-command deployment with `npx claude-tdd-agents
 - **Hub-and-Spoke Agent Architecture**: Central @routing-agent coordinates 25+ specialized agents
 - **TDD Framework Integration**: All agents follow RED-GREEN-REFACTOR methodology with standardized reporting
 - **Contract-Validated Handoffs**: Agent coordination with 98%+ success rate through validation contracts

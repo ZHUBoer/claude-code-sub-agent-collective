@@ -44,10 +44,10 @@ Try these commands to verify everything works:
 
 ```bash
 # Check status
-npx claude-code-collective status
+npx claude-tdd-agentsus
 
 # Validate installation
-npx claude-code-collective validate
+npx claude-tdd-agentsdate
 ```
 
 ### 3. Try Agent Routing
@@ -75,7 +75,7 @@ The @routing-agent will analyze your request and select the best agent:
 ### Monitoring Activity
 - **Metrics**: Check `.claude-collective/metrics/` for performance data
 - **Logs**: Review `/tmp/collective-*.log` for detailed activity
-- **Status**: Run `npx claude-code-collective status` for health check
+- **Status**: Run `npx claude-tdd-agentsus` for health check
 
 ## 📊 Research Framework
 
@@ -148,15 +148,15 @@ With the collective active, Claude Code will behave differently:
 ### Troubleshooting
 If something isn't working:
 1. **Restart Claude Code** - Hooks need to be reloaded
-2. **Check Status** - Run `npx claude-code-collective status`
-3. **Validate Installation** - Run `npx claude-code-collective validate`
+2. **Check Status** - Run `npx claude-tdd-agentsus`
+3. **Validate Installation** - Run `npx claude-tdd-agentsdate`
 4. **Review Logs** - Check `/tmp/collective-*.log` files
-5. **Repair Installation** - Run `npx claude-code-collective repair`
+5. **Repair Installation** - Run `npx claude-tdd-agentsir`
 
 ### Getting Help
-- **Status Command**: `npx claude-code-collective status`
-- **Validation**: `npx claude-code-collective validate`  
-- **Repair**: `npx claude-code-collective repair`
+- **Status Command**: `npx claude-tdd-agentsus`
+- **Validation**: `npx claude-tdd-agentsdate`  
+- **Repair**: `npx claude-tdd-agentsir`
 - **Documentation**: Review the files in `.claude/docs/`
 
 ## 🔬 Research Participation
@@ -174,16 +174,16 @@ Metrics are collected automatically (no personal data) to validate the research 
 ### Essential Commands
 ```bash
 # Check collective health
-npx claude-code-collective status
+npx claude-tdd-agentsus
 
 # Validate everything is working  
-npx claude-code-collective validate
+npx claude-tdd-agentsdate
 
 # Fix problems
-npx claude-code-collective repair
+npx claude-tdd-agentsir
 
 # Remove collective
-npx claude-code-collective clean
+npx claude-tdd-agentsn
 ```
 
 ### Agent Routing Examples
