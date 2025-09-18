@@ -1,10 +1,12 @@
 {
-  "deniedTools": [
-    "mcp__task_master_ai__initialize_project",
-    "mcp__task_master__initialize_project",
-    "mcp__task-master-ai__initialize_project",
-    "mcp__task-master__initialize_project "
-  ],
+  "permissions": {
+    "deny": [
+      "mcp__task_master_ai__initialize_project",
+      "mcp__task_master__initialize_project",
+      "mcp__task-master-ai__initialize_project",
+      "mcp__task-master__initialize_project "
+    ]
+  },
   "hooks": {
     "SessionStart": [
       {
