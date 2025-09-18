@@ -1,569 +1,64 @@
 # Changelog
 
-All notable changes to the TaskMaster Agent autonomous development system will be documented in this file.
-
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.0.6] - 2025-08-16
-
-### 🔧 Fixed
-- **Critical Backup System Bug**: Fixed backup system that was claiming to backup files but not actually doing it
-  - Added conflicting hook files to `analysis.existingFiles` so they actually get backed up
-  - Added SHA-256 file comparison to detect identical files and skip unnecessary operations
-  - Backup validation now works correctly for both settings.json and hook files
-
-### 🧪 Added
-- **NPM Testing Workflow**: Comprehensive testing infrastructure for package development
-  - `scripts/test-automated.sh` - Automated backup functionality testing
-  - `scripts/test-local.sh` - Local package testing workflow with version validation
-  - `scripts/test-manual.sh` - Manual testing setup for interactive validation
-- **Testing Standards**: Mandatory NPM testing directory naming conventions (`ccc-*` pattern)
-- **Standards Compliance**: Documentation to prevent unauthorized changes to established conventions
-
-### 🛠️ Improved
-- **Template Resolution**: Better template directory resolution for different installation contexts
-- **File Mapping**: Improved template file organization and exclusion handling
-- **Git Ignore**: Fixed problematic `test-*` pattern and added `*.tgz` for package artifacts
-- **Documentation**: Updated CLAUDE.md with testing workflows and compliance standards
-
-### 🎯 Technical Details
-- Backup system now uses `analysis.existingFiles.map(f => f.path)` correctly
-- SHA-256 file comparison prevents unnecessary backup operations for identical files
-- Testing scripts follow established `ccc-[type]-v[N]` naming convention
-- All changes validated through comprehensive testing workflow
-
----
-
-## [2.0.5] - 2025-08-09
-
-### 🔄 Changed
-- **Project Structure**: Major consolidation moving from distributed structure to single root directory
-- **NPX Package**: Streamlined distribution with all components in unified location
-- **Template System**: Reorganized templates for more efficient installation
-- **Documentation**: Updated CLAUDE.md to reflect new streamlined project structure
-
-### 🛠️ Fixed
-- **Template File Resolution**: Improved handling of template files during NPX installation
-- **Directory Structure**: Resolved issues with nested project organization
-- **Validation**: Enhanced status command with graceful validation and error handling
-
-### 📦 Development
-- Dedicated npm-tests directory for package testing without polluting active projects
-- Automated validation and non-interactive testing flags
-- Branch-based testing workflow documentation
-
----
-
-## [1.1.1] - 2025-01-20
-
-### 🧪 Fixed
-- **Test Validation & Release Cleanup**: Fixed backup limits test race condition preventing reliable test execution
-- **Backup Timer**: Disabled automatic backup timer in tests to prevent race conditions between cleanup and concurrent backup creation
-- **Repository Cleanup**: Complete cleanup for public release - removed development artifacts, logs, node_modules, and test data
-- **Package Size**: Repository optimized from ~50-100MB to ~11MB
-
-### ✅ Validation
-- All 132 NPX package tests now pass consistently
-- Complete test suite reliability achieved
-
----
-
-## [1.1.0] - 2025-01-19
-
-### 🧠 Added
-- **Context7 Integration**: Major upgrade with Context7 MCP integration for real-time library documentation access
-- **TDD Optimization**: Comprehensive TDD test optimization reducing from hundreds of tests to 5 essential tests per component
-- **Agent Collective**: Enhanced agent collective with research-backed task generation
-- **Hub-and-Spoke Coordination**: Validation and improved test-driven handoff contracts
-
-### ✅ Validation
-- All 173 tests pass across both .claude-collective (41/41) and NPX package (132/132) test suites
-
----
-
-## [1.3.9] - 2025-01-18
-
-### 🔧 Fixed
-- **SessionStart Hook**: Fixed verbose output issue where SessionStart hook displayed context content to users instead of loading silently
-- **Hook Output**: Hook now uses Claude Code's JSON API format with suppressOutput: true for clean startup experience
-- **Behavioral System**: Preserved full behavioral system loading while eliminating user-visible output
-
----
-
-## [1.3.8] - 2025-01-17
-
-### 🧹 Fixed
-- **Tool Configuration**: Fixed prd-research-agent tool configuration contradictions
-- **Restricted Tools**: Removed restricted tools from tool list and eliminated ineffective restricted_tools field
-- **Agent Access**: Agent now has clean access only to tools it actually uses
-- **Documentation**: Updated documentation to match implementation
-
----
-
-## [1.3.7] - 2025-01-16
-
-### 🔧 Fixed
-- **NPX Installer**: Fixed agent library file installation
-- **Agent Libraries**: ResearchDrivenAnalyzer and other agent lib files now properly copy during NPX installation
-- **File Mapping**: Updated file-mapping.js to include agent lib directory mapping for complete template distribution
-
----
-
-## [1.3.6] - 2025-01-15
-
-### 🐛 Fixed
-- **Critical Orchestrator Bug**: Fixed premature TDD validation that was blocking implementation workflows
-- **Hook Logic**: Hook now correctly distinguishes between deployment messages ("Deploying agent") and completion messages ("Phase completed")
-- **Validation Triggers**: Prevented false validation triggers before work is actually done
-
----
-
-## [1.0.6] - 2025-08-09
+## [1.0.1] - 2025-09-18
 
 ### Added
-- **NPX Distribution System**: One-command deployment with `npx claude-tdd-agents`
-- **Hub-and-Spoke Agent Architecture**: Central @routing-agent coordinates 25+ specialized agents
-- **TDD Framework Integration**: All agents follow RED-GREEN-REFACTOR methodology with standardized reporting
-- **Contract-Validated Handoffs**: Agent coordination with 98%+ success rate through validation contracts
-- **25+ Specialized Agents**: Including @component-implementation-agent, @feature-implementation-agent, @testing-implementation-agent, and more
-- **Cross-Platform NPX Package**: Windows, macOS, Linux support with WSL2 compatibility
-- **Quality Gates**: Automatic testing, validation, and professional completion reporting
-- **Template Distribution**: Jest/Vitest frameworks and agent templates via NPX
-
-### Changed
-- **Agent Coordination**: Moved from direct peer communication to hub-and-spoke routing
-- **Quality Standards**: Upgraded from development-grade to battle-tested reliability (91/91 tests passing)
-- **Deployment Model**: Transformed from manual setup to one-command NPX installation
-- **Documentation Focus**: Shifted from research system to ready-to-use development tool
-- **Error Handling**: Eliminated console pollution and timer leaks for clean test execution
+- 为交互式安装程序、`TESTING-GUIDE` 和其他关键代理角色文件添加了中文翻译。
+- 增加了文件映射和安装逻辑，以确保关键配置文件的存在。
+- 在 `settings.json.template` 中增加了对新工具的支持。
+- 更新了文件映射配置，以支持集体行为系统和代理库。
+- 在 `CLAUDE.md` 中增加了依赖安装说明。
+- 新增了参数 Diff 能力（JSON）功能文档。
+- 添加了完整的中文文档和安装指南。
 
 ### Fixed
-- **Console Error Messages**: Removed all console pollution from test output (91/91 clean execution)
-- **Timer Leaks**: Applied .unref() to all background timers preventing worker process exit issues
-- **Contract Validation**: Fixed template validation tests for consistent NPX deployment
-- **MCP Installation Commands**: Verified and corrected package names in setup instructions
-
-### Removed
-- **Corporate Buzzwords**: Eliminated "enterprise" and "production" terminology from documentation
-- **Unnecessary Test Files**: Cleaned up 7 JavaScript test files from root directory
-- **Research-Only Language**: Replaced experimental descriptions with practical usage
-
-### Technical Details
-- **Agent Selection Accuracy**: 95%+ correct routing through semantic analysis
-- **Test Coverage**: 90%+ on all agent implementations with comprehensive quality gates
-- **Deployment Success**: 99%+ successful NPX installations across platforms
-- **Contract System**: JavaScript-based handoff validation ensuring context preservation
-
----
-
-## [2.0.0] - 2025-01-28
-
-### 🚀 REVOLUTIONARY: Three-Tier Orchestration Architecture
-
-This release introduces **intelligent routing and autonomous project orchestration** through a breakthrough Three-Tier Architecture that transforms natural language requests into battle-tested applications with zero manual intervention.
-
-### ✨ Major Features Added
-
-#### 🎯 Tier 1: Intelligent Routing System
-- **Smart Complexity Assessment**: Dynamic request analysis that routes to optimal execution path
-- **No Hardcoded Rules**: Pure need-based assessment adapting to any request complexity
-- **Three Routing Pathways**: Direct execution → Standard workflow → Complex project management
-- **JSON-Only Responses**: Bulletproof validation eliminates malformed agent responses
-
-#### 🏗️ Tier 2: Project Management Intelligence  
-- **Advanced Breakdown**: Complex multi-component systems with expert architectural analysis
-- **Custom Workflow Creation**: Tailored execution plans with proper dependencies and phases
-- **TaskMaster Integration**: Full advanced project management with task tracking and reporting
-- **Dynamic Adaptation**: Workflows that evolve as project requirements unfold
-
-#### ⚡ Tier 3: Orchestration & Execution Engine
-- **Dynamic Coordination**: Real-time agent orchestration with adaptive plan updates
-- **Parallel Processing**: MAX_PARALLEL=3 concurrent task execution with dependency management
-- **Live State Management**: Hook-based workflow coordination with instant feedback loops
-- **Error Recovery**: Intelligent retry mechanisms and failure handling
-
-### 🧪 Battle-Tested Performance Results
-
-#### 🔧 Test 1: Simple Edit (0.3 seconds)
-- **Request**: "Add a comment explaining the calculateTotal function"
-- **Result**: Perfect JSDoc comment with comprehensive documentation
-- **Impact**: Lightning-fast execution for simple tasks
-
-#### 🚀 Test 2: Feature Development (4 minutes)
-- **Request**: "Add user login functionality with JWT authentication"
-- **Result**: Complete JWT authentication system with 9 API endpoints, seamless security, and 21/21 passing tests
-- **Impact**: Production-ready authentication delivered automatically
-
-#### 🏗️ Test 3: Complex Integration (8 minutes)
-- **Request**: "Build a user management system with roles and permissions"
-- **Result**: Advanced system with 5-tier role hierarchy, 28 granular permissions, RBAC inheritance
-- **Impact**: Complex multi-component system with zero manual configuration
-
-#### 🏢 Test 4: Advanced System (12 minutes setup)
-- **Request**: "Build an e-commerce platform with product catalog, shopping cart, checkout, and payment integration"
-- **Result**: Complete advanced project architecture with 25-task breakdown and organized development phases
-- **Impact**: Advanced-scale project orchestration ready for team execution
-
-### 🎯 Key Technical Breakthroughs
-
-#### 🔒 JSON-Only Workflow Responses
-- **Problem Solved**: Mixed text/JSON responses causing constant parsing failures
-- **Solution**: Strict validation with exit code 2 blocking - zero tolerance for malformed data
-- **Impact**: Bulletproof validation eliminates workflow crashes
-
-#### ⚡ Parallel Dependency Management
-- **Innovation**: Smart execution sequencing with MAX_PARALLEL=3 concurrent processing
-- **Architecture**: Intelligent dependency resolution with real-time coordination
-- **Result**: Massive performance improvements for complex projects
-
-#### 🔄 Live Hook System Integration
-- **Breakthrough**: PostToolUse hooks provide automatic agent coordination with persistent state
-- **Technology**: File-based workflow state with hook-driven execution
-- **Benefit**: Bulletproof reliability and complete transparency
-
-#### 🛡️ Zero-Error Production Quality
-- **Standard**: Every delivered system includes comprehensive testing, seamless security, and browser validation
-- **Validation**: Real browser testing with Playwright automation
-- **Guarantee**: No exceptions - all systems are battle-tested
-
-### 🔬 Research Foundation & Architecture Decisions
-
-#### Three-Tier Architecture Research
-- **Analysis**: Deep study of seamless workflow orchestration patterns (Apache Airflow, Kubernetes workflows)
-- **Standards**: Comprehensive evaluation of BPMN (Business Process Model and Notation)
-- **Decision**: Hybrid approach combining centralized routing with distributed execution
-
-#### Hook-Based Coordination Research
-- **Study**: In-depth analysis of CI/CD pipeline hook systems (GitHub Actions, GitLab CI)
-- **Patterns**: Advanced event-driven architecture evaluation
-- **Implementation**: File-based workflow state with bulletproof reliability
-
-#### Military-Grade Security Architecture
-- **JWT Fortress**: Dual-token pattern with OAuth 2.1 and OIDC specifications compliance
-- **RBAC Hierarchy**: NIST RBAC standard implementation with 28 granular permissions
-- **Input Validation Shield**: OWASP security guidelines with defense-in-depth approach
-
-### 🛠️ Breaking Changes
-
-#### Agent System Overhaul
-- **New**: Three-Tier routing replaces hardcoded complexity levels
-- **Enhanced**: workflow-agent now provides intelligent routing decisions only
-- **Improved**: project-manager-agent handles complex system breakdown
-- **Upgraded**: Main Claude coordinates all execution with WBS engine
-
-#### Workflow Coordination
-- **Revolutionary**: Hook-based coordination replaces manual agent handoffs
-- **Required**: Agent restarts needed after hook or configuration changes
-- **Automated**: JSON validation prevents malformed responses
-
-### 📈 Performance Improvements
-
-#### Execution Speed
-- **Simple Tasks**: 0.3-second direct routing for basic edits
-- **Standard Features**: 4-minute complete implementations with testing
-- **Complex Systems**: 8-minute seamless integrations with full validation
-- **Advanced Projects**: 12-minute setup with comprehensive orchestration
-
-#### Quality Standards
-- **Security**: Military-grade JWT implementation with RBAC
-- **Testing**: 100% test coverage with browser validation
-- **Accessibility**: WCAG 2.1 AA compliance automatic
-- **Performance**: Production-ready optimization included
-
-### 🔄 Migration Guide
-
-#### From Previous Versions
-1. **System Architecture**: Three-Tier routing automatically replaces old complexity levels
-2. **Agent Configuration**: No changes needed - routing intelligence is automatic
-3. **Hook System**: Ensure `.claude/hooks/workflow-coordinator.sh` is properly configured
-4. **Validation**: JSON-only responses now strictly enforced
-
-#### No Breaking API Changes
-- **Commands**: All existing slash commands continue to work
-- **Workflows**: Previous workflows automatically upgraded to Three-Tier routing
-- **Compatibility**: Full backward compatibility maintained
-
-### 🐛 Critical Fixes
-
-#### JSON Response Validation
-- **Fixed**: Mixed text/JSON responses causing workflow failures
-- **Solution**: Strict JSON-only enforcement with schema validation
-- **Result**: 100% reliable agent communication
-
-#### Mermaid Diagram Parsing
-- **Fixed**: Syntax errors in class definitions causing documentation failures
-- **Solution**: Proper class assignment formatting
-- **Result**: Perfect diagram rendering in documentation
-
-#### Hook System Reliability
-- **Enhanced**: Restart protocol compliance for configuration changes
-- **Improved**: Error handling and state persistence
-- **Result**: Bulletproof workflow coordination
-
-### 📊 Updated Metrics
-
-#### Development Performance
-- **Simple Tasks**: Sub-second execution (0.3s average)
-- **Feature Development**: 4-minute working delivery
-- **Complex Integration**: 8-minute seamless systems
-- **Advanced Setup**: 12-minute project orchestration
-
-#### Quality Assurance
-- **Test Coverage**: 100% automated testing
-- **Security Standards**: Military-grade implementation
-- **Accessibility**: WCAG 2.1 AA compliance
-- **Browser Validation**: Real functional testing included
-
----
-
-## [1.1.0] - 2025-01-19
-
-### 🚀 MAJOR: Zero-Cost Claude Code Integration
-
-This release introduces **revolutionary zero-cost autonomous development** through native Claude Code integration, eliminating all API expenses while maintaining full multi-agent capabilities.
-
-### ✨ New Features
-
-#### 💰 Claude Code Integration
-- **Native Model Support**: Direct integration with `claude-code/sonnet` and `claude-code/opus`
-- **Zero API Costs**: Complete autonomous development with $0 expenses
-- **No Rate Limits**: Local processing eliminates API restrictions
-- **Enhanced Reliability**: Direct model access reduces failure points
-
-#### 🔧 Model Configuration
-- **Automatic Model Setup**: Configure Claude Code models with simple commands
-- **Flexible Model Assignment**: Separate models for research, implementation, and fallback
-- **Backward Compatibility**: Existing API-based configurations still supported
-
-#### 📚 Updated Documentation
-- **Claude Code Setup Instructions**: Step-by-step configuration guide
-- **Zero-Cost Messaging**: Prominent callouts about free autonomous development
-- **Streamlined Results Section**: Focus on capabilities rather than specific implementations
-- **Integration Benefits**: Clear comparison between API and Claude Code approaches
-
-### 🛠️ Technical Improvements
-
-#### Configuration Commands
-```bash
-tm models --setMain claude-code/sonnet
-tm models --setResearch claude-code/opus  
-tm models --setFallback claude-code/sonnet
-```
-
-#### Enhanced Reliability
-- **Reduced API Failures**: Local model execution eliminates network dependencies
-- **Improved Error Recovery**: Better handling of model execution issues
-- **Faster Execution**: No network latency for model calls
-
-### ⚡ Validation Results
-
-#### Autonomous Development Testing
-- **End-to-End Validation**: Complete PRD-to-working pipeline verified
-- **Multi-Agent Coordination**: Research → Implementation → Quality governance working
-- **Production Standards**: TypeScript, testing, accessibility compliance maintained
-- **Zero-Cost Operation**: Confirmed $0 API usage during full development cycles
-
-### 🔄 Migration Guide
-
-#### From API-Based Models
-1. **Install TaskMaster MCP**: Already configured if using existing setup
-2. **Configure Claude Code Models**: Use `tm models` commands above
-3. **Run Autonomous Development**: Same `/project:tm-orchestrator-simple` command
-4. **Verify Zero Costs**: Monitor for $0 API usage
-
-#### Breaking Changes
-- **None**: Existing workflows remain unchanged
-- **Optional Migration**: API-based configurations continue to work
-- **Enhanced Defaults**: New projects auto-configure for Claude Code if available
-
-### 📈 Performance Improvements
-- **Faster Model Execution**: Local processing eliminates network overhead
-- **No Rate Limiting**: Unlimited model calls for complex projects
-- **Improved Throughput**: Parallel agent execution without API constraints
-
-### 🐛 Bug Fixes
-- **State Management**: Fixed branch switching issues during MCP execution
-- **Configuration Validation**: Improved error handling for missing API keys
-- **Documentation**: Removed outdated API-only examples
-
-### 📊 Updated Metrics
-- **Development Cost**: $0.00 (Claude Code integration)
-- **Setup Time**: 5 minutes (unchanged)
-- **Quality Standards**: Production-ready output maintained
-- **Reliability**: Enhanced through local model execution
-
----
-
-## [1.0.0-alpha] - 2025-01-16
-
-### 🚀 BREAKTHROUGH RELEASE: World's First Autonomous AI Development Team
-
-This alpha release introduces the world's first practical multi-agent AI development system capable of autonomous software development from requirements to working.
-
-### ✨ Major Features Added
-
-#### 🎭 Multi-Agent Coordination System
-- **Orchestrator Agent**: Strategic project coordination with intelligent handoffs
-- **Research Agent**: Comprehensive technical analysis and architecture decisions  
-- **Implementation Agent**: Production-quality code development with testing
-- **Structure Enforcer**: Professional project organization and governance
-
-#### 🔬 Research-Driven Development
-- **Architectural Decision Records (ADRs)**: Documented technical choices with rationale
-- **Technical Analysis Reports**: Deep evaluation of frameworks, patterns, and tools
-- **Implementation Guides**: Detailed patterns and code examples
-- **Research Document Architecture**: Structured knowledge management system
-
-#### ⚡ Continuous Quality Integration
-- **Quality Gates**: Automated testing, linting, and build validation after each feature
-- **Accessibility First**: WCAG 2.1 AA compliance built into development process
-- **TypeScript Integration**: 100% type coverage with strict mode enforcement
-- **Performance Optimization**: Bundle analysis and optimization
-
-#### 🏗️ Quality Governance
-- **Project Structure Enforcement**: Professional directory organization standards
-- **Technical Debt Prevention**: Automated code quality and structure validation
-- **Configuration Standards**: Consistent build, test, and lint setup
-- **Documentation Generation**: Automatic README and technical documentation
-
-### 🤖 New Claude Commands
-
-#### Primary Workflow
-- `/project:tm-orchestrator-simple` - **MAIN COMMAND**: Complete autonomous development from PRD to working
-
-#### Individual Agents (Advanced Usage)
-- `/project:tm-research-agent` - Deep technical research and architecture analysis
-- `/project:tm-implementation-agent` - Production code development with quality standards
-- `/project:tm-project-structure-enforcer` - Quality project organization governance
-- `/project:tm-research-document-architect` - Knowledge management and documentation
-- `/project:tm-task-context-templates` - Standardized agent communication patterns
-
-### 📊 Proven Results
-
-#### 🎯 Multi-Agent Coordination Test: Todo Application
-- **Input**: Simple PRD with CRUD requirements
-- **Output**: Production Vue 3 application with:
-  - Vue 3 + TypeScript + Composition API
-  - Tailwind CSS responsive design  
-  - Robust local storage with error handling
-  - Complete accessibility (WCAG 2.1 AA)
-  - 21 passing unit tests (100% success rate)
-  - Professional project structure
-  - Bundle optimization (42KB gzipped)
-
-#### ⏱️ Performance Metrics
-- **Development Time**: 45 minutes autonomous execution (intentionally complex multi-agent pipeline test)
-- **Human Time**: 5 minutes setup + monitoring
-- **Quality Gates**: All automated tests and validations passed
-- **Code Quality**: 100% TypeScript coverage, seamless standards
-
-*Note: The 45-minute execution time was intentional to test full multi-agent coordination including research phase, comprehensive analysis, ADR creation, and quality governance. A simple todo app could be built much faster, but this validates complex agent coordination for working development.*
-
-### 🔧 Technical Implementation
-
-#### Phase 2 Enhancements (vs Single-Agent Systems)
-- **Enhanced Orchestrator Intelligence**: Predictive planning and risk assessment
-- **Advanced Task Contextualization**: Rich task contexts for seamless coordination
-- **Sophisticated Communication**: Cross-agent knowledge transfer and handoffs
-- **Quality-First Progression**: Mandatory validation before advancement
-- **Resource Optimization**: Intelligent agent workload balancing
-
-#### Architecture Patterns
-- **Tag-Based Context Switching**: Agents operate in specialized workspace contexts
-- **Research → Implementation Pipeline**: Knowledge flows from analysis to development
-- **Continuous Validation**: Quality checks integrated throughout development
-- **Knowledge Preservation**: Complete documentation of decisions and rationale
-
-### ⚠️ Alpha Release Limitations
-
-#### 🔴 Known Issues
-- **TaskMaster MCP Integration**: ~15% API failure rate requiring manual intervention
-- **Error Recovery**: Limited automatic retry mechanisms for failed operations
-- **Context Switching**: Occasional reliability issues with agent tag management
-
-#### 🟡 Tested Scope
-- **Project Types**: Frontend applications (React, Vue, Angular)
-- **Complexity**: Small to medium projects (≤50 tasks)
-- **Platforms**: Linux/WSL, Windows, macOS
-
-#### ✅ What Works Reliably
-- **Multi-agent coordination**: Successful agent handoffs and communication
-- **Code quality**: Professional standards and comprehensive testing
-- **Architecture decisions**: Research-driven technical choices with documentation
-- **Project structure**: Professional organization and governance
-
-### 🛠️ Breaking Changes
-
-#### Migration from Single-Agent TaskMaster
-- **New Primary Command**: Use `/project:tm-orchestrator-simple` instead of individual task commands
-- **Research-First Approach**: System now conducts comprehensive analysis before implementation
-- **Quality Gates**: Implementation includes mandatory testing and validation steps
-- **Documentation Standards**: Projects now include ADRs and technical documentation
-
-#### Command Changes
-- **Deprecated**: Manual task-by-task execution workflows
-- **Enhanced**: All commands now include quality validation and structure governance
-- **New**: Multi-agent coordination commands for advanced users
-
-### 📚 Documentation
-
-#### New Documentation
-- **README.md**: Complete rewrite focusing on multi-agent autonomous development
-- **Agent Architecture**: Detailed explanation of agent roles and coordination
-- **Quick Start Guide**: 5-minute setup to autonomous development
-- **Real-World Examples**: Case study with metrics and results
-
-#### Mermaid Diagrams
-- **Agent Coordination Flow**: Visual representation of multi-agent interaction
-- **Development Pipeline**: Sequence diagram of autonomous development process
-- **System Architecture**: High-level view of agent coordination patterns
-
-### 🚀 Future Roadmap
-
-#### Beta Release (v1.0.0-beta)
-- **Enhanced MCP Reliability**: Fix TaskMaster integration issues
-- **Error Recovery**: Automatic retry and fallback mechanisms
-- **Expanded Project Types**: Backend, mobile, and full-stack support
-- **Real-time Monitoring**: Dashboard for development progress
-
-#### General Availability (v1.0.0)
-- **Production Features**: CI/CD integration and deployment automation
-- **Custom Agent Personalities**: Specialized agents for different domains
-- **Learning System**: Agents that improve from project feedback
-- **Scalability**: Support for large, complex working projects
-
-### 🤝 Contributing
-
-This alpha release establishes the foundation for autonomous AI development. Community contributions are essential for:
-- **TaskMaster MCP Improvements**: Help fix integration reliability issues
-- **Agent Coordination**: Enhance communication and handoff mechanisms
-- **Project Type Coverage**: Extend support to different technology stacks
-- **Quality Standards**: Improve testing, accessibility, and performance validation
-
-### 📞 Community Feedback
-
-**Alpha Testing Goals:**
-- Validate multi-agent coordination reliability
-- Identify additional project types and use cases
-- Improve error handling and recovery mechanisms
-- Gather feedback on autonomous development experience
-
-**How to Contribute:**
-- Test with your own projects and report results
-- Submit bug reports with reworking steps
-- Share ideas for agent improvements and new capabilities
-- Help improve documentation and onboarding experience
-
----
-
-## [Previous Versions]
-
-### Pre-1.0.0 Development
-- Single-agent TaskMaster integration and command development
-- Foundation work on Claude Code integration patterns
-- Research and prototyping of multi-agent coordination concepts
-
----
-
-**Note**: This changelog documents the revolutionary transition from AI-assisted development to true autonomous AI development teams. The 1.0.0-alpha release represents a fundamental breakthrough in software development automation.
+- 修复了 `settings.json.template` 中因缺少逗号导致的 JSON 格式错误。
+- 修正了 `package.json` 中的仓库 URL。
+- 修复了命令历史记录无法正确持久化到磁盘的问题。
+
+### Changed
+- 将项目名称更新为 `claude-tdd-agents`。
+- 将 Jest 设置为默认测试运行程序，并区分了 Jest 和 Vitest 测试套件。
+- 重构了 `settings.json.template` 的权限结构，以提高可读性。
+- 更新了依赖项和 Node.js 版本要求。
+- 优化了性能指标收集逻辑，提高了代码的健壮性。
+- 将代理验证测试命令切换为 `npm test`，以实现更标准的执行方式。
+- 删除了文档中过时的 MCP 集成部分。
+- 在代码中添加了必要的注释和调试逻辑。
+
+## [1.0.0] - 2025-09-09
+
+此版本整合了之前的所有基础版本和主要版本，代表了从单一代理原型到复杂的、自主的多代理开发系统的演进。
+
+### 🚀 新增
+
+*   **自主化 AI 开发系统**：推出了首个实用的多代理 AI 开发团队，能够处理从需求到生产就绪代码的软件项目。
+*   **Three-Tier Orchestration Architecture**：实现了一种革命性的架构，用于智能路由、高级项目管理和并行执行，使系统能够自主处理不同复杂度的任务。
+*   **Hub-and-Spoke Agent Architecture**：建立了一个强大的协调模型，包含一个中央路由代理和超过 25 个专业代理，用于研究、实现、测试和 DevOps 等任务。
+*   **零成本 Claude 代码集成**：增加了对本地模型（`claude-code/sonnet`、`claude-code/opus`）的原生支持，消除了自主开发中的 API 成本和速率限制。
+*   **NPX 一键部署**：通过 `npx claude-tdd-agents` 简化了分发和设置，实现了跨平台（Windows、macOS、Linux）安装。
+*   **研究驱动和测试驱动开发 (TDD)**：集成了一个 TDD 框架（RED-GREEN-REFACTOR）和研究优先的方法，确保所有开发都以技术分析和全面测试为基础。
+*   **持续质量治理**：内置质量门，用于自动化测试、代码规范检查（Linting）、可访问性（WCAG 2.1 AA）、TypeScript 严格模式强制执行和性能优化。
+
+### 🔄 变更
+
+*   **代理协调模型**：从直接的对等通信演变为集中的 Hub-and-Spoke 模型，并最终演变为基于钩子（hook）的先进编排系统，以实现卓越的可靠性和状态管理。
+*   **项目结构**：将分布式的项目结构整合为单一、统一的根目录，以简化 NPX 包的分发和维护。
+*   **代理通信**：对所有代理通信强制执行严格的纯 JSON 响应格式，消除了解析失败，并确保了工作流验证的绝对可靠性。
+*   **部署模型**：从手动设置转变为完全自动化的、一键式的 NPX 安装流程。
+
+### 🔧 修复
+
+*   **关键系统错误**：解决了与备份系统、过早的 TDD 验证以及先前阻碍实施工作流的编排器逻辑相关的重大问题。
+*   **可靠性与稳定性**：消除了测试中的大量竞态条件、控制台错误污染和后台计时器泄漏，以确保一致和干净的执行。
+*   **安装与配置**：修正了 NPX 安装程序的文件映射、工具配置和钩子执行，以确保流畅的开箱即用体验。
+*   **代理通信失败**：通过严格的 JSON 验证解决了由混合文本/JSON 响应导致的工作流崩溃问题。
+
+### 🗑️ 移除
+
+*   **手动工作流**：废弃了手动的、逐任务的执行方式，转而采用完全自主的、编排式的工作流。
+*   **不必要的构建产物**：清理了仓库，移除了开发日志、测试数据和不必要的测试文件，以优化包大小。
+*   **模糊性术语**：从文档中删除了专业术语和纯研究性语言，以提高清晰度并专注于实际应用。
