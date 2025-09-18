@@ -16,7 +16,35 @@ LOG_FILE="$METRICS_DIR/collective-metrics.log"
 mkdir -p "$METRICS_DIR"
 
 timestamp() { date '+%Y-%m-%d %H:%M:%S'; }
-epoch_ms() { date +%s%3N; }
+# 兼容 macOS（BSD date 无 %N）与 Linux 的毫秒时间戳
+epoch_ms() {
+    # 优先 GNU date（coreutils 的 gdate）
+    if command -v gdate >/dev/null 2>&1; then
+        local ts
+        ts="$(gdate +%s%3N 2>/dev/null | tr -cd '0-9')"
+        if printf '%s' "$ts" | grep -Eq '^[0-9]+$'; then
+            echo "$ts"
+            return
+        fi
+    fi
+    # 回退到 Python3（最可靠）
+    if command -v python3 >/dev/null 2>&1; then
+        python3 - <<'PY'
+import time, sys
+sys.stdout.write(str(int(time.time()*1000)))
+PY
+        return
+    fi
+    # BSD date 清洗非数字字符（防止 %N 输出字母）
+    local ts
+    ts="$(date +%s%3N 2>/dev/null | tr -cd '0-9')"
+    if printf '%s' "$ts" | grep -Eq '^[0-9]+$'; then
+        echo "$ts"
+        return
+    fi
+    # 最终回退：秒 * 1000（纯数字）
+    echo $(( $(date +%s) * 1000 ))
+}
 
 log() {
     echo "[$(timestamp)] $1" >> "$LOG_FILE"
