@@ -4,7 +4,7 @@
 
 ### 安装
 
-使用一个简单的命令即可在任何项目中安装本智能体集合系统：
+使用一个简单的命令即可在任何项目中安装claude-tdd-agents：
 
 ```bash
 npx claude-tdd-agents init
