@@ -118,7 +118,10 @@ describe('NPX Installation Tests', () => {
       const result = await installer.install();
       
       expect(result.success).toBe(true);
-      expect(result.path).toBe(path.join(projectRoot, '.claude'));
+      // 归一化真实路径，避免 macOS 上 /var 与 /private/var 的符号链接差异
+      const actualPath = fs.realpathSync(result.path);
+      const expectedPath = fs.realpathSync(path.join(projectRoot, '.claude'));
+      expect(actualPath).toBe(expectedPath);
       
       // Verify key files were created
       expect(await fs.pathExists(path.join(projectRoot, '.claude'))).toBe(true);

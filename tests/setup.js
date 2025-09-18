@@ -3,6 +3,7 @@
 
 const fs = require('fs-extra');
 const path = require('path');
+const os = require('os');
 
 // Set up test environment
 global.console = {
@@ -58,8 +59,9 @@ global.testUtils = {
   }
 };
 
-// Set up test directories
-const testTempDir = path.join(__dirname, 'temp');
+// Set up test directories (use OS tmpdir and worker-specific folder to avoid repo writes & races)
+const workerId = process.env.JEST_WORKER_ID || '0';
+const testTempDir = path.join(os.tmpdir(), 'claude-tdd-agents-tests', workerId);
 
 // Robust cleanup function for concurrent test safety
 async function cleanupTempDir() {
