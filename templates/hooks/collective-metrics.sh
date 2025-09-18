@@ -3,8 +3,12 @@
 # Phase 3 - Hook Integration System
 # Collects performance metrics and coordination statistics for research validation
 
+# 解析项目根目录（优先使用环境变量，其次根据脚本位置反推，最后使用保底默认）
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_ROOT_FROM_SCRIPT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+PROJECT_DIR=${CLAUDE_PROJECT_DIR:-"$PROJECT_ROOT_FROM_SCRIPT"}
+
 # Set up metrics storage
-PROJECT_DIR=${CLAUDE_PROJECT_DIR:-"/mnt/h/Active/taskmaster-agent-claude-code"}
 METRICS_DIR="$PROJECT_DIR/.claude-collective/metrics"
 METRICS_FILE="$METRICS_DIR/metrics-$(date +%Y%m%d).json"
 LOG_FILE="$METRICS_DIR/collective-metrics.log"
@@ -18,15 +22,68 @@ log() {
     echo "[$(timestamp)] $1" >> "$LOG_FILE"
 }
 
-# Initialize environment variables
+# 初始化上下文：优先读取环境变量；如缺失则从标准输入 JSON 中解析
 EVENT=${EVENT:-""}
 TOOL_NAME=${TOOL_NAME:-""}
 SUBAGENT_NAME=${SUBAGENT_NAME:-""}
 USER_PROMPT=${USER_PROMPT:-""}
 EXECUTION_TIME_MS=${EXECUTION_TIME_MS:-0}
-CLAUDE_PROJECT_DIR=${CLAUDE_PROJECT_DIR:-"/mnt/h/Active/taskmaster-agent-claude-code"}
+CLAUDE_PROJECT_DIR=${CLAUDE_PROJECT_DIR:-"$PROJECT_DIR"}
 
-log "METRICS COLLECTION TRIGGERED - Event: $EVENT, Tool: $TOOL_NAME, Agent: $SUBAGENT_NAME"
+# 尝试读取 JSON 输入（与 test-driven-handoff/handoff-automation 保持一致的模式）
+INPUT_JSON="$(cat 2>/dev/null)"
+
+if command -v jq >/dev/null 2>&1; then
+    # 如果环境变量为空，则回退到从 JSON 提取
+    if [[ -z "$EVENT" || "$EVENT" == "null" ]]; then
+        EVENT=$(echo "$INPUT_JSON" | jq -r '.hook_event_name // .event // .type // ""' 2>/dev/null)
+    fi
+    if [[ -z "$TOOL_NAME" || "$TOOL_NAME" == "null" ]]; then
+        TOOL_NAME=$(echo "$INPUT_JSON" | jq -r '.tool_name // .tool // ""' 2>/dev/null)
+    fi
+    if [[ -z "$SUBAGENT_NAME" || "$SUBAGENT_NAME" == "null" ]]; then
+        SUBAGENT_NAME=$(echo "$INPUT_JSON" | jq -r '.tool_input.subagent_type // .subagent // .agent // .agent_name // ""' 2>/dev/null)
+    fi
+    if [[ -z "$USER_PROMPT" || "$USER_PROMPT" == "null" ]]; then
+        USER_PROMPT=$(echo "$INPUT_JSON" | jq -r '.user_prompt // .prompt // .input // ""' 2>/dev/null)
+    fi
+    if [[ -z "$EXECUTION_TIME_MS" || "$EXECUTION_TIME_MS" == "null" || "$EXECUTION_TIME_MS" == "0" ]]; then
+        EXECUTION_TIME_MS=$(echo "$INPUT_JSON" | jq -r '.execution_time_ms // .executionTime // .duration_ms // 0' 2>/dev/null)
+        EXECUTION_TIME_MS=${EXECUTION_TIME_MS:-0}
+    fi
+    # 提取常见的 tool_input 关键信息，便于定位
+    TOOL_INPUT_KEYS=$(echo "$INPUT_JSON" | jq -r '.tool_input | if type=="object" then (keys|join(",")) else "" end' 2>/dev/null)
+    TOOL_INPUT_TARGET=$(echo "$INPUT_JSON" | jq -r '.tool_input.path // .tool_input.pattern // .tool_input.file // ""' 2>/dev/null)
+else
+    # 无 jq 时的简单回退（尽量不阻塞，不保证健壮性）
+    if [[ -z "$EVENT" ]]; then
+        EVENT=$(echo "$INPUT_JSON" | grep -o '"hook_event_name":"[^"]*"' | cut -d '"' -f4)
+    fi
+    if [[ -z "$TOOL_NAME" ]]; then
+        TOOL_NAME=$(echo "$INPUT_JSON" | grep -o '"tool_name":"[^"]*"' | cut -d '"' -f4)
+    fi
+    if [[ -z "$SUBAGENT_NAME" ]]; then
+        SUBAGENT_NAME=$(echo "$INPUT_JSON" | grep -o '"subagent_type":"[^"]*"' | cut -d '"' -f4)
+    fi
+fi
+
+# 构建紧凑上下文，避免空字段占位
+CONTEXT_PARTS=()
+[[ -n "$EVENT" ]] && CONTEXT_PARTS+=("Event: $EVENT")
+[[ -n "$TOOL_NAME" ]] && CONTEXT_PARTS+=("Tool: $TOOL_NAME")
+[[ -n "$SUBAGENT_NAME" ]] && CONTEXT_PARTS+=("Agent: $SUBAGENT_NAME")
+CONTEXT="$(IFS=", "; echo "${CONTEXT_PARTS[*]}")"
+
+if [[ -n "$CONTEXT" ]]; then
+    log "METRICS COLLECTION TRIGGERED - ${CONTEXT}"
+else
+    log "METRICS COLLECTION TRIGGERED"
+fi
+
+# 可选：记录典型工具的目标参数（如 Read/Glob 的 path/pattern）
+if [[ -n "$TOOL_INPUT_TARGET" ]]; then
+    log "Target: $TOOL_INPUT_TARGET"
+fi
 
 # Initialize metrics file if it doesn't exist
 initialize_metrics_file() {
