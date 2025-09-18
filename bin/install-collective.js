@@ -21,7 +21,7 @@ console.log(chalk.cyan(banner));
 // Configure CLI
 program
   .name('claude-tdd-agents')
-  .description('NPX installer for claude-code-sub-agent-collective system')
+  .description('NPX installer for claude-tdd-agents system')
   .version(version);
 
 // Init command - main installation

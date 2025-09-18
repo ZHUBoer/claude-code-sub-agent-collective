@@ -2,7 +2,7 @@
   "name": "{{PROJECT_NAME}}-collective-tests",
   "version": "1.0.0",
   "private": true,
-  "description": "Testing framework for claude-code-sub-agent-collective",
+  "description": "Testing framework for claude-tdd-agents",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",

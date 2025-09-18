@@ -2,7 +2,7 @@
 
 ## 🎯 Overview
 
-This guide provides the @routing-agent (hub) with comprehensive instructions for coordinating the claude-code-sub-agent-collective enhancement project using TaskMaster integration.
+This guide provides the @routing-agent (hub) with comprehensive instructions for coordinating the claude-tdd-agents enhancement project using TaskMaster integration.
 
 ## 🏗️ Architecture Pattern
 

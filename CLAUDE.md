@@ -8,7 +8,7 @@ This is the **claude tdd agents** - an NPX-distributed framework that installs s
 
 ## CRITICAL REPOSITORY INFORMATION
 
-**Git Remote URL:** https://github.com/ZHUBoer/claude-code-sub-agent-collective.git
+**Git Remote URL:** https://github.com/ZHUBoer/claude-tdd-agents.git
 **NEVER CHANGE THIS URL** - Always use this exact repository URL for all git operations.
 
 ## Architecture
@@ -67,7 +67,7 @@ npx claude-tdd-agents init --minimal  # Minimal installation
 npx claude-tdd-agents --help          # Help information
 
 # Return to main directory and cleanup when done
-cd ../claude-code-sub-agent-collective
+cd ../claude-tdd-agents
 ./scripts/cleanup-tests.sh # Removes test directories and tarballs
 ```
 
@@ -152,7 +152,7 @@ npx . validate            # Test validation
 
 4. **Fix Issues** (if any)
    ```bash
-   cd ../claude-code-sub-agent-collective
+   cd ../claude-tdd-agents
    # Make fixes...
    git add . && git commit -m "fix: issue description"
    # Repeat from step 2
@@ -283,7 +283,7 @@ This codebase implements a sophisticated agent collective system with strong TDD
 
 ## 关键代码库信息
 
-**Git 远程 URL:** https://github.com/ZHUBoer/claude-code-sub-agent-collective.git
+**Git 远程 URL:** https://github.com/ZHUBoer/claude-tdd-agents.git
 **切勿更改此 URL** - 所有 Git 操作都必须使用这个确切的代码库 URL。
 
 ## 架构

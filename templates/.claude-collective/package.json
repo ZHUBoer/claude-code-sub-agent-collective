@@ -1,7 +1,7 @@
 {
   "name": "claude-collective-tests",
   "version": "1.0.0",
-  "description": "Test framework for claude-code-sub-agent-collective system validation",
+  "description": "Test framework for claude-tdd-agents system validation",
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",

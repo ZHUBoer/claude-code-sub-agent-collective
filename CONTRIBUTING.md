@@ -137,7 +137,7 @@ How important is this to your workflow?
 #### **Development Setup:**
 ```bash
 # Clone the repository
-git clone https://github.com/ZHUBoer/claude-code-sub-agent-collective.git
+git clone https://github.com/ZHUBoer/claude-tdd-agents.git
 cd taskmaster-agent-claude-code
 
 # Install TaskMaster MCP

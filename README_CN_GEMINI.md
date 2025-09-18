@@ -168,7 +168,7 @@
     *   如果在测试中发现任何问题，返回主项目目录进行修复，然后重复步骤 2 和 3。
         ```bash
         # 返回主项目目录
-        cd ../claude-code-sub-agent-collective
+        cd ../claude-tdd-agents
 
         # 修复代码并提交
         git add . && git commit -m "fix: your-fix-description"
