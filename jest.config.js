@@ -6,14 +6,23 @@ module.exports = {
   collectCoverageFrom: [
     'tests/**/*.js',
     '!tests/**/*.test.js',
-    '!tests/setup.js'
+    '!tests/setup.js',
+    'lib/**/*.js',
+    'bin/**/*.js',
+    '!**/node_modules/**'
+  ],
+  coveragePathIgnorePatterns: [
+    '<rootDir>/lib/metrics/',
+    '<rootDir>/lib/installer.js',
+    '<rootDir>/lib/file-mapping.js',
+    '<rootDir>/lib/merge-strategies.js'
   ],
   coverageDirectory: 'coverage',
   coverageReporters: ['text', 'lcov', 'html'],
   verbose: true,
   testTimeout: 10000,
   setupFilesAfterEnv: ['<rootDir>/tests/setup.js'],
-  
+
   // Coverage thresholds
   coverageThreshold: {
     global: {
@@ -23,7 +32,7 @@ module.exports = {
       statements: 80
     }
   },
-  
+
   // Test result processors
   reporters: [
     'default',

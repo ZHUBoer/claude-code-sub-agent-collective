@@ -72,7 +72,6 @@ delegation-test.log
 ai-docs/
 
 # IDE-specific config files (PRIVATE)
-.cursor/
 .roo/
 .vite/
 .roomodes
