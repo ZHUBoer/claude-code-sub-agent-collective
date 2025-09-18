@@ -1,256 +1,169 @@
-# Contributing to the AI Development Revolution 🚀
+# 为 claude-tdd-agents 项目贡献
 
-Welcome to the world's first autonomous AI development system! This alpha release represents a breakthrough in software development automation, and your contributions are essential for making it even better.
+欢迎参与 claude-tdd-agents 项目的开发与完善。本项目是一个旨在实现软件开发自动化的多智能体（multi-agent）系统。我们鼓励并感谢大家通过多种方式为本项目的演进做出贡献。本指南旨在为您提供清晰的协作流程与规范。
 
-## 🎯 Alpha Testing Goals
+## 贡献方式
 
-We're looking for feedback and contributions in these key areas:
+我们欢迎以下几种形式的贡献：
 
-### 🤖 **Multi-Agent Coordination**
-- Test agent handoffs and communication reliability
-- Identify coordination failures and suggest improvements
-- Evaluate agent decision-making quality
-
-### 🏗️ **Project Coverage**
-- Try different project types (React, Vue, Angular, backend)
-- Test with varying complexity levels (simple apps to complex systems)
-- Report which frameworks and patterns work best
-
-### ⚡ **Quality & Performance**
-- Validate code quality standards and testing coverage
-- Test accessibility compliance and performance optimization
-- Identify areas where quality gates could be improved
-
-### 🔧 **TaskMaster Integration**
-- Help diagnose and fix the ~15% MCP API failure rate
-- Suggest workarounds for integration issues
-- Contribute to error handling improvements
-
-## 🚀 How to Contribute
-
-### 1. **Alpha Testing & Feedback**
-
-#### Try the Autonomous Development System
-```bash
-# Create a PRD for your project
-# Run the orchestrator
-/project:tm-orchestrator-simple
-
-# Report your experience!
-```
-
-#### **What We Want to Know:**
-- 📊 **Success Rate**: Did it work end-to-end?
-- 🕐 **Time to Complete**: How long did autonomous development take?
-- 🎯 **Quality Assessment**: How was the code quality and structure?
-- 🐛 **Issues Encountered**: What failed and how did you work around it?
-- 💡 **Surprise Factor**: What impressed you? What disappointed you?
-
-### 2. **Bug Reports**
-
-#### **High Priority Issues:**
-- Agent coordination failures
-- TaskMaster MCP integration errors
-- Quality gate failures
-- Project structure problems
-
-#### **Bug Report Template:**
-```markdown
-## Bug Description
-Brief description of what went wrong
-
-## Steps to Reproduce
-1. Create PRD with [specific requirements]
-2. Run `/project:tm-orchestrator-simple`
-3. Observe failure at [specific point]
-
-## Expected Behavior
-What should have happened
-
-## Actual Behavior
-What actually happened
-
-## Environment
-- OS: [Windows/macOS/Linux/WSL]
-- Claude Code Version: [version]
-- Project Type: [React/Vue/Angular/etc]
-- Project Complexity: [Simple/Medium/Complex]
-
-## Error Output
-```
-[Include any error messages or logs]
-```
-
-## Agent State
-- Which agent was active when failure occurred
-- TaskMaster tag context if known
-- Any partial completions
-```
-
-### 3. **Feature Requests & Improvements**
-
-#### **Areas for Enhancement:**
-- **New Project Types**: Backend frameworks, mobile apps, full-stack projects
-- **Agent Capabilities**: Specialized agents for testing, deployment, documentation
-- **Quality Standards**: Enhanced testing strategies, security validation
-- **Developer Experience**: Better progress monitoring, error recovery
-
-#### **Feature Request Template:**
-```markdown
-## Feature Description
-What capability would you like to see added?
-
-## Use Case
-Why is this feature important? What problem does it solve?
-
-## Proposed Implementation
-If you have ideas on how it could work
-
-## Priority
-How important is this to your workflow?
-```
-
-### 4. **Code Contributions**
-
-#### **Contribution Areas:**
-
-##### 🔧 **TaskMaster MCP Improvements**
-- Fix API reliability issues in `.claude/commands/`
-- Improve error handling and retry logic
-- Enhance agent context switching
-
-##### 🤖 **Agent Enhancements**
-- Improve research analysis depth and accuracy
-- Enhance implementation quality and testing
-- Better project structure governance
-
-##### 📚 **Documentation & Guides**
-- Framework-specific setup guides
-- Troubleshooting documentation
-- Video tutorials and examples
-
-##### ⚡ **Performance & Reliability**
-- Error recovery mechanisms
-- Progress monitoring improvements
-- Integration testing
-
-#### **Development Setup:**
-```bash
-# Clone the repository
-git clone https://github.com/ZHUBoer/claude-tdd-agents.git
-cd taskmaster-agent-claude-code
-
-# Install TaskMaster MCP
-claude mcp add task-master -s user -- npx -y --package=task-master-ai task-master-ai
-
-# Test with a simple project
-# [Create test PRD and run system]
-```
-
-#### **Pull Request Guidelines:**
-1. **Focus on Single Issues**: One PR per bug fix or feature
-2. **Test Your Changes**: Validate with multiple project types
-3. **Document Changes**: Update README and CHANGELOG as needed
-4. **Include Examples**: Show before/after behavior
-5. **Alpha Considerations**: Remember this is alpha software - prioritize reliability over features
-
-## 🧪 Alpha Testing Scenarios
-
-### **Test Cases We Need Coverage For:**
-
-#### **Project Types:**
-- [ ] React + TypeScript + Tailwind
-- [ ] Vue 3 + Composition API + CSS Modules  
-- [ ] Angular + Material UI + NgRx
-- [ ] Vanilla TypeScript + Vite
-- [ ] Node.js Express API
-- [ ] Next.js full-stack
-- [ ] Mobile React Native
-
-#### **Complexity Levels:**
-- [ ] Simple CRUD app (Todo, Notes)
-- [ ] Medium complexity (E-commerce, Blog)
-- [ ] Complex features (Authentication, Real-time, API integration)
-- [ ] Large codebase (50+ components)
-
-#### **Development Scenarios:**
-- [ ] Complete new project from scratch
-- [ ] Adding features to existing project
-- [ ] Refactoring and improvements
-- [ ] Migration between frameworks
-
-### **Success Metrics:**
-- **Completion Rate**: % of projects that finish successfully
-- **Quality Score**: Code quality, testing, accessibility compliance
-- **Time Efficiency**: Speed compared to manual development
-- **Human Intervention**: How often manual fixes are needed
-
-## 🤝 Community Guidelines
-
-### **Alpha Testing Etiquette:**
-1. **Be Honest**: Report failures and limitations honestly
-2. **Be Specific**: Detailed feedback is more helpful than general comments
-3. **Be Patient**: This is alpha software - expect some rough edges
-4. **Be Constructive**: Suggest improvements, not just criticisms
-5. **Be Collaborative**: Help other alpha testers troubleshoot issues
-
-### **Communication Channels:**
-- **GitHub Issues**: Bug reports and feature requests
-- **GitHub Discussions**: General feedback and questions
-- **Pull Requests**: Code contributions and improvements
-
-## 🏆 Recognition
-
-### **Alpha Contributor Recognition:**
-- Contributors to alpha testing will be recognized in release notes
-- Significant contributors may be invited to beta testing programs
-- Code contributors will be credited in repository documentation
-
-### **Types of Contributions We Value:**
-- **Bug Discovery**: Finding and reporting integration issues
-- **Use Case Expansion**: Testing new project types and scenarios
-- **Quality Improvements**: Enhancing code standards and testing
-- **Documentation**: Improving guides and troubleshooting resources
-- **Performance**: Optimizing agent coordination and execution time
-
-## 🔮 Vision for the Future
-
-### **Short-term Goals (Beta Release):**
-- Fix TaskMaster MCP reliability issues
-- Expand project type coverage
-- Improve error handling and recovery
-- Add real-time progress monitoring
-
-### **Long-term Vision:**
-- **Production-Ready**: CI/CD integration, deployment automation
-- **Learning System**: Agents that improve from feedback
-- **Custom Personalities**: Specialized agents for different domains
-- **Scaling**: Support for large, complex production projects
-
-### **Research Questions We're Exploring:**
-- How far can autonomous development scale?
-- What's the optimal human-AI collaboration pattern?
-- Can agents handle evolving requirements during development?
-- How do we measure and improve agent decision quality?
-
-## 💡 Getting Started
-
-### **New to Alpha Testing?**
-1. **Start Simple**: Try a basic todo app or simple CRUD project
-2. **Read the Docs**: Familiarize yourself with the agent system
-3. **Join Discussions**: Connect with other alpha testers
-4. **Share Results**: Report both successes and failures
-
-### **Experienced with AI Development?**
-1. **Push the Limits**: Try complex projects and edge cases
-2. **Compare Approaches**: How does this compare to other AI coding tools?
-3. **Technical Deep Dive**: Analyze agent coordination patterns
-4. **Contribute Code**: Help improve reliability and capabilities
+- **问题报告**：报告您在使用中遇到的错误或功能缺陷。
+- **功能建议**：提出对新功能、新特性或现有功能改进的建议。
+- **代码贡献**：通过提交 Pull Request 来修复错误、实现新功能或优化现有代码。
+- **测试与反馈**：针对特定场景进行测试，并提供详细的反馈报告。
 
 ---
 
-**Ready to shape the future of autonomous software development?** 
+### 报告问题与功能建议
 
-Your feedback and contributions are essential for making this breakthrough technology reliable, powerful, and accessible to developers worldwide.
+我们使用 GitHub Issues 来追踪问题报告和功能建议。在提交前，请先搜索现有的 Issues，避免重复。
 
-**Let's build the future together!** 🚀⚡🤖
+#### **错误报告 (Bug Report)**
+
+高质量的错误报告是快速定位和解决问题的关键。请使用以下模板提供详尽信息：
+
+```markdown
+### 问题描述
+
+（清晰、简洁地描述该错误。）
+
+### 复现步骤
+
+1.  （例如：使用 [特定需求] 创建产品需求文档 (PRD)）
+2.  （例如：运行 `/project:tm-orchestrator-simple` 命令）
+3.  （例如：在 [特定阶段] 观察到错误）
+
+### 预期行为
+
+（描述在正常情况下应该发生什么。）
+
+### 实际行为
+
+（描述实际发生了什么。）
+
+### 环境信息
+
+- **操作系统**: [例如：macOS, Windows, Linux/WSL]
+- **项目版本**: [具体的版本号]
+- **项目类型**: [例如：React, Vue, Node.js 等]
+- **项目复杂度**: [例如：简单, 中等, 复杂]
+
+### 错误输出与日志
+
+\`\`\`
+[请在此处粘贴完整的错误信息、堆栈跟踪或相关日志。]
+\`\`\`
+
+### Agent 状态（如适用）
+
+- **活动 Agent**: 错误发生时处于活动状态的 Agent。
+- **TaskMaster 上下文**: 如果可知，请提供相关的 TaskMaster 标签上下文。
+- **部分产出**: 系统是否生成了任何不完整的文件或代码。
+```
+
+#### **功能建议 (Feature Suggestion)**
+
+如果您希望项目增加新功能或对现有功能进行改进，请使用以下模板：
+
+```markdown
+### 功能描述
+
+（清晰描述您希望添加的功能或特性。）
+
+### 使用场景与价值
+
+（解释该功能的重要性，以及它能解决什么具体问题。）
+
+### [可选] 实现建议
+
+（如果您对如何实现该功能有初步想法，请在此处描述。）
+
+### 优先级
+
+（描述该功能对您的工作流程的重要性。）
+```
+
+---
+
+### 代码贡献
+
+我们欢迎高质量的代码贡献。请遵循以下流程。
+
+#### **开发环境搭建**
+
+1.  克隆本仓库：
+
+    ```bash
+    git clone https://github.com/ZHUBoer/claude-tdd-agents.git
+    cd claude-tdd-agents
+    ```
+
+2.  安装 TaskMaster MCP：
+    ```bash
+    claude mcp add task-master -s user -- npx -y --package=task-master-ai task-master-ai
+    ```
+
+#### **重点贡献领域**
+
+我们尤其关注以下领域的改进：
+
+- **TaskMaster MCP 优化**: 提升 `.claude/commands/` 中 API 的可靠性，改进错误处理与重试逻辑。
+- **Agent 能力增强**: 提高研究分析的深度与准确性，改进代码实现的质量与测试覆盖率。
+- **文档与指南**: 撰写或完善特定框架的配置指南和问题排查文档。
+- **性能与可靠性**: 优化 Agent 协作与执行效率，完善错误恢复机制。
+
+#### **Pull Request (PR) 指南**
+
+1.  **单一职责**: 每个 PR 应专注于解决一个独立的问题（一个 Bug 修复或一个功能）。
+2.  **充分测试**: 提交前，请确保您的更改在多种项目类型和场景下得到验证。
+3.  **文档同步**: 如果您的更改影响到现有行为或添加了新功能，请相应更新 `README.md` 或其他相关文档。
+4.  **清晰描述**: 在 PR 描述中清晰说明您的更改内容、目的以及相关的 Issue 编号。
+5.  **可靠性优先**: 鉴于项目处于早期阶段，我们优先考虑能够提升系统稳定性和可靠性的贡献。
+
+---
+
+### 测试与反馈
+
+系统性测试是保障项目质量的核心环节。我们鼓励大家针对以下方面提供测试反馈。
+
+#### **核心测试目标**
+
+- **多智能体协同**: 测试不同 Agent 之间的任务交接与通信，识别协同失败的场景。
+- **项目框架覆盖**: 在不同前端（如 React, Vue, Angular）和后端框架上运行系统，评估其兼容性与效果。
+- **产出质量与性能**: 验证生成代码的质量、测试覆盖率及性能表现。
+- **TaskMaster 集成**: 诊断并复现 MCP API 的集成问题，为提升其稳定性提供数据支持。
+
+#### **建议测试场景**
+
+您可以从以下维度组合测试用例：
+
+- **项目类型**:
+  - React + TypeScript + Tailwind
+  - Vue 3 + Composition API
+  - Angular + Material UI
+  - Node.js Express API
+  - Next.js 全栈应用
+- **复杂度**:
+  - 简单 CRUD 应用（如：待办事项清单）
+  - 中等复杂度应用（如：博客系统）
+  - 复杂功能（如：用户认证、实时通信）
+- **开发场景**:
+  - 从零创建完整项目
+  - 为现有项目添加新功能
+  - 代码重构与改进
+
+在提交测试反馈时，请包含以下信息：**端到端成功率**、**任务完成时间**、**代码质量评估**以及**遇到的问题及解决方案**。
+
+---
+
+### 社区准则与沟通
+
+- **沟通渠道**:
+  - **Issues**: 用于错误报告和功能建议。
+  - **Discussions**: 用于一般性的问题讨论和反馈。
+  - **Pull Requests**: 用于代码贡献。
+- **协作原则**:
+  - **具体**：提供详尽、可复现的描述。
+  - **建设性**：专注于提出可行的改进建议。
+  - **耐心与协作**：理解项目处于发展阶段，并与其他大家友好协作。
+
+我们期待您的参与，共同推进该项目的演进。
