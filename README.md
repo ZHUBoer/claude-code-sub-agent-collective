@@ -156,7 +156,7 @@ npx claude-tdd-agents --help
 - Documentation is scattered across files
 
 ### Known limitations
-- Requires Node.js >= 16
+- Requires Node.js >= 20
 - Need to restart Claude Code after installation
 - Opinionated about TDD (if you don't like tests, skip this)
 - Some agents might be too thorough/slow for simple tasks

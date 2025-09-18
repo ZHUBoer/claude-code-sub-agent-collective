@@ -3,7 +3,7 @@
 > 实验性 NPX 安装器与子代理（Sub-Agent）协作框架：以 TDD 驱动、Hub-Spoke 路由协调、契约化交接与可验证交付为核心，助力快速原型与高质量实现。
 
 - 项目名称：`claude-tdd-agents`
-- 运行环境：Node.js >= 16，NPM >= 8
+- 运行环境：Node.js >= 20
 - 主要能力：TDD 校验、Hub-Spoke 协调、行为系统（CLAUDE.md）、钩子与命令体系、研究与指标收集、动态 Agent 生成
 - 安装方式（推荐）：
 ```bash
@@ -159,8 +159,7 @@ flowchart TD
 - `.claude-collective/package.json` 与 `jest.config.js`：测试框架依赖与脚本。
 
 ### 4. 版本与运行要求
-- Node.js >= 16
-- NPM >= 8
+- Node.js >= 20
 - 首次安装后建议重启编辑器/代理运行环境，以确保钩子生效。
 
 ---
