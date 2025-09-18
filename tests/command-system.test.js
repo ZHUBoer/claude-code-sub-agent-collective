@@ -5,16 +5,17 @@ const CommandHistoryManager = require('../lib/command-history');
 const CommandHelpSystem = require('../lib/command-help');
 const fs = require('fs-extra');
 const path = require('path');
+const os = require('os');
+const fsp = require('fs').promises;
 
 describe('Phase 5 - Command System Implementation', () => {
   let commandSystem;
   let tempDir;
 
   beforeEach(async () => {
-    // Create temporary directory for test history
-    tempDir = path.join(__dirname, 'temp', `test-${Date.now()}`);
-    await fs.ensureDir(tempDir);
-    
+    // 在系统临时目录中创建唯一工作目录，避免与全局 tests/temp 清理互相干扰
+    tempDir = await fsp.mkdtemp(path.join(os.tmpdir(), 'command-system-test-'));
+
     commandSystem = new CommandSystem({
       historyFile: path.join(tempDir, 'test-history.json'),
       enableMetrics: true,

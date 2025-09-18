@@ -75,6 +75,34 @@ project/
 ├── .mcp.json            # MCP configuration
 └── CLAUDE.md            # This file - auto-loaded by Claude Code
 ```
+## MCP Integration
+Task Master provides an MCP server that Claude Code can connect to.
+
+### Essential MCP Tools
+
+```javascript
+help; // = shows available taskmaster commands
+// Project setup
+initialize_project; // = task-master init
+parse_prd; // = task-master parse-prd
+
+// Daily workflow
+get_tasks; // = task-master list
+next_task; // = task-master next
+get_task; // = task-master show <id>
+set_task_status; // = task-master set-status
+
+// Task management
+add_task; // = task-master add-task
+expand_task; // = task-master expand
+update_task; // = task-master update-task
+update_subtask; // = task-master update-subtask
+update; // = task-master update
+
+// Analysis
+analyze_project_complexity; // = task-master analyze-complexity
+complexity_report; // = task-master complexity-report
+```
 
 ## Claude Code Workflow Integration
 
