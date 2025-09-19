@@ -23,6 +23,7 @@ User Request → Routing Analysis → Agent Selection → Task Delegation → Qu
 ```
 
 ### Agent Selection Criteria
+
 1. **Task Type Match**: Align request with agent specialization
 2. **Capability Assessment**: Verify agent can handle task complexity
 3. **Availability Check**: Ensure agent is not overloaded
@@ -47,6 +48,7 @@ User Request → Routing Analysis → Agent Selection → Task Delegation → Qu
 ## Hub Coordination Patterns
 
 ### Request Flow
+
 ```mermaid
 graph TD
     A[User Request] --> B[Routing Agent]
@@ -58,6 +60,7 @@ graph TD
 ```
 
 ### Multi-Agent Coordination
+
 - **Sequential Tasks**: Route dependent tasks in proper order
 - **Parallel Tasks**: Identify and distribute independent work streams
 - **Context Handoff**: Preserve context across agent transitions
@@ -66,6 +69,7 @@ graph TD
 ## Anti-Patterns (Prevent Direct Agent Communication)
 
 The routing-agent enforces hub-and-spoke architecture by preventing:
+
 - Direct agent-to-agent communication
 - Bypassing central coordination
 - Context fragmentation across agents

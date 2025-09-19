@@ -5,11 +5,13 @@ This testing guide validates all functionality described in the USER-GUIDE.md th
 ## 🧪 Test Environment Setup
 
 ### Prerequisites
+
 - Node.js 14+ installed
 - Clean project directory for testing
 - Internet connection for NPX package access
 
 ### Test Data Setup
+
 ```bash
 # Create test directory
 mkdir claude-collective-testing
@@ -23,6 +25,7 @@ echo "# Test Project" > README.md
 ## 📋 Test Suite 1: Installation Validation
 
 ### Test 1.1: Basic Installation
+
 **USER-GUIDE Reference**: Quick Start → Installation
 
 ```bash
@@ -38,12 +41,14 @@ npx claude-tdd-agents init
 ```
 
 **Expected Results:**
+
 - ✅ All core files and directories created
 - ✅ CLAUDE.md contains behavioral directives
 - ✅ .claude/settings.json has proper hook configuration
 - ✅ Agent definitions present in .claude/agents/
 
 ### Test 1.2: Installation Options
+
 **USER-GUIDE Reference**: Quick Start → Installation Options
 
 ```bash
@@ -61,11 +66,13 @@ echo -e "full\nmy-project\ny" | npx claude-tdd-agents init --interactive
 ```
 
 **Expected Results:**
+
 - ✅ Minimal installation has fewer components than full
 - ✅ Interactive mode accepts user input
 - ✅ Different installation types create different file structures
 
 ### Test 1.3: Installation Verification
+
 **USER-GUIDE Reference**: Quick Start → Verification
 
 ```bash
@@ -77,11 +84,12 @@ npx claude-tdd-agents validate
 npx claude-tdd-agents status
 echo "Status exit code: $?"
 
-npx claude-tdd-agents validate  
+npx claude-tdd-agents validate
 echo "Validate exit code: $?"
 ```
 
 **Expected Results:**
+
 - ✅ Status command shows system health information
 - ✅ Validate command shows validation results
 - ✅ Both commands exit with code 0 for successful installation
@@ -89,6 +97,7 @@ echo "Validate exit code: $?"
 ## 📋 Test Suite 2: Command System Validation
 
 ### Test 2.1: Natural Language Commands
+
 **USER-GUIDE Reference**: Command System → Natural Language Commands
 
 ```bash
@@ -108,11 +117,13 @@ fi
 ```
 
 **Expected Results:**
+
 - ✅ Command parser module exists and is functional
 - ✅ Natural language patterns are recognized
 - ✅ Commands are properly translated to structured format
 
 ### Test 2.2: Direct Command Interface
+
 **USER-GUIDE Reference**: Command System → Direct Command Interface
 
 ```bash
@@ -134,11 +145,13 @@ fi
 ```
 
 **Expected Results:**
+
 - ✅ All four namespaces (/collective, /agent, /gate, /van) are implemented
 - ✅ Command registry system is functional
 - ✅ Help system is available for each namespace
 
 ### Test 2.3: Command Aliases
+
 **USER-GUIDE Reference**: Command System → Command Aliases
 
 ```bash
@@ -148,7 +161,7 @@ echo "Testing command aliases..."
 if [ -f "claude-tdd-agents/lib/command-system.js" ]; then
     # Check for alias patterns in implementation
     grep -q "alias" claude-tdd-agents/lib/command-system.js && echo "✅ Alias system implemented" || echo "❌ Alias system missing"
-    
+
     # Verify specific aliases mentioned in USER-GUIDE
     grep -q "/c" claude-tdd-agents/lib/command-system.js && echo "✅ /c alias found" || echo "❌ /c alias missing"
     grep -q "/status" claude-tdd-agents/lib/command-system.js && echo "✅ /status alias found" || echo "❌ /status alias missing"
@@ -156,6 +169,7 @@ fi
 ```
 
 **Expected Results:**
+
 - ✅ Alias system is implemented and functional
 - ✅ Short aliases (/c, /a, /g, /v) work correctly
 - ✅ Ultra-short aliases (/status, /route, /spawn) work correctly
@@ -163,6 +177,7 @@ fi
 ## 📋 Test Suite 3: Agent System Validation
 
 ### Test 3.1: Available Specialized Agents
+
 **USER-GUIDE Reference**: Working with Agents → Available Specialized Agents
 
 ```bash
@@ -199,11 +214,13 @@ echo "Total agents found: $(ls .claude/agents/ 2>/dev/null | wc -l)"
 ```
 
 **Expected Results:**
+
 - ✅ All specialized agents listed in USER-GUIDE are present
 - ✅ Agent definitions are properly formatted
 - ✅ Core coordination agents (routing, project-manager) exist
 
 ### Test 3.2: Agent Registry System
+
 **USER-GUIDE Reference**: Working with Agents → Dynamic Agent Creation
 
 ```bash
@@ -219,6 +236,7 @@ echo "Testing agent registry system..."
 ```
 
 **Expected Results:**
+
 - ✅ Agent registry system is implemented
 - ✅ Agent spawning capability exists
 - ✅ Template system for dynamic agent creation works
@@ -226,6 +244,7 @@ echo "Testing agent registry system..."
 ## 📋 Test Suite 4: Research and Metrics Validation
 
 ### Test 4.1: Research Hypotheses Implementation
+
 **USER-GUIDE Reference**: Research and Metrics → Research Hypotheses
 
 ```bash
@@ -242,11 +261,13 @@ echo "Testing research metrics system..."
 ```
 
 **Expected Results:**
+
 - ✅ All three research hypotheses have dedicated metrics collectors
 - ✅ A/B testing framework is implemented
 - ✅ Research orchestration system exists
 
 ### Test 4.2: Metrics Collection Capability
+
 **USER-GUIDE Reference**: Research and Metrics → Accessing Metrics
 
 ```bash
@@ -256,13 +277,14 @@ echo "Validating metrics collection capability..."
 if [ -d "claude-tdd-agents/lib/metrics" ]; then
     echo "✅ Metrics directory exists"
     echo "Metrics modules found: $(ls claude-tdd-agents/lib/metrics/ 2>/dev/null | wc -l)"
-    
+
     # Check for research orchestration
     [ -f "claude-tdd-agents/lib/metrics/ResearchMetricsSystem.js" ] && echo "✅ Research orchestration exists" || echo "❌ Research orchestration missing"
 fi
 ```
 
 **Expected Results:**
+
 - ✅ Comprehensive metrics collection system operational
 - ✅ Research orchestration for all three hypotheses
 - ✅ Statistical analysis capabilities available
@@ -270,6 +292,7 @@ fi
 ## 📋 Test Suite 5: Maintenance and Health Validation
 
 ### Test 5.1: System Health Monitoring
+
 **USER-GUIDE Reference**: Maintenance and Health → System Health Monitoring
 
 ```bash
@@ -279,18 +302,20 @@ echo "Testing van maintenance system..."
 # Check for van maintenance implementation
 if [ -f "claude-tdd-agents/lib/VanMaintenanceSystem.js" ]; then
     echo "✅ VanMaintenanceSystem exists"
-    
+
     # Check for health check capabilities
     grep -q "healthCheck" claude-tdd-agents/lib/VanMaintenanceSystem.js && echo "✅ Health checks implemented" || echo "❌ Health checks missing"
 fi
 ```
 
 **Expected Results:**
+
 - ✅ Van maintenance system is implemented
 - ✅ Health check capabilities are functional
 - ✅ Component-specific health monitoring works
 
 ### Test 5.2: Auto-Repair System
+
 **USER-GUIDE Reference**: Maintenance and Health → Auto-Repair System
 
 ```bash
@@ -305,6 +330,7 @@ fi
 ```
 
 **Expected Results:**
+
 - ✅ Auto-repair mechanisms are functional
 - ✅ Performance optimization routines work
 - ✅ Dry-run capability exists for safe testing
@@ -312,6 +338,7 @@ fi
 ## 📋 Test Suite 6: Testing and Validation
 
 ### Test 6.1: Test-Driven Handoffs (TDH)
+
 **USER-GUIDE Reference**: Testing and Validation → Test-Driven Handoffs
 
 ```bash
@@ -330,11 +357,13 @@ fi
 ```
 
 **Expected Results:**
+
 - ✅ Testing framework is properly configured
 - ✅ Contract validation system exists
 - ✅ Jest testing infrastructure is functional
 
 ### Test 6.2: Quality Gate Validation
+
 **USER-GUIDE Reference**: Testing and Validation → Running Tests
 
 ```bash
@@ -359,6 +388,7 @@ done
 ```
 
 **Expected Results:**
+
 - ✅ Quality gate validation system works
 - ✅ Phase-specific validation exists for all 8 phases
 - ✅ Comprehensive system validation is functional
@@ -366,6 +396,7 @@ done
 ## 📋 Test Suite 7: Configuration and Troubleshooting
 
 ### Test 7.1: Configuration Management
+
 **USER-GUIDE Reference**: Configuration → Settings Management
 
 ```bash
@@ -392,11 +423,13 @@ fi
 ```
 
 **Expected Results:**
+
 - ✅ All configuration files exist and are valid
 - ✅ CLAUDE.md contains behavioral directives
 - ✅ settings.json has proper hook configuration
 
 ### Test 7.2: Troubleshooting Capabilities
+
 **USER-GUIDE Reference**: Troubleshooting → Common Issues
 
 ```bash
@@ -418,6 +451,7 @@ fi
 ```
 
 **Expected Results:**
+
 - ✅ Repair and troubleshooting tools are functional
 - ✅ Verbose validation provides detailed diagnostics
 - ✅ Support report generation works
@@ -425,6 +459,7 @@ fi
 ## 📋 Test Suite 8: Distribution and Integration
 
 ### Test 8.1: NPX Package Distribution
+
 **USER-GUIDE Reference**: Distribution and Sharing → NPX Package
 
 ```bash
@@ -443,11 +478,13 @@ fi
 ```
 
 **Expected Results:**
+
 - ✅ NPX package is properly structured
 - ✅ Package metadata is correct
 - ✅ Installation executable is functional
 
 ### Test 8.2: Project Integration
+
 **USER-GUIDE Reference**: Distribution and Sharing → Project Integration
 
 ```bash
@@ -472,6 +509,7 @@ cd ..
 ```
 
 **Expected Results:**
+
 - ✅ Integration preserves existing project files
 - ✅ Collective components are properly integrated
 - ✅ Integration validation confirms successful setup
@@ -497,10 +535,10 @@ FAILED_TESTS=0
 run_test() {
     local test_name="$1"
     local test_command="$2"
-    
+
     echo -n "Running $test_name... "
     TOTAL_TESTS=$((TOTAL_TESTS + 1))
-    
+
     if eval "$test_command" >/dev/null 2>&1; then
         echo "✅ PASSED"
         PASSED_TESTS=$((PASSED_TESTS + 1))
@@ -515,7 +553,7 @@ echo "📋 Test Suite 1: Installation Validation"
 run_test "Basic Installation" "npx claude-tdd-agents init && [ -f CLAUDE.md ]"
 run_test "Installation Verification" "npx claude-tdd-agents status"
 
-echo "📋 Test Suite 2: Command System Validation"  
+echo "📋 Test Suite 2: Command System Validation"
 run_test "Command Parser Exists" "[ -f claude-tdd-agents/lib/command-parser.js ]"
 run_test "Command System Exists" "[ -f claude-tdd-agents/lib/command-system.js ]"
 
@@ -557,6 +595,7 @@ fi
 ```
 
 **Usage:**
+
 ```bash
 # Make test script executable
 chmod +x run-user-guide-tests.sh
@@ -573,48 +612,56 @@ chmod +x run-user-guide-tests.sh
 Use this checklist to ensure USER-GUIDE.md accuracy:
 
 ### ✅ Installation & Setup
+
 - [ ] NPX installation command works
 - [ ] All installation options function correctly
 - [ ] Verification commands provide accurate results
 - [ ] File structure matches described layout
 
 ### ✅ Command System
+
 - [ ] Natural language commands are recognized
 - [ ] All four namespaces (/collective, /agent, /gate, /van) work
 - [ ] Command aliases function as described
 - [ ] Help system provides accurate information
 
 ### ✅ Agent Management
+
 - [ ] All listed agents exist and are functional
 - [ ] Agent routing works correctly
 - [ ] Dynamic agent creation is operational
 - [ ] Agent registry tracks agents properly
 
 ### ✅ Research & Metrics
+
 - [ ] Three research hypotheses are implemented
 - [ ] Metrics collection systems work
 - [ ] A/B testing framework is functional
 - [ ] Research data can be accessed and exported
 
 ### ✅ Maintenance & Health
+
 - [ ] Health monitoring provides accurate status
 - [ ] Auto-repair mechanisms fix common issues
 - [ ] Performance optimization routines work
 - [ ] Scheduled maintenance is configurable
 
 ### ✅ Testing & Validation
+
 - [ ] Test-driven handoffs are operational
 - [ ] Quality gates validate properly
 - [ ] System validation is comprehensive
 - [ ] Error detection and reporting work
 
 ### ✅ Configuration & Troubleshooting
+
 - [ ] Configuration files are properly formatted
 - [ ] Troubleshooting tools provide helpful diagnostics
 - [ ] Support report generation works
 - [ ] Recovery mechanisms function correctly
 
 ### ✅ Distribution & Integration
+
 - [ ] NPX package installs globally
 - [ ] Project integration preserves existing files
 - [ ] Package metadata is accurate

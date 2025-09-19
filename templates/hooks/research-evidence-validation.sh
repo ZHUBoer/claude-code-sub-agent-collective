@@ -69,7 +69,7 @@ validate_green_phase() {
     
     # Check for TaskMaster research tool execution claims
     local taskmaster_research_claims=false
-    if echo "$output" | grep -qi -E "(mcp__task-master__research|saveToFile=true)"; then
+    if echo "$output" | grep -qi -E "(mcp__task-master-ai__research|saveToFile=true)"; then
         taskmaster_research_claims=true
     fi
     
@@ -98,7 +98,7 @@ validate_green_phase() {
         log "GREEN PHASE CRITICAL ERROR: No research cache files found"
         echo "🚨 GREEN PHASE CRITICAL FAILURE: Zero research cache files"
         echo "📁 Directory exists but empty: $research_dir"
-        echo "🔧 REQUIRED: Execute mcp__task-master__research with saveToFile=true"
+        echo "🔧 REQUIRED: Execute mcp__task-master-ai__research with saveToFile=true"
         echo "🔧 REQUIRED: Execute mcp__context7__ tools and save results"
         return 1
     fi
@@ -132,7 +132,7 @@ validate_refactor_phase() {
         echo "🚨 REFACTOR PHASE CRITICAL FAILURE: Tasks lack research_context"
         echo "📁 File: $tasks_file"
         echo "🔍 Found: $research_context_count research_context fields"
-        echo "🔧 REQUIRED: Execute mcp__task-master__update_task for each task"
+        echo "🔧 REQUIRED: Execute mcp__task-master-ai__update_task for each task"
         echo "🔧 REQUIRED: Add research_context and implementation_guidance fields"
         return 1
     fi
@@ -262,9 +262,9 @@ main() {
         echo "🚨 TDD RESEARCH VALIDATION FAILED"
         echo ""
         echo "💡 RESOLUTION STEPS:"
-        echo "1. Execute actual mcp__context7__ and mcp__task-master__research tools"
+        echo "1. Execute actual mcp__context7__ and mcp__task-master-ai__research tools"
         echo "2. Create research cache files in .taskmaster/docs/research/"
-        echo "3. Enhance tasks with research_context using mcp__task-master__update_task"
+        echo "3. Enhance tasks with research_context using mcp__task-master-ai__update_task"
         echo "4. Follow TDD completion report format with evidence"
         echo ""
         echo "📖 See detailed logs at: $LOG_FILE"

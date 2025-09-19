@@ -4,13 +4,14 @@
 
 ### 安装
 
-使用一个简单的命令即可在任何项目中安装claude-tdd-agents：
+使用一个简单的命令即可在任何项目中安装 claude-tdd-agents：
 
 ```bash
 npx claude-tdd-agents init
 ```
 
 **安装选项：**
+
 ```bash
 # 完整安装（推荐）
 npx claude-tdd-agents init
@@ -31,6 +32,7 @@ npx claude-tdd-agents init --hooks-only
 ### 验证
 
 验证您的安装是否成功：
+
 ```bash
 npx claude-tdd-agents status
 npx claude-tdd-agents validate
@@ -41,6 +43,7 @@ npx claude-tdd-agents validate
 ### 中心-辐射型架构 (Hub-and-Spoke)
 
 本系统采用**中心-辐射型**的协调模式：
+
 - **中心 (Hub)**：`@routing-agent` - 作为中央协调点。
 - **辐射 (Spokes)**：执行不同任务的专业化智能体。
 - **工作流**：所有请求均首先流向中心，再由中心分发给合适的辐射智能体。
@@ -48,6 +51,7 @@ npx claude-tdd-agents validate
 ### 行为操作系统
 
 系统遵循 `CLAUDE.md` 中定义的行为指令进行运作：
+
 1. **绝不直接实现** - 始终通过专业化智能体进行路由。
 2. **集体路由协议** - 必须通过中央协调中心进行任务分发。
 3. **测试驱动验证** - 每一次任务移交都需通过预定义的“合约”进行验证。
@@ -67,11 +71,13 @@ npx claude-tdd-agents validate
 "check system health"          → /van check
 "route this to research agent" → /collective route research
 ```
-*（注：为清晰起见，此处保留了英文原文以作对比。）*
+
+_（注：为清晰起见，此处保留了英文原文以作对比。）_
 
 ### 直接命令接口
 
 #### `/collective` - 系统管理
+
 ```bash
 /collective status              # 显示系统整体健康状况
 /collective agents              # 列出所有可用的智能体
@@ -82,6 +88,7 @@ npx claude-tdd-agents validate
 ```
 
 #### `/agent` - 智能体管理
+
 ```bash
 /agent list                    # 列出所有智能体
 /agent spawn <type> [params]   # 创建新的智能体实例
@@ -91,6 +98,7 @@ npx claude-tdd-agents validate
 ```
 
 #### `/gate` - 质量门
+
 ```bash
 /gate status                   # 显示质量门的状态
 /gate validate [phase]         # 运行指定阶段的验证
@@ -100,6 +108,7 @@ npx claude-tdd-agents validate
 ```
 
 #### `/van` - 维护系统
+
 ```bash
 /van check                     # 运行健康检查
 /van repair                    # 自动修复检测到的问题
@@ -113,10 +122,11 @@ npx claude-tdd-agents validate
 ### 命令别名
 
 常用操作的快捷方式：
+
 ```bash
 # 短别名
 /c status      # 等同于 /collective status
-/a list        # 等同于 /agent list  
+/a list        # 等同于 /agent list
 /g validate    # 等同于 /gate validate
 /v check       # 等同于 /van check
 
@@ -131,10 +141,12 @@ npx claude-tdd-agents validate
 ### 可用的专业化智能体
 
 **核心协调：**
+
 - `routing-agent` - 中央枢纽协调器
 - `enhanced-project-manager-agent` - 多阶段项目管理器
 
 **实现专家：**
+
 - `behavioral-transformation-agent` - 负责 `CLAUDE.md` 行为操作系统的实现
 - `testing-implementation-agent` - 负责 Jest 框架和 TDD
 - `hook-integration-agent` - 负责指令强制执行脚本
@@ -145,6 +157,7 @@ npx claude-tdd-agents validate
 - `van-maintenance-agent` - 负责自我修复的生态系统
 
 **跨领域支持：**
+
 - `research-agent` - 负责技术研究和分析
 - `quality-agent` - 负责代码审查和验证
 - `component-implementation-agent` - 负责 UI 组件的实现
@@ -195,16 +208,19 @@ npx claude-tdd-agents validate
 系统旨在验证三个核心假设：
 
 **H1：JIT 上下文加载**
+
 - **理论**：按需加载比预加载更有效率。
 - **指标**：加载时间、内存使用量、上下文相关性。
 - **目标**：加载时间减少 30%，内存节省 25%。
 
-**H2：中心-辐射型协调**  
+**H2：中心-辐射型协调**
+
 - **理论**：集中式路由优于分布式通信。
 - **指标**：路由准确率、协调开销、错误率。
 - **目标**：路由准确率达到 90%，协调开销低于 10%。
 
 **H3：测试驱动开发**
+
 - **理论**：基于合约的移交能够提升质量。
 - **指标**：成功率、错误检测率、验证覆盖率。
 - **目标**：移交成功率达到 80%，验证覆盖率达到 95%。
@@ -316,6 +332,7 @@ ls .claude-collective/tests/contracts/
 ### 设置管理
 
 主要配置文件：
+
 - `.claude/settings.json` - 钩子配置
 - `CLAUDE.md` - 行为操作系统
 - `.claude/agents/` - 智能体定义
@@ -342,6 +359,7 @@ npx claude-tdd-agents clean --confirm
 ### 常见问题
 
 **命令未找到：**
+
 ```bash
 # 检查安装状态
 npx claude-tdd-agents status
@@ -351,6 +369,7 @@ npx claude-tdd-agents init --force
 ```
 
 **钩子不工作：**
+
 ```bash
 # 检查钩子状态
 /van check --component hooks
@@ -362,6 +381,7 @@ npx claude-tdd-agents init --force
 ```
 
 **智能体路由问题：**
+
 ```bash
 # 测试路由逻辑
 /agent route "test request"
@@ -374,6 +394,7 @@ npx claude-tdd-agents init --force
 ```
 
 **性能问题：**
+
 ```bash
 # 运行优化
 /van optimize
@@ -390,7 +411,7 @@ npx claude-tdd-agents init --force
 ```bash
 # 获取特定命令的帮助信息
 /collective help
-/agent help  
+/agent help
 /gate help
 /van help
 
@@ -409,7 +430,7 @@ npx claude-tdd-agents validate --verbose
 
 # 组件验证
 /gate validate --component behavioral
-/gate validate --component testing  
+/gate validate --component testing
 /gate validate --component hooks
 /gate validate --component distribution
 /gate validate --component commands
@@ -496,6 +517,7 @@ npx claude-tdd-agents validate --integration
 ## 🎯 快速参考
 
 ### 核心命令
+
 ```bash
 # 安装
 npx claude-tdd-agents init
@@ -514,12 +536,14 @@ npx claude-tdd-agents init
 ```
 
 ### 关键文件
+
 - `CLAUDE.md` - 行为操作系统
 - `.claude/settings.json` - 钩子配置
 - `.claude/agents/` - 智能体定义
 - `.claude-collective/` - 测试框架
 
 ### 技术支持
+
 - 系统验证：`/collective validate`
 - 健康诊断：`/van check --detailed`
 - 支持报告：`/van report --support`

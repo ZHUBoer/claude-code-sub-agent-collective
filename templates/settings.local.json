@@ -1,13 +1,13 @@
 {
   "permissions": {
     "allow": [
-      "mcp__task-master__add_task",
-      "mcp__task-master__expand_task",
-      "mcp__task-master__set_task_status",
+      "mcp__task-master-ai__add_task",
+      "mcp__task-master-ai__expand_task",
+      "mcp__task-master-ai__set_task_status",
       "Bash(mkdir:*)",
       "Bash(cp:*)",
-      "mcp__task-master__get_task",
-      "Bash(mcp__task-master__get_task:*)",
+      "mcp__task-master-ai__get_task",
+      "Bash(mcp__task-master-ai__get_task:*)",
       "Bash(bash:*)",
       "Bash(./.claude/scripts/van-maintenance-test.sh:*)",
       "WebFetch(domain:api.github.com)",
@@ -17,15 +17,15 @@
       "Bash(npm test:*)",
       "Bash(timeout 60 npm test)",
       "Bash(node:*)",
-      "mcp__task-master__get_tasks",
-      "mcp__task-master__next_task",
-      "mcp__task-master__complexity_report",
-      "mcp__task-master__validate_dependencies",
+      "mcp__task-master-ai__get_tasks",
+      "mcp__task-master-ai__next_task",
+      "mcp__task-master-ai__complexity_report",
+      "mcp__task-master-ai__validate_dependencies",
       "mcp__context7__resolve-library-id",
       "mcp__context7__get-library-docs",
-      "mcp__task-master__research",
-      "mcp__task-master__parse_prd",
-      "mcp__task-master__update_task",
+      "mcp__task-master-ai__research",
+      "mcp__task-master-ai__parse_prd",
+      "mcp__task-master-ai__update_task",
       "Bash(for:*)",
       "Bash(do echo \"=== $file ===\")",
       "Bash(head:*)",
@@ -33,8 +33,8 @@
       "Bash(do)",
       "Bash(sed:*)",
       "Bash(do echo \"=== Updating $file ===\")",
-      "mcp__task-master__analyze_project_complexity",
-      "mcp__task-master__generate"
+      "mcp__task-master-ai__analyze_project_complexity",
+      "mcp__task-master-ai__generate"
     ],
     "deny": []
   }

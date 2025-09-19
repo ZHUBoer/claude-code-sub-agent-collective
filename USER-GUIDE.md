@@ -11,6 +11,7 @@ npx claude-tdd-agents init
 ```
 
 **Installation Options:**
+
 ```bash
 # Full installation (recommended)
 npx claude-tdd-agents init
@@ -31,6 +32,7 @@ npx claude-tdd-agents init --hooks-only
 ### Verification
 
 Verify your installation:
+
 ```bash
 npx claude-tdd-agents status
 npx claude-tdd-agents validate
@@ -41,6 +43,7 @@ npx claude-tdd-agents validate
 ### Hub-and-Spoke Architecture
 
 The collective uses a **hub-and-spoke** coordination pattern:
+
 - **Hub**: `@routing-agent` - Central coordination point
 - **Spokes**: Specialized agents for different tasks
 - **Flow**: All requests → Hub → Appropriate Spoke Agent
@@ -48,6 +51,7 @@ The collective uses a **hub-and-spoke** coordination pattern:
 ### Behavioral Operating System
 
 The system operates under behavioral directives in `CLAUDE.md`:
+
 1. **NEVER IMPLEMENT DIRECTLY** - Always route through specialized agents
 2. **COLLECTIVE ROUTING PROTOCOL** - Central hub coordination required
 3. **TEST-DRIVEN VALIDATION** - Every handoff validated through contracts
@@ -71,6 +75,7 @@ The system understands natural language and converts it to structured commands:
 ### Direct Command Interface
 
 #### `/collective` - System Management
+
 ```bash
 /collective status              # Show overall system health
 /collective agents              # List all available agents
@@ -80,7 +85,8 @@ The system understands natural language and converts it to structured commands:
 /collective help               # Command help
 ```
 
-#### `/agent` - Agent Management  
+#### `/agent` - Agent Management
+
 ```bash
 /agent list                    # List all agents
 /agent spawn <type> [params]   # Create new agent instance
@@ -90,6 +96,7 @@ The system understands natural language and converts it to structured commands:
 ```
 
 #### `/gate` - Quality Gates
+
 ```bash
 /gate status                   # Show quality gate status
 /gate validate [phase]         # Run phase validation
@@ -99,6 +106,7 @@ The system understands natural language and converts it to structured commands:
 ```
 
 #### `/van` - Maintenance System
+
 ```bash
 /van check                     # Run health checks
 /van repair                    # Auto-repair issues
@@ -112,10 +120,11 @@ The system understands natural language and converts it to structured commands:
 ### Command Aliases
 
 Quick shortcuts for common operations:
+
 ```bash
 # Short aliases
 /c status      # → /collective status
-/a list        # → /agent list  
+/a list        # → /agent list
 /g validate    # → /gate validate
 /v check       # → /van check
 
@@ -130,10 +139,12 @@ Quick shortcuts for common operations:
 ### Available Specialized Agents
 
 **Core Coordination:**
+
 - `routing-agent` - Central hub coordinator
 - `enhanced-project-manager-agent` - Multi-phase project management
 
 **Implementation Specialists:**
+
 - `behavioral-transformation-agent` - CLAUDE.md behavioral OS
 - `testing-implementation-agent` - Jest framework and TDD
 - `hook-integration-agent` - Directive enforcement scripts
@@ -144,6 +155,7 @@ Quick shortcuts for common operations:
 - `van-maintenance-agent` - Self-healing ecosystem
 
 **Cross-Cutting Support:**
+
 - `research-agent` - Technical research and analysis
 - `quality-agent` - Code review and validation
 - `component-implementation-agent` - UI components
@@ -157,7 +169,7 @@ Quick shortcuts for common operations:
 /collective route "I need to implement authentication with OAuth2"
 # → Routes to @feature-implementation-agent or @research-agent
 
-# Route UI requests  
+# Route UI requests
 /collective route "Create a login form component with validation"
 # → Routes to @component-implementation-agent
 
@@ -194,16 +206,19 @@ Create specialized agents on-demand:
 The system validates three core hypotheses:
 
 **H1: JIT Context Loading**
+
 - Theory: On-demand loading is more efficient than preloading
 - Metrics: Load times, memory usage, context relevance
 - Target: 30% load time reduction, 25% memory savings
 
-**H2: Hub-and-Spoke Coordination**  
+**H2: Hub-and-Spoke Coordination**
+
 - Theory: Centralized routing outperforms distributed communication
 - Metrics: Routing accuracy, coordination overhead, error rates
 - Target: 90% routing accuracy, <10% coordination overhead
 
 **H3: Test-Driven Development**
+
 - Theory: Contract-based handoffs improve quality
 - Metrics: Success rates, error detection, validation coverage
 - Target: 80% handoff success, 95% validation coverage
@@ -306,7 +321,7 @@ ls .claude-collective/tests/contracts/
 # Manual contract validation
 /gate validate --contracts
 
-# Handoff success metrics  
+# Handoff success metrics
 /collective metrics --handoffs
 ```
 
@@ -315,6 +330,7 @@ ls .claude-collective/tests/contracts/
 ### Settings Management
 
 Main configuration files:
+
 - `.claude/settings.json` - Hook configuration
 - `CLAUDE.md` - Behavioral operating system
 - `.claude/agents/` - Agent definitions
@@ -341,6 +357,7 @@ npx claude-tdd-agents clean --confirm
 ### Common Issues
 
 **Command not found:**
+
 ```bash
 # Check installation
 npx claude-tdd-agents status
@@ -350,6 +367,7 @@ npx claude-tdd-agents init --force
 ```
 
 **Hooks not working:**
+
 ```bash
 # Check hook status
 /van check --component hooks
@@ -361,6 +379,7 @@ npx claude-tdd-agents init --force
 ```
 
 **Agent routing issues:**
+
 ```bash
 # Test routing logic
 /agent route "test request"
@@ -373,6 +392,7 @@ npx claude-tdd-agents init --force
 ```
 
 **Performance issues:**
+
 ```bash
 # Run optimization
 /van optimize
@@ -389,7 +409,7 @@ npx claude-tdd-agents init --force
 ```bash
 # Command-specific help
 /collective help
-/agent help  
+/agent help
 /gate help
 /van help
 
@@ -408,7 +428,7 @@ npx claude-tdd-agents validate --verbose
 
 # Component validation
 /gate validate --component behavioral
-/gate validate --component testing  
+/gate validate --component testing
 /gate validate --component hooks
 /gate validate --component distribution
 /gate validate --component commands
@@ -495,6 +515,7 @@ Create your own agent templates:
 ## 🎯 Quick Reference
 
 ### Essential Commands
+
 ```bash
 # Installation
 npx claude-tdd-agents init
@@ -505,7 +526,7 @@ npx claude-tdd-agents init
 # Route requests
 /collective route "<your request>"
 
-# System validation  
+# System validation
 /collective validate
 
 # Get help
@@ -513,12 +534,14 @@ npx claude-tdd-agents init
 ```
 
 ### Key Files
+
 - `CLAUDE.md` - Behavioral operating system
-- `.claude/settings.json` - Hook configuration  
+- `.claude/settings.json` - Hook configuration
 - `.claude/agents/` - Agent definitions
 - `.claude-collective/` - Testing framework
 
 ### Support
+
 - System validation: `/collective validate`
 - Health diagnostics: `/van check --detailed`
 - Support report: `/van report --support`

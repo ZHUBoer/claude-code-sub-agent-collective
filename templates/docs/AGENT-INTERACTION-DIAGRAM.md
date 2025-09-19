@@ -319,7 +319,7 @@ Individual Agent Blocked → COMPLETE with error context → routing-agent → e
 
 #### Tool Access Rules
 
-1. **File-only agents**: `tools: Read, Write, Edit, MultiEdit, Glob, Grep, mcp__task-master__get_task, LS`
+1. **File-only agents**: `tools: Read, Write, Edit, MultiEdit, Glob, Grep, mcp__task-master-ai__get_task, LS`
 2. **Command-execution agents**: Include `Bash` for legitimate build/test/deployment commands
 3. **Specialized agents**: Include specific tools (Playwright, Context7, etc.) as needed
 

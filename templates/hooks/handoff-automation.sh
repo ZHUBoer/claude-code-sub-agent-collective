@@ -215,10 +215,10 @@ Task(
 PROJECT ROOT: /mnt/h/Active/taskmaster-agent-claude-code
 
 MANDATORY FIRST ACTION:
-Execute: mcp__task-master__get_task --id=$task_id --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
+Execute: mcp__task-master-ai__get_task --id=$task_id --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
 
 Then implement according to the task's acceptance criteria using TDD methodology.
-When complete, execute: mcp__task-master__set_task_status --id=$task_id --status=done --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
+When complete, execute: mcp__task-master-ai__set_task_status --id=$task_id --status=done --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
 
 $context"
 )

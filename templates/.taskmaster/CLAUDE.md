@@ -194,7 +194,7 @@ Add to `.claude/settings.json`:
     "Bash(git commit:*)",
     "Bash(git add:*)",
     "Bash(npm run *)",
-    "mcp__task_master_ai__*"
+    "mcp__task-master-ai__*"
   ]
 }
 ```

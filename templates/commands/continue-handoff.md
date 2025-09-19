@@ -60,6 +60,7 @@ fi
 ## What You'll See
 
 ### If Handoff Pending:
+
 ```json
 {
   "timestamp": "2025-08-11T14:55:18+08:00",
@@ -72,6 +73,7 @@ fi
 ```
 
 ### Resume Command:
+
 ```
 Use the task-orchestrator subagent to continue from the previous handoff context.
 ```
@@ -86,11 +88,12 @@ tail -10 /tmp/test-driven-handoff.log | grep "Handoff detected\|auto-delegation"
 ## Quick Continue
 
 One-liner to check and continue:
+
 ```bash
-if [ -f .claude/handoff/NEXT_ACTION.json ]; then 
+if [ -f .claude/handoff/NEXT_ACTION.json ]; then
   TARGET=$(cat .claude/handoff/NEXT_ACTION.json | jq -r '.target_agent')
   echo "Use the $TARGET subagent to continue the workflow."
-else 
+else
   echo "No pending handoffs"
 fi
 ```

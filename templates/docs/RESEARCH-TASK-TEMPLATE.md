@@ -75,7 +75,7 @@ const taskWithResearch = {
 ### For Implementation Agents
 ```javascript
 // Before implementing, check for research context
-const task = mcp__task-master__get_task(taskId);
+const task = mcp__task-master-ai__get_task(taskId);
 
 if (task.research_context?.research_files) {
   // Load research findings

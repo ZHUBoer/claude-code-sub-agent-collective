@@ -1,4 +1,4 @@
-# claude tdd agents（中文文档）
+# claude tdd agents
 
 > 实验性 NPX 安装器与子代理（Sub-Agent）协作框架：以 TDD 驱动、Hub-Spoke 路由协调、契约化交接与可验证交付为核心，助力快速原型与高质量实现。
 
@@ -6,6 +6,7 @@
 - 运行环境：Node.js >= 20
 - 主要能力：TDD 校验、Hub-Spoke 协调、行为系统（CLAUDE.md）、钩子与命令体系、研究与指标收集、动态 Agent 生成
 - 安装方式（推荐）：
+
 ```bash
 npx claude-tdd-agents init
 ```
@@ -15,6 +16,7 @@ npx claude-tdd-agents init
 ## 一、框架总览与运行机制
 
 ### 1. 架构模型：Hub-Spoke + 行为操作系统
+
 - **Hub（路由枢纽）**：请求统一进入路由/编排层（如 `@task-orchestrator` 或 `routing-agent`），根据任务类型路由到合适的专业化 Sub-Agent。
 - **Spoke（专业代理）**：如组件实现、功能实现、测试实现、质量校验、研究分析、DevOps 等，按职责单一执行，并产出契约化交付。
 - **Behavioral OS（行为操作系统）**：`CLAUDE.md` 定义了全局行为规则（如“先测试后实现”“统一通过路由”“质量门校验”），钩子脚本在工具使用的关键阶段强制执行这些规则。
@@ -42,12 +44,13 @@ flowchart LR
 ```
 
 ### 2. TDD 驱动的交付流程
-1) 路由阶段：入口命令（如 `/van` 或 CLI）将请求送至路由枢纽。
-2) 研究阶段：子代理调用研究能力（如 Context7），检索真实文档与最佳实践。
-3) RED：先生成失败的测试（定义期望）。
-4) GREEN：最小实现以满足测试通过。
-5) REFACTOR：在测试保护下进行必要重构。
-6) 完成回报：输出标准化 TDD 完成报告与测试结论。
+
+1. 路由阶段：入口命令（如 `/van` 或 CLI）将请求送至路由枢纽。
+2. 研究阶段：子代理调用研究能力（如 Context7），检索真实文档与最佳实践。
+3. RED：先生成失败的测试（定义期望）。
+4. GREEN：最小实现以满足测试通过。
+5. REFACTOR：在测试保护下进行必要重构。
+6. 完成回报：输出标准化 TDD 完成报告与测试结论。
 
 ```mermaid
 sequenceDiagram
@@ -69,6 +72,7 @@ sequenceDiagram
 ```
 
 ### 3. 关键目录与产物（安装后）
+
 ```
 your-project/
 ├── CLAUDE.md                   # 行为系统定义（Prime Directives）
@@ -83,6 +87,7 @@ your-project/
 ```
 
 ### 4. CLI 与核心模块
+
 - 可执行入口：`bin/claude-tdd-agents.js`
   - `init|install`：安装框架（交互/快速模式）
   - `status`：检测安装状态
@@ -117,6 +122,7 @@ graph TD
 ## 二、安装与配置
 
 ### 1. 安装命令
+
 ```bash
 # 快速体验（推荐）
 npx claude-tdd-agents init
@@ -129,6 +135,7 @@ npx claude-tdd-agents init --force        # 冲突强制覆盖（会备份）
 ```
 
 ### 2. 安装过程要点（来源：installer.js）
+
 - 检测已有安装并根据选项选择：交互覆盖或智能合并（express 模式）。
 - 创建目录：`.claude/agents|hooks|commands`、`.claude-collective/tests|metrics`、`.taskmaster` 等。
 - 拷贝模板：按 `file-mapping` 将模板文件处理占位符后写入目标（必要文件可覆盖或智能跳过）。
@@ -154,11 +161,13 @@ flowchart TD
 ```
 
 ### 3. 配置文件
+
 - `.claude/settings.json`：钩子阶段与执行清单（`hooks.PreToolUse/PostToolUse/SubagentStop` 等必须存在）。
 - `CLAUDE.md`：行为系统（如“禁止直接实现，必须经由路由”“TDD 验证必须通过”）。
 - `.claude-collective/package.json` 与 `jest.config.js`：测试框架依赖与脚本。
 
 ### 4. 版本与运行要求
+
 - Node.js >= 20
 - 首次安装后建议重启编辑器/代理运行环境，以确保钩子生效。
 
@@ -167,6 +176,7 @@ flowchart TD
 ## 三、使用方法
 
 ### 1. CLI 命令
+
 ```bash
 # 安装
 npx claude-tdd-agents init
@@ -182,11 +192,12 @@ npx claude-tdd-agents info
 ```
 
 ### 2. 典型使用流程
-1) 在现有项目内执行安装命令；
-2) 重启你的 Agent/IDE 以加载钩子；
-3) 发起自然语言请求（如“实现一个 React Todo 组件并含测试”）；
-4) 系统路由到合适的 Sub-Agent，先生成测试，再交付实现并运行校验；
-5) 查看 `.claude-collective/tests` 与完成报告，按需继续迭代。
+
+1. 在现有项目内执行安装命令；
+2. 重启你的 Agent/IDE 以加载钩子；
+3. 发起自然语言请求（如“实现一个 React Todo 组件并含测试”）；
+4. 系统路由到合适的 Sub-Agent，先生成测试，再交付实现并运行校验；
+5. 查看 `.claude-collective/tests` 与完成报告，按需继续迭代。
 
 ```mermaid
 flowchart LR
@@ -199,6 +210,7 @@ flowchart LR
 ```
 
 ### 3. 状态与验证
+
 - `status` 输出：是否已安装、行为系统/测试/钩子状态、已安装代理数量、版本等。
 - `validate`：
   - 文件存在性：`CLAUDE.md`、`.claude/settings.json`、hooks/agents/tests 目录、测试配置等；
@@ -223,6 +235,7 @@ flowchart LR
 ## 四、子代理（Agents）与路由
 
 ### 1. 常见子代理类别
+
 - 实现类：组件实现、功能实现、基础设施实现、测试实现、打磨优化等。
 - 质量与验证：质量审查、功能验证、质量门、完成门。
 - 研究与智能：研究代理、PRD 解析/研究、任务编排器。
@@ -231,6 +244,7 @@ flowchart LR
 实际可用代理以 `.claude/agents/` 为准（安装模式不同会有差异，`--minimal` 至少包含 `routing-agent.md`）。
 
 ### 2. 路由原则
+
 - 所有需求经由路由枢纽识别任务类型与复杂度，选择合适子代理；
 - 若涉及外部依赖或不确定 API，先进入研究阶段，基于真实文档决策；
 - 全程受 `CLAUDE.md` 与钩子强制约束，确保 TDD 与质量门执行。

@@ -18,12 +18,14 @@ You get 30+ specialized agents that enforce TDD methodology and try to be smarte
 ## Why this exists
 
 I got tired of:
+
 - AI giving me code without tests
 - Having to manually look up library documentation
 - Inconsistent development approaches across projects
 - Breaking down complex features manually
 
 So I built agents that:
+
 1. Write tests first, always (RED → GREEN → REFACTOR)
 2. Use Context7 to pull real documentation
 3. Route work to specialists based on what needs doing
@@ -32,6 +34,7 @@ So I built agents that:
 ## What you get after installation
 
 ### Core Implementation Agents (TDD-enforced)
+
 - **@component-implementation-agent** - UI components with tests and modern patterns
 - **@feature-implementation-agent** - Business logic with comprehensive testing
 - **@infrastructure-implementation-agent** - Build systems with testing setup
@@ -39,6 +42,7 @@ So I built agents that:
 - **@polish-implementation-agent** - Performance optimization with preserved tests
 
 ### Quality & Validation
+
 - **@quality-agent** - Code review and standards checking
 - **@devops-agent** - Deployment and CI/CD setup
 - **@functional-testing-agent** - Browser testing with Playwright
@@ -46,11 +50,13 @@ So I built agents that:
 - **@completion-gate** - Task validation and completion checks
 
 ### Research & Intelligence (Experimental)
+
 - **@research-agent** - Context7-powered documentation lookup
 - **@prd-research-agent** - Intelligent requirement breakdown
 - **@task-orchestrator** - Smart task parallelization
 
 ### System & Coordination
+
 - **`/van` command** - Entry point that routes to @task-orchestrator
 - **@task-orchestrator** - Central routing hub that picks the right specialist
 - **@behavioral-transformation-agent** - System behavioral setup
@@ -62,11 +68,13 @@ So I built agents that:
 ## Installation options
 
 ### Quick install (recommended for trying it out)
+
 ```bash
 npx claude-tdd-agents init
 ```
 
 ### Other options if you want to be selective
+
 ```bash
 # Just core agents for lightweight projects
 npx claude-tdd-agents init --minimal
@@ -106,7 +114,7 @@ your-project/
 ## How it works
 
 1. **`/van` command** routes to **@task-orchestrator** (the routing hub) which analyzes requests and delegates to specialists
-2. **Research phase** - agents use Context7 for real documentation  
+2. **Research phase** - agents use Context7 for real documentation
 3. **Tests written first** - before any implementation
 4. **Implementation** - minimal code to make tests pass
 5. **Refactoring** - clean up while keeping tests green
@@ -144,18 +152,21 @@ npx claude-tdd-agents --help
 ## Current state (honest assessment)
 
 ### What works well
+
 - TDD enforcement prevents a lot of bugs
 - Context7 integration is much better than agents guessing
 - Routing usually picks the right agent for the job
 - Breaking down complex tasks is genuinely helpful
 
 ### What's experimental/rough
+
 - Some agents are still being refined
 - Research phase can be slow sometimes
 - Hook system requires restart (Claude Code limitation)
 - Documentation is scattered across files
 
 ### Known limitations
+
 - Requires Node.js >= 20
 - Need to restart Claude Code after installation
 - Opinionated about TDD (if you don't like tests, skip this)
@@ -182,21 +193,25 @@ npx claude-tdd-agents status
 ## Troubleshooting
 
 ### Installation fails
+
 - Check Node.js version: `node --version` (need >= 16)
 - Clear npm cache: `npm cache clean --force`
 - Try force install: `npx claude-tdd-agents init --force`
 
 ### Agents don't work
+
 - Restart Claude Code (hooks need to load)
 - Check `.claude/settings.json` exists
 - Run `npx claude-tdd-agents validate`
 
 ### Tests don't run
+
 - Make sure your project has a test runner (Jest, Vitest, etc.)
 - Check if tests are actually being written to files
 - Look at the TDD completion reports from agents
 
 ### Research is slow
+
 - Context7 might be having connectivity issues
 - Agent might be being thorough (this varies)
 - Check `.claude-collective/metrics/` for timing data
@@ -211,12 +226,14 @@ npx claude-tdd-agents status
 ## What this is and isn't
 
 ### What it is
+
 - Experimental development aid for rapid prototyping
 - Collection of TDD-focused AI agents
 - Personal project that I use for my own MVPs
 - Opinionated about test-first development
 
 ### What it isn't
+
 - Production-ready enterprise software
 - Guaranteed to work perfectly
 - Following any official standards
@@ -225,6 +242,7 @@ npx claude-tdd-agents status
 ## Why TDD?
 
 Because in my experience:
+
 - Writing tests first forces better design thinking
 - Tests catch bugs when they're cheap to fix
 - Refactoring is safe with good test coverage
@@ -272,8 +290,9 @@ Most of these are enforced automatically through hooks and behavioral constraint
 ## Support
 
 This is a personal project, but:
+
 - **Issues welcome** if you find bugs or have suggestions
-- **PRs welcome** for small fixes or better agent prompts  
+- **PRs welcome** for small fixes or better agent prompts
 - **Don't expect rapid responses** - this is a side project
 
 **Get help**: Run `npx claude-tdd-agents validate` for diagnostics

@@ -28,13 +28,13 @@ agent                     |                    agents
 
 ```bash
 # 1. Get next available task
-mcp__task-master__next_task --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
+mcp__task-master-ai__next_task --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
 
 # 2. Get task details for context
-mcp__task-master__get_task --id=X --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
+mcp__task-master-ai__get_task --id=X --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
 
 # 3. Check dependencies are met
-mcp__task-master__validate_dependencies --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
+mcp__task-master-ai__validate_dependencies --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
 ```
 
 ### Rule 2: Phase-Based Agent Routing
@@ -72,34 +72,34 @@ graph TD
 ### Core Status Management
 ```bash
 # Get next task (primary routing decision)
-mcp__task-master__next_task --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
+mcp__task-master-ai__next_task --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
 
 # Get all pending tasks with subtasks
-mcp__task-master__get_tasks --status=pending --withSubtasks --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
+mcp__task-master-ai__get_tasks --status=pending --withSubtasks --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
 
 # Get specific task details for context
-mcp__task-master__get_task --id=1 --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
+mcp__task-master-ai__get_task --id=1 --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
 
 # Mark subtask in progress (when routing agent)
-mcp__task-master__set_task_status --id=1.1 --status=in-progress --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
+mcp__task-master-ai__set_task_status --id=1.1 --status=in-progress --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
 
 # Mark subtask complete (after agent reports completion)
-mcp__task-master__set_task_status --id=1.1 --status=done --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
+mcp__task-master-ai__set_task_status --id=1.1 --status=done --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
 
 # Validate dependencies before phase transition
-mcp__task-master__validate_dependencies --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
+mcp__task-master-ai__validate_dependencies --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
 ```
 
 ### Progress Tracking
 ```bash
 # Update task with agent progress
-mcp__task-master__update_task --id=1.1 --prompt="Agent progress update" --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
+mcp__task-master-ai__update_task --id=1.1 --prompt="Agent progress update" --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
 
 # Check for blocked tasks
-mcp__task-master__get_tasks --status=blocked --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
+mcp__task-master-ai__get_tasks --status=blocked --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
 
 # Generate task files for reference
-mcp__task-master__generate --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
+mcp__task-master-ai__generate --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code
 ```
 
 ## 🎯 Coordination Protocols
@@ -108,7 +108,7 @@ mcp__task-master__generate --projectRoot=/mnt/h/Active/taskmaster-agent-claude-c
 ```
 REQUEST: "Transform CLAUDE.md to behavioral OS"
 ROUTING LOGIC:
-1. mcp__task-master__next_task (should return Task 1)
+1. mcp__task-master-ai__next_task (should return Task 1)
 2. Route to @behavioral-transformation-agent
 3. Monitor subtasks 1.1-1.8 completion
 4. Validate Phase 1 completion before Phase 2 routing
@@ -239,7 +239,7 @@ If coordination becomes blocked or complex:
 
 ## 🎯 Quick Reference
 
-**Primary Command**: `mcp__task-master__next_task --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code`
+**Primary Command**: `mcp__task-master-ai__next_task --projectRoot=/mnt/h/Active/taskmaster-agent-claude-code`
 
 **Core Principle**: TaskMaster is the single source of truth for all routing decisions.
 

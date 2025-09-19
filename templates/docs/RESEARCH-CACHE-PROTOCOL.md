@@ -64,14 +64,14 @@ mcp__context7__resolve-library-id(libraryName);
 mcp__context7__get-library-docs(resolvedId);
 
 // Save new research to cache
-mcp__task-master__research(query, saveToFile: true);
+mcp__task-master-ai__research(query, saveToFile: true);
 ```
 
 ### 3. Implementation Agent
 **BEFORE** coding:
 ```javascript
 // Get task with research requirements
-const task = mcp__task-master__get_task(id);
+const task = mcp__task-master-ai__get_task(id);
 
 // Check for cache file references
 if (task.research_requirements?.cache_files) {
@@ -145,16 +145,16 @@ const detectLibraries = (text) => {
 ### Cache Miss Scenario
 ```javascript
 // If implementation agent finds no research cache
-mcp__task-master__update_task(id, 
+mcp__task-master-ai__update_task(id, 
   prompt: "BLOCKED: No research cache found for library task. Requesting research agent.");
-mcp__task-master__set_task_status(id, "blocked");
+mcp__task-master-ai__set_task_status(id, "blocked");
 // Return control to workflow agent to add research step
 ```
 
 ### Stale Cache Scenario  
 ```javascript
 // If cache is stale (>7 days), refresh required
-mcp__task-master__update_task(id,
+mcp__task-master-ai__update_task(id,
   prompt: "Research cache stale. Refreshing Context7 documentation for " + libraryName);
 // Proceed with Context7 research and cache update
 ```
