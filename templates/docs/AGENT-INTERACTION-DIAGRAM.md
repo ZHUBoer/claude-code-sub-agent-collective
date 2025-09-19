@@ -1,16 +1,19 @@
 # Agent Interaction and Workflow Diagram
 
 ## Overview
+
 This document maps the complete agent ecosystem using a **hub-and-spoke delegation model**. Individual specialized agents complete their work and return to the routing-agent (hub) for next decisions, preventing boundary violations. Only coordination agents (enhanced-project-manager-agent, workflow-agent) manage sequential workflows.
 
 ## Architectural Model: Hub-and-Spoke vs Pipeline
 
-**❌ WRONG: Pipeline Model (Causes Boundary Violations)**
+**WRONG: Pipeline Model (Causes Boundary Violations)**
+
 ```
 agent1 → agent2 → agent3 → agent4  // Individual agents try to coordinate others
 ```
 
-**✅ CORRECT: Hub-and-Spoke Model (Prevents Boundary Violations)**  
+**CORRECT: Hub-and-Spoke Model (Prevents Boundary Violations)**
+
 ```
 routing-agent → agent1 → COMPLETE → routing-agent → next decision
 routing-agent → agent2 → COMPLETE → routing-agent → next decision
@@ -23,39 +26,39 @@ routing-agent → agent2 → COMPLETE → routing-agent → next decision
 ```mermaid
 graph TD
     %% ENTRY POINTS
-    USER["👤 USER REQUEST"] --> ROUTING["🔄 routing-agent<br/>Universal Request Router"]
-    
+    USER["👤 USER REQUEST"] --> ROUTING["routing-agent<br/>Universal Request Router"]
+
     %% MAIN ROUTING DECISIONS
-    ROUTING --> PRD_RESEARCH["📋 prd-research-agent<br/>PRD Analysis & Task Generation"]
-    ROUTING --> ENHANCED_PM["📊 enhanced-project-manager-agent<br/>Coordinated Development Workflow"]
-    ROUTING --> WORKFLOW["🔄 workflow-agent<br/>Multi-Agent Orchestration"]
+    ROUTING --> PRD_RESEARCH["prd-research-agent<br/>PRD Analysis & Task Generation"]
+    ROUTING --> ENHANCED_PM["enhanced-project-manager-agent<br/>Coordinated Development Workflow"]
+    ROUTING --> WORKFLOW["workflow-agent<br/>Multi-Agent Orchestration"]
     ROUTING --> RESEARCH["🔍 research-agent<br/>Technical Research & Architecture"]
-    
+
     %% PRD CREATION BRANCH
     PRD_RESEARCH --> PRD_AGENT["📄 prd-agent<br/>Enterprise PRD Creation"]
     PRD_RESEARCH --> PRD_MVP["🚀 prd-mvp<br/>MVP/Prototype PRD Creation"]
     PRD_RESEARCH -->|"COMPLETE"| ROUTING
     PRD_AGENT -->|"COMPLETE"| ROUTING
     PRD_MVP -->|"COMPLETE"| ROUTING
-    
+
     %% CORE IMPLEMENTATION WORKFLOW
-    ENHANCED_PM --> INFRASTRUCTURE["🏗️ infrastructure-implementation-agent<br/>Build System, Vite, TypeScript"]
+    ENHANCED_PM --> INFRASTRUCTURE["infrastructure-implementation-agent<br/>Build System, Vite, TypeScript"]
     ENHANCED_PM --> FEATURE["💾 feature-implementation-agent<br/>Data Services, Business Logic"]
     ENHANCED_PM --> COMPONENT["🎨 component-implementation-agent<br/>UI Components, Styling"]
     ENHANCED_PM --> TESTING_IMPL["🧪 testing-implementation-agent<br/>Test Framework & Test Suites"]
     ENHANCED_PM --> FUNCTIONAL_TESTING["🧪 functional-testing-agent<br/>Browser Testing & User Validation"]
     ENHANCED_PM --> POLISH["✨ polish-implementation-agent<br/>Performance & Accessibility"]
     ENHANCED_PM --> DEVOPS["🚀 devops-agent<br/>Deployment, CI/CD"]
-    
+
     %% HUB-AND-SPOKE RETURN FLOWS (Individual Agents Return to Delegator)
     INFRASTRUCTURE -->|"COMPLETE"| ROUTING
-    FEATURE -->|"COMPLETE"| ROUTING  
+    FEATURE -->|"COMPLETE"| ROUTING
     COMPONENT -->|"COMPLETE"| ROUTING
     TESTING_IMPL -->|"COMPLETE"| ROUTING
     FUNCTIONAL_TESTING -->|"COMPLETE"| ROUTING
     POLISH -->|"COMPLETE"| ROUTING
     DEVOPS -->|"COMPLETE"| ROUTING
-    
+
     %% COORDINATION WORKFLOWS (Only for Coordination Agents)
     ENHANCED_PM -->|"COORDINATE"| INFRASTRUCTURE
     ENHANCED_PM -->|"COORDINATE"| FEATURE
@@ -63,28 +66,28 @@ graph TD
     WORKFLOW -->|"ORCHESTRATE"| INFRASTRUCTURE
     WORKFLOW -->|"ORCHESTRATE"| FEATURE
     WORKFLOW -->|"ORCHESTRATE"| COMPONENT
-    
+
     %% QUALITY VALIDATION FLOWS (Through Routing Hub)
-    ROUTING -->|"QUALITY CHECK"| ENHANCED_QUALITY["🛡️ enhanced-quality-gate<br/>Quality Validation with Gate Enforcement"]
+    ROUTING -->|"QUALITY CHECK"| ENHANCED_QUALITY["enhanced-quality-gate<br/>Quality Validation with Gate Enforcement"]
     ENHANCED_QUALITY -->|"QUALITY REVIEW"| QUALITY["🔍 quality-agent<br/>Code Quality, Security, Performance"]
-    QUALITY -->|"VALIDATED"| COMPLETION["✅ completion-gate<br/>Task Completion Validation"]
+    QUALITY -->|"VALIDATED"| COMPLETION["completion-gate<br/>Task Completion Validation"]
     COMPLETION -->|"COMPLETE"| ROUTING
-    
+
     %% READINESS AND WORKFLOW CONTROL (Coordination Agent Workflow)
-    ENHANCED_PM --> READINESS["📋 readiness-gate<br/>Project Phase Advancement"]
+    ENHANCED_PM --> READINESS["readiness-gate<br/>Project Phase Advancement"]
     READINESS -->|"READY"| ENHANCED_PM
-    
+
     %% WORKFLOW ORCHESTRATION (Coordination Agent)
     WORKFLOW -->|"ORCHESTRATE"| INFRASTRUCTURE
-    WORKFLOW -->|"ORCHESTRATE"| FEATURE  
+    WORKFLOW -->|"ORCHESTRATE"| FEATURE
     WORKFLOW -->|"ORCHESTRATE"| COMPONENT
     WORKFLOW -->|"ORCHESTRATE"| TESTING_IMPL
     WORKFLOW -->|"ORCHESTRATE"| FUNCTIONAL_TESTING
     WORKFLOW -->|"ORCHESTRATE"| POLISH
-    
+
     %% RESEARCH AGENT DIRECT DELEGATION (Returns to Routing)
     RESEARCH -->|"COMPLETE"| ROUTING
-    
+
     %% STYLING AND CLASSES
     classDef entry fill:#e1f5fe,stroke:#01579b,stroke-width:3px
     classDef routing fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
@@ -93,7 +96,7 @@ graph TD
     classDef quality fill:#ffebee,stroke:#b71c1c,stroke-width:2px
     classDef prd fill:#f1f8e9,stroke:#33691e,stroke-width:2px
     classDef research fill:#fce4ec,stroke:#880e4f,stroke-width:2px
-    
+
     class USER entry
     class ROUTING routing
     class ENHANCED_PM,WORKFLOW,READINESS management
@@ -105,15 +108,18 @@ graph TD
 
 ## Agent Categories and Responsibilities
 
-### 🔄 **Entry and Routing Agents**
+### **Entry and Routing Agents**
+
 - **routing-agent**: Universal entry point with **30-second complexity assessment**, analyzes requests and routes to appropriate specialized agents. Features lightweight pattern recognition for simple applications (todo apps, HTML/CSS/JS patterns) that bypass heavy coordination workflows.
 - **workflow-agent**: Multi-agent orchestrator with feedback loops for complex tasks
 
-### 📊 **Management and Coordination Agents**
+### **Management and Coordination Agents**
+
 - **enhanced-project-manager-agent**: Coordinates development phases with mandatory gate enforcement
 - **readiness-gate**: Validates if project phases can advance based on completeness
 
-### 🏗️ **Core Implementation Agents**
+### **Core Implementation Agents**
+
 - **infrastructure-implementation-agent**: Sets up build configurations, Vite, TypeScript, testing frameworks
 - **feature-implementation-agent**: Implements data services, business logic, state management, API integration
 - **component-implementation-agent**: Creates UI components, handles interactions, implements styling and responsive design
@@ -122,12 +128,14 @@ graph TD
 - **polish-implementation-agent**: Final performance optimization, accessibility refinement, error handling enhancement
 - **devops-agent**: Handles deployment, CI/CD, infrastructure, and production setup
 
-### 🛡️ **Quality and Validation Agents**
+### **Quality and Validation Agents**
+
 - **enhanced-quality-gate**: Comprehensive security, performance, accessibility validation with gate enforcement
 - **quality-agent**: Performs code quality review, security assessment, performance validation
 - **completion-gate**: Validates if tasks truly meet acceptance criteria and are complete
 
-### 📋 **PRD and Research Agents**
+### **PRD and Research Agents**
+
 - **prd-research-agent**: Analyzes PRDs, conducts research, performs complexity analysis, generates tasks
 - **prd-agent**: Creates comprehensive, enterprise-grade Product Requirements Documents
 - **prd-mvp**: Creates lean MVP PRDs focused on rapid prototyping
@@ -138,6 +146,7 @@ graph TD
 Each agent uses standardized handoff tokens to ensure proper workflow coordination:
 
 ### Hub-and-Spoke Return Tokens (Individual Agents Return to Delegator)
+
 - `INFRA_COMPLETE_I5K7` - Infrastructure complete, return to routing-agent
 - `FEAT_COMPLETE_F7K5` - Feature implementation complete, return to routing-agent
 - `COMP_COMPLETE_C8K6` - Component implementation complete, return to routing-agent
@@ -147,6 +156,7 @@ Each agent uses standardized handoff tokens to ensure proper workflow coordinati
 - `DEVOPS_COMPLETE_D7K9` - DevOps implementation complete, return to routing-agent
 
 ### Coordination Workflow Tokens (Coordination Agents Only)
+
 - `COORD_INFRA_C4M7` - Enhanced project manager coordinates infrastructure
 - `COORD_FEATURE_C6L8` - Enhanced project manager coordinates features
 - `COORD_COMPONENT_C8M2` - Enhanced project manager coordinates components
@@ -154,12 +164,14 @@ Each agent uses standardized handoff tokens to ensure proper workflow coordinati
 - `ORCHESTRATE_SEQUENCE_O7P6` - Workflow agent orchestrates sequential work
 
 ### Quality and Completion Tokens
+
 - `QUALITY_REQUIRED_Q3R5` - Route to quality validation via routing-agent
 - `QUALITY_PASSED_Q5M7` - Quality validation complete, return to routing-agent
 - `TASK_COMPLETE_T3R9` - Task completion validated
 - `COORD_REQUIRED_C7M1` - Project coordination needed
 
 ### Complexity Assessment Tokens (30-second routing)
+
 - `SIMPLE_APP_N7Q3` - Simple application pattern, direct to component-implementation-agent
 - `SIMPLE_COMPOUND_E4T7` - Simple compound request, bypass coordination overhead
 - `COMPLEX_COMPOUND_E9M5` - Complex multi-domain request, requires coordination
@@ -167,49 +179,57 @@ Each agent uses standardized handoff tokens to ensure proper workflow coordinati
 ## Workflow Patterns
 
 ### 1. **Hub-and-Spoke Direct Delegation**
+
 ```
 routing-agent → infrastructure-implementation-agent → COMPLETE → routing-agent → next decision
-routing-agent → feature-implementation-agent → COMPLETE → routing-agent → next decision  
+routing-agent → feature-implementation-agent → COMPLETE → routing-agent → next decision
 routing-agent → component-implementation-agent → COMPLETE → routing-agent → next decision
 routing-agent → testing-implementation-agent → COMPLETE → routing-agent → next decision
 ```
 
 ### 2. **Coordinated Development Flow (via Enhanced Project Manager)**
+
 ```
 routing-agent → enhanced-project-manager-agent → coordinates: infrastructure → feature → component → testing
 → enhanced-quality-gate → quality-agent → completion-gate → enhanced-project-manager-agent
 ```
 
 ### 3. **Research-Driven Flow**
+
 ```
 routing-agent → research-agent → COMPLETE → routing-agent → prd-research-agent → COMPLETE → routing-agent
 → enhanced-project-manager-agent → [coordinated implementation] → completion
 ```
 
 ### 4. **Complex Multi-Agent Orchestration (via Workflow Agent)**
+
 ```
 routing-agent → workflow-agent → orchestrates: [parallel: infrastructure + research] → COMPLETE → workflow-agent
 → orchestrates: [coordinated: feature + component] → COMPLETE → workflow-agent → completion
 ```
 
 ### 5. **Quality Validation Flow**
+
 ```
 routing-agent → enhanced-quality-gate → quality-agent → completion-gate → COMPLETE → routing-agent
 ```
 
 ### 6. **30-Second Complexity Assessment Flow (NEW)**
+
 ```
 routing-agent → [30-second pattern analysis] → SIMPLE PATTERN → component-implementation-agent → COMPLETE → routing-agent
 routing-agent → [30-second pattern analysis] → COMPLEX PATTERN → enhanced-project-manager-agent → [coordination]
 ```
 
 **Examples:**
+
 - "HTML/CSS/JS todo app" → SIMPLE → component-implementation-agent
 - "Enterprise user management system" → COMPLEX → enhanced-project-manager-agent
 
 ## Gate Enforcement Points
 
 ### Mandatory Quality Gates
+
 1. **Research Compliance**: All implementations must use research cache, not training data
 2. **Build Validation**: All agents must validate with `npm run build` before completion
 3. **TypeScript Compliance**: Strict TypeScript configuration and validation required
@@ -218,18 +238,22 @@ routing-agent → [30-second pattern analysis] → COMPLEX PATTERN → enhanced-
 6. **Integration Testing**: All components must integrate without conflicts
 
 ### Agent Structure Requirements
+
 **MANDATORY AGENT STRUCTURE**: All agents must follow EXACT format:
+
 1. **YAML Frontmatter**: name, description, tools, color
 2. **CRITICAL EXECUTION RULE**: Mandatory execution rule with Mermaid path following
 3. **Mermaid Decision Diagram**: Complete workflow with decision nodes using SIMPLE format
 4. **NOTHING ELSE**: No additional documentation or content in agent files
 
 **CRITICAL FIX APPLIED**: component-implementation-agent was missing CRITICAL EXECUTION RULE and Mermaid diagram, causing inappropriate auto-testing behavior (running web servers, npm run dev for simple file modifications). Fixed with proper workflow that enforces:
+
 - NO web servers or testing commands unless explicitly requested
 - Focus ONLY on file modifications (HTML, CSS, JS, React components)
 - Return to delegator when implementation complete
 
 **CRITICAL FIX APPLIED**: infrastructure-implementation-agent was missing CRITICAL EXECUTION RULE and Mermaid diagram, causing catastrophic routing instruction violations. Fixed with proper workflow that enforces:
+
 - MANDATORY Context7 research for build tools and framework setup
 - MANDATORY build system validation with npm run build
 - Research-backed tooling configurations - no training data assumptions
@@ -240,6 +264,7 @@ routing-agent → [30-second pattern analysis] → COMPLEX PATTERN → enhanced-
 **REMAINING STRUCTURE ISSUES**: feature-implementation-agent, testing-implementation-agent, and polish-implementation-agent are missing CRITICAL EXECUTION RULE and may exhibit similar inappropriate behaviors.
 
 ### Gate Validation Sequence
+
 ```
 Implementation → Build Validation → Quality Gate → Completion Gate → Next Phase/Handoff
 ```
@@ -247,6 +272,7 @@ Implementation → Build Validation → Quality Gate → Completion Gate → Nex
 ## Agent Communication Protocol
 
 ### Hub-and-Spoke Response Format
+
 ```
 PHASE: [Phase] - [Status with details]
 STATUS: [System] - [Implementation status with validation]
@@ -257,6 +283,7 @@ HANDOFF_TOKEN: [TYPE]_COMPLETE_[ID]
 ```
 
 ### Coordination Agent Response Format (Enhanced Project Manager / Workflow Agent)
+
 ```
 PHASE: [Phase] - [Coordination status with details]
 STATUS: [System] - [Coordination status with validation]
@@ -267,6 +294,7 @@ HANDOFF_TOKEN: [COORD/ORCHESTRATE]_[ACTION]_[ID]
 ```
 
 ### Handoff Requirements
+
 - Individual agents MUST return to their delegator (routing-agent)
 - Only coordination agents may delegate to other agents
 - Handoff tokens distinguish between COMPLETE (return) vs COORDINATE (delegate)
@@ -275,16 +303,19 @@ HANDOFF_TOKEN: [COORD/ORCHESTRATE]_[ACTION]_[ID]
 ## Error Handling and Escalation
 
 ### Loop Prevention
+
 - Maximum 3 retry attempts per validation cycle
 - Automatic escalation to project coordination after retry limit
 - Progress validation to prevent circular patterns
 
 ### Escalation Patterns
+
 ```
 Individual Agent Blocked → COMPLETE with error context → routing-agent → enhanced-project-manager-agent → workflow-agent
 ```
 
 ### Error Recovery
+
 - Failed builds trigger configuration analysis and fixes
 - Quality failures require comprehensive validation retry
 - Integration conflicts escalate to project coordination
@@ -298,20 +329,23 @@ Individual Agent Blocked → COMPLETE with error context → routing-agent → e
 #### Tool Access Matrix
 
 **File Modification Only (No Bash Access):**
-- ✅ `component-implementation-agent` - Only needs Read, Write, Edit, MultiEdit for UI components
-- ✅ `feature-implementation-agent` - Only needs Read, Write, Edit, MultiEdit for data services  
-- ✅ `polish-implementation-agent` - Only needs Read, Write, Edit, MultiEdit for optimization
+
+- `component-implementation-agent` - Only needs Read, Write, Edit, MultiEdit for UI components
+- `feature-implementation-agent` - Only needs Read, Write, Edit, MultiEdit for data services
+- `polish-implementation-agent` - Only needs Read, Write, Edit, MultiEdit for optimization
 
 **Command Execution Required (Bash Access Maintained):**
-- ✅ `infrastructure-implementation-agent` - Needs Bash for build setup (npm install, npm run build)
-- ✅ `testing-implementation-agent` - Needs Bash for test execution (npm test, npm run test:unit)
-- ✅ `quality-agent` - Needs Bash for quality validation and test running
-- ✅ `devops-agent` - Needs Bash for deployment, CI/CD, and infrastructure commands
-- ✅ `functional-testing-agent` - Needs Bash for development server startup and Playwright testing
+
+- `infrastructure-implementation-agent` - Needs Bash for build setup (npm install, npm run build)
+- `testing-implementation-agent` - Needs Bash for test execution (npm test, npm run test:unit)
+- `quality-agent` - Needs Bash for quality validation and test running
+- `devops-agent` - Needs Bash for deployment, CI/CD, and infrastructure commands
+- `functional-testing-agent` - Needs Bash for development server startup and Playwright testing
 
 #### Prevention of Inappropriate Commands
 
 **RESOLVED ISSUE**: component-implementation-agent was inappropriately running:
+
 - `python3 -m http.server 8080` (web server startup)
 - `npm run dev` (development server for simple file modifications)
 
@@ -325,4 +359,4 @@ Individual Agent Blocked → COMPLETE with error context → routing-agent → e
 
 ---
 
-*This diagram represents the current agent ecosystem as of the latest agent architecture updates. Agents in the archive/ folder are not included in active workflows.*
+_This diagram represents the current agent ecosystem as of the latest agent architecture updates. Agents in the archive/ folder are not included in active workflows._

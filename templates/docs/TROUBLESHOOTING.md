@@ -3,22 +3,28 @@
 ## Common Installation Issues
 
 ### Template Files Not Found
+
 **Problem**: Warning messages about missing template files during installation.
-**Solution**: 
+**Solution**:
+
 1. Ensure you're using the latest version: `npx claude-tdd-agents@latest`
 2. Clear npm cache: `npm cache clean --force`
 3. Try installing with `--force` flag: `npx claude-tdd-agents --force`
 
 ### Permission Errors
+
 **Problem**: EACCES errors when installing hooks or files.
 **Solution**:
+
 1. Run with appropriate permissions
 2. Check directory ownership: `ls -la .claude/`
 3. Fix permissions: `chmod +x .claude/hooks/*.sh`
 
 ### Hook Execution Failures
+
 **Problem**: Hooks fail to execute or show permission denied.
 **Solution**:
+
 1. Make hooks executable: `chmod +x .claude/hooks/*.sh`
 2. Check shell compatibility (bash required)
 3. Verify hook syntax: `bash -n .claude/hooks/directive-enforcer.sh`
@@ -26,22 +32,28 @@
 ## Agent System Issues
 
 ### Agent Not Found
+
 **Problem**: Agent files exist but system doesn't recognize them.
 **Solution**:
+
 1. Check file extension (should be `.md`)
 2. Verify agent metadata format
 3. Restart Claude Code to refresh agent registry
 
 ### Routing Failures
+
 **Problem**: Requests don't route to expected agents.
 **Solution**:
+
 1. Check CLAUDE.md routing patterns
 2. Verify agent capabilities in metadata
 3. Enable debug logging: add `--verbose` to commands
 
 ### Test Failures
+
 **Problem**: TDD handoff tests fail unexpectedly.
 **Solution**:
+
 1. Run tests individually: `npm test -- --testNamePattern="specific test"`
 2. Check contract definitions in test files
 3. Verify agent implementations match contracts
@@ -49,15 +61,19 @@
 ## Configuration Issues
 
 ### Settings Not Applied
+
 **Problem**: Changes to `.claude/settings.json` don't take effect.
 **Solution**:
+
 1. Restart Claude Code completely
 2. Check JSON syntax: `node -e "JSON.parse(require('fs').readFileSync('.claude/settings.json'))"`
 3. Verify hook configuration syntax
 
 ### Metrics Collection Disabled
+
 **Problem**: Research metrics aren't being collected.
 **Solution**:
+
 1. Enable in research.config.json: `"enabled": true`
 2. Check storage permissions in metrics directory
 3. Verify MetricsCollector initialization
@@ -65,15 +81,19 @@
 ## Performance Issues
 
 ### Slow Agent Spawning
+
 **Problem**: Agent creation takes longer than expected.
 **Solution**:
+
 1. Check JIT loading configuration
 2. Reduce template complexity
 3. Monitor resource usage during spawning
 
 ### High Memory Usage
+
 **Problem**: System uses excessive memory during operations.
 **Solution**:
+
 1. Adjust cleanup thresholds in AgentRegistry
 2. Enable periodic garbage collection
 3. Limit concurrent agent operations
