@@ -37,6 +37,10 @@ echo "=== TASKMASTER INTEGRATION (.taskmaster/CLAUDE.md) ==="
 cat .taskmaster/CLAUDE.md
 echo ""
 
+echo "=== LANGUAGE POLICY ==="
+echo "Always respond in Chinese-simplified"
+echo ""
+
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "✅ BEHAVIORAL OPERATING SYSTEM ONLINE"
 echo "🎯 Prime Directives: LOADED"
