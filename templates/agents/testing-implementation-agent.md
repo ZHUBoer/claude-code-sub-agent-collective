@@ -92,7 +92,7 @@ for (const file of researchFiles) {
 
 **Research-backed testing:**
 
-- **Testing Frameworks**: Use research for current Jest, Vitest, Testing Library patterns
+- **Testing Frameworks**: Use research for current Jest, Vitest, Testing Library patterns, Prioritize the use of the Jest framework.
 - **Test Strategies**: Apply research findings for unit, integration, and e2e testing
 - **Mock Patterns**: Use research-based mocking and stubbing approaches
 
