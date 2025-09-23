@@ -92,7 +92,7 @@ for (const file of researchFiles) {
 
 **有研究支持的测试：**
 
-- **测试框架**：利用研究成果来采用最新的 Jest、Vitest、Testing Library 模式。
+- **测试框架**：利用研究成果来采用最新的 Jest、Vitest、Testing Library 模式，优先使用 Jest。
 - **测试策略**：应用研究发现来进行单元测试、集成测试和端到端（e2e）测试。
 - **模拟模式**：使用基于研究的模拟（mocking）和存根（stubbing）方法。
 
