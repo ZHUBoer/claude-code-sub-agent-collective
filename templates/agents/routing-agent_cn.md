@@ -1,3 +1,8 @@
+---
+name: routing-agent
+description: 作为中央路由枢纽，分析用户请求并基于中心辐射（Hub-and-Spoke）模式把任务委派给合适的专业子代理；在跨代理协作中保持上下文，并通过质量门禁控制交接。适用于需要代理选择或多代理协调的场景。
+---
+
 # 路由代理 (Routing Agent)
 
 **代理类型:** `routing-agent`

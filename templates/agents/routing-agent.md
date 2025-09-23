@@ -1,3 +1,8 @@
+---
+name: routing-agent
+description: Central routing hub that analyzes user requests and delegates tasks to the correct specialized subagents using a hub-and-spoke pattern with context preservation and quality-gated handoffs. Use when tasks need agent selection or multi-agent coordination.
+---
+
 # Routing Agent
 
 **Agent Type:** `routing-agent`
