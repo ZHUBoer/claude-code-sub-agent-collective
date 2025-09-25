@@ -293,3 +293,31 @@ npx . validate            # 测试 validation 命令
 - 切勿使用默认的 "2.0.7" 提交信息
 
 此代码库实现了一个复杂的代理集合系统，具有强大的 TDD 强制执行和智能路由功能。
+
+## Router-first 协议（对 Claude Code 强制）
+
+所有请求必须先进入 `@routing-agent`。Hub 控制器不应自行启发式选择子代理，而应遵循如下流程：
+
+1. 将任务/请求上下文提供给 `@routing-agent`。
+2. 期望严格 JSON 输出，字段包含：`sub_agents[]`、`route_type`、`confidence`、`reason`、`candidates[]`、`quality_gates`、`next_action`。
+3. 若 `confidence < 0.7` 或 `next_action ∈ {unknown, clarify}`：
+   - 提出 1–2 个最小化澄清问题，或回退到安全默认（如 `research-agent`）。
+4. 若 `sub_agents` 非空且 `next_action=route`：
+   - 将任务委派给所列代理（单个或多个）。当任务相互独立时可并行；否则按序执行。
+5. 若 `quality_gates=true`，在接受完成前强制质量门禁。
+
+建议置信度阈值：`0.7`。控制器必须把非 JSON 或不符合 Schema 的输出视为无效，并要求路由代理重新输出合法 JSON。
+
+### 控制器向路由代理的示例提示
+
+```
+你是 routing-agent。仅进行分类与分配。返回严格 JSON，字段：sub_agents, route_type, confidence, reason, candidates, quality_gates, next_action。
+任务：<插入任务摘要/上下文>
+Agent 目录：<插入精简目录或 Top-K 候选>
+```
+
+### 解析与执行规则
+
+- 对畸形 JSON 直接拒绝，并要求重发。
+- 当返回多个 `sub_agents` 时，只有在相互独立时才并行，否则串行并设置检查点。
+- 当无合适代理或置信度较低时，优先路由至 `research-agent` 进行范围界定。

@@ -296,3 +296,31 @@ When in doubt, follow existing patterns exactly. Ask for clarification before de
 - Never use the default "2.0.7" commit message
 
 This codebase implements a sophisticated agent collective system with strong TDD enforcement and intelligent routing capabilities.
+
+## Router-First Protocol (Mandatory for Claude Code)
+
+All requests MUST enter through `@routing-agent`. The hub controller should not select sub-agents heuristically. Instead, follow this programmatic loop:
+
+1. Provide the task/request context to `@routing-agent`.
+2. Expect STRICT JSON output with fields: `sub_agents[]`, `route_type`, `confidence`, `reason`, `candidates[]`, `quality_gates`, `next_action`.
+3. If `confidence < 0.7` or `next_action in {unknown, clarify}`:
+   - Ask 1–2 minimal clarifying questions OR fallback to a safe default (e.g., `research-agent`).
+4. If `sub_agents` non-empty and `next_action=route`:
+   - Delegate to the listed agents (single or multiple). If multiple, run parallel when independent; otherwise follow order.
+5. Enforce Quality Gates if `quality_gates=true` before accepting completion.
+
+Recommended confidence threshold: `0.7`. The controller MUST treat any non-JSON or schema-violating output as invalid and re-prompt the router to re-output valid JSON.
+
+### Example Controller Prompt to Router
+
+```
+You are the routing-agent. Classify and delegate only. Return STRICT JSON with fields: sub_agents, route_type, confidence, reason, candidates, quality_gates, next_action.
+Task: <insert summarized task/context>
+Agent Catalog: <insert compact catalog or top-k candidates>
+```
+
+### Parsing and Execution Rules
+
+- Reject malformed JSON; request reissue.
+- When multiple `sub_agents` are returned, prefer parallel execution only if tasks are independent; otherwise serialize with checkpoints.
+- If no agent fits or confidence is low, prefer `research-agent` for scoping.
