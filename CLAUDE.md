@@ -52,8 +52,6 @@ npm run metrics:report    # View metrics data
 
 ### Local Testing Workflow
 
-For testing changes before publishing (see ai-docs/Simple-Local-Testing-Workflow.md):
-
 ```bash
 # Automated testing (does everything automatically)
 ./scripts/test-local.sh

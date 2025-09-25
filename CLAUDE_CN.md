@@ -52,8 +52,6 @@ npm run metrics:report    # 查看指标数据
 
 ### 本地测试工作流
 
-用于在发布前测试变更 (参见 ai-docs/Simple-Local-Testing-Workflow.md):
-
 ```bash
 # 自动化测试 (自动完成所有操作)
 ./scripts/test-local.sh
