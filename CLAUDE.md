@@ -35,8 +35,8 @@ This is the **claude tdd agents** - an NPX-distributed framework that installs s
 
 ```bash
 # Run tests (primary test suite)
-npm test                    # Vitest tests
-npm run test:jest          # Jest tests (comprehensive)
+npm test                    # Jest tests (comprehensive)
+npm run test:vitest          # vitest tests
 npm run test:coverage      # Coverage reports
 
 # Run specific test suites
@@ -234,8 +234,8 @@ npx . validate            # Test validation
 
 ### Test Execution
 
-- **Vitest**: Fast iteration during development (`npm test`)
-- **Jest**: Comprehensive validation (`npm run test:jest`)
+- **Vitest**: Fast iteration during development (`npm run test:vitest`)
+- **Jest**: Comprehensive validation (`npm test`)
 - **Coverage**: Track test coverage (`npm run test:coverage`)
 
 ### Quality Gates
@@ -255,7 +255,7 @@ npx . validate            # Test validation
 ### Release Process
 
 1. Update version in `package.json`
-2. Run full test suite: `npm run test:jest`
+2. Run full test suite: `npm test`
 3. Test NPX installation: `npx . init --force`
 4. Update `CHANGELOG.md` with changes
 5. Commit and tag release

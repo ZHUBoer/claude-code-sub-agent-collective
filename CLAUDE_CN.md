@@ -35,8 +35,8 @@
 
 ```bash
 # 运行测试 (主测试套件)
-npm test                    # Vitest 测试
-npm run test:jest          # Jest 测试 (全面)
+npm test                    # Jets 测试 (全面)
+npm run test:vitest          # vitest 测试
 npm run test:coverage      # 覆盖率报告
 
 # 运行特定测试套件
@@ -231,8 +231,8 @@ npx . validate            # 测试 validation 命令
 
 ### 测试执行
 
-- **Vitest**: 用于开发期间的快速迭代 (`npm test`)
-- **Jest**: 用于全面验证 (`npm run test:jest`)
+- **Vitest**: 用于开发期间的快速迭代 (`npm run test:vitest`)
+- **Jest**: 用于全面验证 (`npm test`)
 - **覆盖率**: 跟踪测试覆盖率 (`npm run test:coverage`)
 
 ### 质量门禁
@@ -252,7 +252,7 @@ npx . validate            # 测试 validation 命令
 ### 发布流程
 
 1. 更新 `package.json` 中的版本号
-2. 运行完整测试套件: `npm run test:jest`
+2. 运行完整测试套件: `npm test`
 3. 测试 NPX 安装: `npx . init --force`
 4. 在 `CHANGELOG.md` 中记录变更
 5. 提交并为发布版本打上标签
