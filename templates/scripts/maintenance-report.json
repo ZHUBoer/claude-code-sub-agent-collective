@@ -17,7 +17,7 @@
       {
         "name": "broken_directory_structure",
         "description": "Simulated file/directory conflicts",
-        "status": "repaired", 
+        "status": "repaired",
         "actions_taken": ["conflict_resolved", "directories_recreated"]
       }
     ],
@@ -37,7 +37,7 @@
       "status": "functional",
       "capabilities_tested": [
         "configuration_file_repair",
-        "missing_script_restoration", 
+        "missing_script_restoration",
         "directory_structure_validation",
         "automatic_backup_system",
         "health_monitoring"
