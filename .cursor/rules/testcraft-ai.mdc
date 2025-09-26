@@ -52,6 +52,7 @@ alwaysApply: false
 #### 3.3. 路径归一化与别名
 - **解析配置**: 自动解析 `jsconfig.json` 或 `tsconfig.json` 的 `baseUrl` 和 `paths` 配置。
 - **动态覆盖范围**: 依据输入 `path` 动态设置 `collectCoverageFrom`，并按此范围判定覆盖率。
+- **运行时别名与测试别名隔离**：运行时（NFES/Next）与测试（Jest）的别名配置必须分离。运行时仅在 `nfes.config.js/next.config.js` 中配置；Jest 仅在 `jest.config.js` 中通过 `moduleNameMapper` 配置，互不干扰。
 #### 3.4. 硬性阻塞 (Hard Blocker) 定义（强制）
 - 仅指以下情形：包安装或转换不可自修复失败、权限/文件系统错误、配置解析致命错误、源码语法无法解析且与业务实现紧耦合。
 - 非硬性阻塞的情形包括但不限于：覆盖率不足、测试未补齐、仅拟定计划、异步用例不稳定。这些不得触发早停或报告阶段性总结。
@@ -74,7 +75,17 @@ alwaysApply: false
 ### 4. 阶段化执行流程
 #### 4.1. 阶段 1：环境预检与配置
 1.  **就绪判定**:
-    - 检查 `jest.config.js`/`vitest.config.js` 及 `babel.config.js` (若需)。
+    - 检查 `jest.config.js`/`vitest.config.js` 及 Babel 配置。
+    - 强约束：禁止让根级 `babel.config.js` 影响运行时构建（Next/NFES）。若需 Babel 仅用于测试，请：
+      - 新增专用测试 Babel 配置（如 `jest.babel.config.js`），并在 `jest.config.js` 的 `transform` 中指向它：
+        ```js
+        transform: {
+          '^.+\\.(js|jsx|ts|tsx)$': [
+            'babel-jest', { configFile: path.join(__dirname, 'jest.babel.config.js'), babelrc: false }
+          ]
+        }
+        ```
+      - 避免在项目根放置通用 `babel.config.js` 影响 NFES/Next 运行时；或确保仅在 `process.env.NODEENV==='test'` 时导出配置。
     - 执行 `npx jest --version` 或 `npx vitest --version`。
     - 若通过，跳至 **阶段 2**。
 2.  **(按需) 最小增量配置**:
