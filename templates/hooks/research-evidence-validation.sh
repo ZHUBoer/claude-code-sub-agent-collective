@@ -84,9 +84,9 @@ validate_green_phase() {
     
     if [[ ! -d "$research_dir" ]]; then
         log "GREEN PHASE CRITICAL ERROR: Research cache directory doesn't exist"
-        echo "🚨 GREEN PHASE CRITICAL FAILURE: Research cache directory missing"
-        echo "📁 Expected: $research_dir"
-        echo "🔧 REQUIRED: Create research cache files with actual Context7/TaskMaster research"
+        echo "GREEN PHASE CRITICAL FAILURE: Research cache directory missing"
+        echo "Expected: $research_dir"
+        echo "REQUIRED: Create research cache files with actual Context7/TaskMaster research"
         return 1
     fi
     
@@ -96,15 +96,15 @@ validate_green_phase() {
     
     if [[ $research_file_count -eq 0 ]]; then
         log "GREEN PHASE CRITICAL ERROR: No research cache files found"
-        echo "🚨 GREEN PHASE CRITICAL FAILURE: Zero research cache files"
-        echo "📁 Directory exists but empty: $research_dir"
-        echo "🔧 REQUIRED: Execute mcp__task-master-ai__research with saveToFile=true"
-        echo "🔧 REQUIRED: Execute mcp__context7__ tools and save results"
+        echo "GREEN PHASE CRITICAL FAILURE: Zero research cache files"
+        echo "Directory exists but empty: $research_dir"
+        echo "REQUIRED: Execute mcp__task-master-ai__research with saveToFile=true"
+        echo "REQUIRED: Execute mcp__context7__ tools and save results"
         return 1
     fi
     
     log "GREEN phase validation passed - found $research_file_count research files"
-    echo "✅ GREEN PHASE: Research cache files exist ($research_file_count files)"
+    echo "GREEN PHASE: Research cache files exist ($research_file_count files)"
     return 0
 }
 
@@ -129,16 +129,16 @@ validate_refactor_phase() {
     
     if [[ $research_context_count -eq 0 ]]; then
         log "REFACTOR PHASE CRITICAL ERROR: No research_context fields found in tasks"
-        echo "🚨 REFACTOR PHASE CRITICAL FAILURE: Tasks lack research_context"
-        echo "📁 File: $tasks_file"
-        echo "🔍 Found: $research_context_count research_context fields"
-        echo "🔧 REQUIRED: Execute mcp__task-master-ai__update_task for each task"
-        echo "🔧 REQUIRED: Add research_context and implementation_guidance fields"
+        echo "REFACTOR PHASE CRITICAL FAILURE: Tasks lack research_context"
+        echo "File: $tasks_file"
+        echo "Found: $research_context_count research_context fields"
+        echo "REQUIRED: Execute mcp__task-master-ai__update_task for each task"
+        echo "REQUIRED: Add research_context and implementation_guidance fields"
         return 1
     fi
     
     log "REFACTOR phase validation passed - found $research_context_count research_context fields"
-    echo "✅ REFACTOR PHASE: Tasks enhanced with research_context ($research_context_count fields)"
+    echo "REFACTOR PHASE: Tasks enhanced with research_context ($research_context_count fields)"
     return 0
 }
 
@@ -160,19 +160,19 @@ validate_tdd_completion_report() {
     
     if [[ ${#missing_sections[@]} -gt 0 ]]; then
         log "TDD REPORT ERROR: Missing required sections: ${missing_sections[*]}"
-        echo "❌ TDD REPORT INCOMPLETE: Missing sections: ${missing_sections[*]}"
-        echo "🔧 REQUIRED: Follow TDD completion report format"
+        echo "TDD REPORT INCOMPLETE: Missing sections: ${missing_sections[*]}"
+        echo "REQUIRED: Follow TDD completion report format"
         return 1
     fi
     
     # Check for evidence file paths with @ symbols
     if ! echo "$output" | grep -q "@\.taskmaster/docs/research/"; then
         log "TDD REPORT WARNING: No @ file path references found"
-        echo "⚠️  TDD REPORT WARNING: Missing @ file path references for research cache"
+        echo "TDD REPORT WARNING: Missing @ file path references for research cache"
     fi
     
     log "TDD completion report validation passed"
-    echo "✅ TDD REPORT: Completion report format validated"
+    echo "TDD REPORT: Completion report format validated"
     return 0
 }
 
@@ -194,7 +194,7 @@ validate_evidence_content() {
         
         if [[ $file_size -lt 100 ]]; then
             log "CONTENT ERROR: $filename is too small ($file_size bytes)"
-            echo "⚠️  CONTENT WARNING: $filename may lack sufficient research content"
+            echo "CONTENT WARNING: $filename may lack sufficient research content"
             validation_passed=false
         fi
         
@@ -203,16 +203,16 @@ validate_evidence_content() {
             log "CONTENT OK: $filename contains research indicators"
         else
             log "CONTENT WARNING: $filename may lack research content"
-            echo "⚠️  CONTENT WARNING: $filename may not contain actual research findings"
+            echo "CONTENT WARNING: $filename may not contain actual research findings"
             validation_passed=false
         fi
         
     done < <(find "$research_dir" -name "*.md" -type f -print0 2>/dev/null)
     
     if [[ "$validation_passed" == "true" ]]; then
-        echo "✅ EVIDENCE CONTENT: Research files contain adequate content"
+        echo "EVIDENCE CONTENT: Research files contain adequate content"
     else
-        echo "⚠️  EVIDENCE CONTENT: Some research files may need more detailed content"
+        echo "EVIDENCE CONTENT: Some research files may need more detailed content"
     fi
     
     return 0
@@ -230,9 +230,9 @@ main() {
     local validation_failed=false
     
     echo ""
-    echo "🧪 TDD RESEARCH EVIDENCE VALIDATION"
-    echo "📋 Agent: $SUBAGENT_NAME"
-    echo "🕐 Time: $(timestamp)"
+    echo "TDD RESEARCH EVIDENCE VALIDATION"
+    echo "Agent: $SUBAGENT_NAME"
+    echo "Time: $(timestamp)"
     echo ""
     
     # Execute all validation phases
@@ -259,22 +259,22 @@ main() {
     
     if [[ "$validation_failed" == "true" ]]; then
         log "TDD RESEARCH VALIDATION FAILED for agent: $SUBAGENT_NAME"
-        echo "🚨 TDD RESEARCH VALIDATION FAILED"
+        echo "TDD RESEARCH VALIDATION FAILED"
         echo ""
-        echo "💡 RESOLUTION STEPS:"
+        echo "RESOLUTION STEPS:"
         echo "1. Execute actual mcp__context7__ and mcp__task-master-ai__research tools"
         echo "2. Create research cache files in .taskmaster/docs/research/"
         echo "3. Enhance tasks with research_context using mcp__task-master-ai__update_task"
         echo "4. Follow TDD completion report format with evidence"
         echo ""
-        echo "📖 See detailed logs at: $LOG_FILE"
+        echo "See detailed logs at: $LOG_FILE"
         echo ""
         exit 1
     else
         log "TDD research validation successful for agent: $SUBAGENT_NAME"
-        echo "🎉 TDD RESEARCH VALIDATION PASSED"
-        echo "✅ All evidence requirements met"
-        echo "🔬 Research-backed task generation validated"
+        echo "TDD RESEARCH VALIDATION PASSED"
+        echo "All evidence requirements met"
+        echo "Research-backed task generation validated"
         echo ""
     fi
     

@@ -46,7 +46,12 @@ block_command() {
     local reason="$1"
     local command="$2"
     
-    echo "🚫 BLOCKED: $reason" >&2
+    # 中文友好提示（不改变原有英文提示与退出码）
+    echo "已阻止: $reason" >&2
+    echo "命令: $command" >&2
+    echo "建议: 对高风险操作请进行人工审批，或在沙箱环境中执行" >&2
+    
+    echo "BLOCKED: $reason" >&2
     echo "Command: $command" >&2
     echo "Use manual approval or sandbox environment for dangerous operations" >&2
     

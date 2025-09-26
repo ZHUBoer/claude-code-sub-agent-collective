@@ -85,7 +85,7 @@ validate_handoff_token() {
     
     if [[ -z "$token" ]]; then
         log "HANDOFF ERROR: No handoff token provided"
-echo "❌ HANDOFF VALIDATION FAILED: Missing handoff token" >&2
+echo "❌ 交接校验失败：缺少 handoff token（Missing handoff token）" >&2
         return 1
     fi
     
@@ -106,7 +106,7 @@ validate_agent_output() {
     
     if [[ -z "$output" ]]; then
         log "HANDOFF ERROR: No agent output provided for validation"
-echo "❌ CONTRACT VALIDATION FAILED: Empty agent output" >&2
+echo "❌ 契约校验失败：代理输出为空（Empty agent output）" >&2
         return 1
     fi
     
@@ -120,8 +120,8 @@ echo "❌ CONTRACT VALIDATION FAILED: Empty agent output" >&2
     if [[ "$has_implementation" == "true" ]]; then
         if ! echo "$output" | grep -qi -E "(test|spec|coverage|validation|verify)"; then
             log "CONTRACT WARNING: Implementation detected without test mention"
-echo "⚠️  CONTRACT WARNING: Implementation completed without test validation" >&2
-echo "📋 RECOMMENDATION: Include test validation for implemented changes" >&2
+echo "⚠️  契约警告：实现完成但未包含测试验证（Implementation without test validation）" >&2
+echo "📋 建议：请为实现的改动补充测试验证（Include test validation）" >&2
         fi
     fi
     
@@ -146,8 +146,8 @@ echo "📋 RECOMMENDATION: Include test validation for implemented changes" >&2
     log "Quality score for $agent: $quality_score/3"
     
     if [[ $quality_score -lt 1 ]]; then
-echo "⚠️  QUALITY WARNING: Low quality handoff detected (score: $quality_score/3)" >&2
-echo "📋 IMPROVEMENT NEEDED: Consider adding tests, documentation, or error handling" >&2
+echo "⚠️  质量警告：交接质量较低（评分：$quality_score/3）（Low quality handoff）" >&2
+echo "📋 需改进：建议补充测试、文档或错误处理（Add tests/docs/handling）" >&2
     fi
     
     return 0
@@ -194,19 +194,19 @@ validate_test_integration() {
     # Check if tests were run or mentioned
     if echo "$output" | grep -qi -E "(jest|test.*pass|test.*fail|npm.*test|yarn.*test)"; then
         log "Test framework integration detected"
-echo "✅ TEST INTEGRATION: Test framework usage confirmed" >&2
+echo "✅ 测试集成：已检测到测试框架使用（Test framework usage confirmed）" >&2
         return 0
     fi
     
     # Check for test files mentioned
     if echo "$output" | grep -qi -E "(\.test\.|\.spec\.|__tests__|test/)"; then
         log "Test files mentioned in handoff"
-echo "✅ TEST FILES: Test file references found" >&2
+echo "✅ 测试文件：发现测试文件引用（Test file references found）" >&2
         return 0
     fi
     
     log "WARNING: No test framework integration detected"
-echo "⚠️  TEST INTEGRATION WARNING: No test framework usage detected" >&2
+echo "⚠️  测试集成警告：未检测到测试框架使用（No test framework usage）" >&2
     return 0
 }
 
@@ -215,7 +215,7 @@ agent_tdd_checkpoint() {
     local agent_name="$1"
     local task_context="$2"
     
-    log "🧪 AGENT TDD CHECKPOINT: $agent_name"
+    log "AGENT TDD CHECKPOINT: $agent_name"
     
     # Quick test validation - must pass to proceed
     # Check for dependencies first to avoid false positives
@@ -225,7 +225,7 @@ agent_tdd_checkpoint() {
     fi
     
     # Run vitest from .claude-collective directory where dependencies are installed
-    log "🧪 Running vitest validation for $agent_name..."
+    log "Running vitest validation for $agent_name..."
     
     # timeout 60 bash -c "cd .claude-collective && npx vitest run" > /tmp/agent-test-$agent_name.log 2>&1
     bash -c "npm test" > /tmp/agent-test-$agent_name.log 2>&1
@@ -236,60 +236,60 @@ agent_tdd_checkpoint() {
     
     # Check if log file exists and has content
     if [[ ! -f "/tmp/agent-test-$agent_name.log" || ! -s "/tmp/agent-test-$agent_name.log" ]]; then
-        log "❌ AGENT TDD FAILURE: $agent_name - no test output generated"
+        log "AGENT TDD FAILURE: $agent_name - no test output generated"
         has_test_failures=true
     else
         # Parse output for test results - FIX: Better Vitest output parsing
         # Check for explicit failures first (but exclude "0 failed" which means success)
         if grep -iq "failed\|error\|✗\|×" "/tmp/agent-test-$agent_name.log" && ! grep -iq "0 failed" "/tmp/agent-test-$agent_name.log"; then
-            log "❌ AGENT TDD FAILURE: $agent_name - test failures detected in output"
+            log "AGENT TDD FAILURE: $agent_name - test failures detected in output"
             has_test_failures=true
         # FIX: Improved success detection for Vitest format
         elif grep -iqE "✓.*test|Tests.*[0-9]+.*passed.*\([0-9]+\)|Test Files.*[0-9]+.*passed|[0-9]+ passed \([0-9]+\)" "/tmp/agent-test-$agent_name.log"; then
-            log "✅ AGENT TDD OUTPUT: $agent_name - tests show passing results"
+            log "AGENT TDD OUTPUT: $agent_name - tests show passing results"
         # FIX: Also check for "Duration" which indicates test completion
         elif grep -iq "Duration.*[0-9]" "/tmp/agent-test-$agent_name.log"; then
-            log "✅ AGENT TDD OUTPUT: $agent_name - test execution completed successfully"
+            log "AGENT TDD OUTPUT: $agent_name - test execution completed successfully"
         else
-            log "❌ AGENT TDD FAILURE: $agent_name - no passing tests detected in output"
+            log "AGENT TDD FAILURE: $agent_name - no passing tests detected in output"
             has_test_failures=true
         fi
     fi
     
     # Final validation: Fail if exit code is bad OR output parsing shows failures
     if [[ $exit_code -ne 0 ]] || [[ "$has_test_failures" == "true" ]]; then
-        log "❌ AGENT TDD FAILURE: $agent_name tests failing (exit_code=$exit_code, output_issues=$has_test_failures)"
+        log "AGENT TDD FAILURE: $agent_name tests failing (exit_code=$exit_code, output_issues=$has_test_failures)"
         
         # Extract specific test failures for actionable feedback
         local test_failures=$(extract_test_failures "/tmp/agent-test-$agent_name.log")
         
-        echo "❌ AGENT TDD CHECKPOINT FAILED: Tests not passing for $agent_name" >&2
-        echo "   🔍 Exit Code: $exit_code" >&2
-        echo "   🔍 Output Analysis: $has_test_failures" >&2
+        echo "代理 TDD 检查失败：$agent_name 的测试未通过（Tests not passing）" >&2
+        echo "   退出码：$exit_code（Exit Code）" >&2
+        echo "   输出分析：$has_test_failures（Output Analysis）" >&2
         echo "" >&2
-        echo "🔍 SPECIFIC TEST FAILURES IDENTIFIED:" >&2
+        echo "具体失败用例如下（Specific test failures）:" >&2
         echo "$test_failures" >&2
         echo "" >&2
-        echo "📋 REMEDIATION REQUIRED: Fix the above failing tests before handoff allowed" >&2
-        echo "📄 Full test log: /tmp/agent-test-$agent_name.log" >&2
+        echo "需修复：请先修复上述失败测试再允许交接（Fix failing tests before handoff）" >&2
+        echo "完整测试日志：/tmp/agent-test-$agent_name.log（Full test log）" >&2
         return 1
     fi
     
     # Quick build validation
     if [[ -f "package.json" ]]; then
         if ! timeout 30 npm run build > /tmp/agent-build-$agent_name.log 2>&1; then
-            log "❌ AGENT TDD FAILURE: $agent_name build failing"
-            echo "❌ AGENT TDD CHECKPOINT FAILED: Build not passing for $agent_name" >&2
-            echo "📋 REMEDIATION REQUIRED: Fix build errors before handoff allowed" >&2
-            echo "📄 Build log: /tmp/agent-build-$agent_name.log" >&2
+            log "AGENT TDD FAILURE: $agent_name build failing"
+            echo "代理 TDD 检查失败：$agent_name 构建未通过（Build not passing）" >&2
+            echo "需修复：请先修复构建错误再允许交接（Fix build errors before handoff）" >&2
+            echo "构建日志：/tmp/agent-build-$agent_name.log（Build log）" >&2
             return 1
         fi
     else
         log "Build validation skipped - no package.json found"
     fi
     
-    log "✅ AGENT TDD CHECKPOINT PASSED: $agent_name"
-    echo "✅ AGENT TDD CHECKPOINT PASSED: $agent_name tests and build successful" >&2
+    log "AGENT TDD CHECKPOINT PASSED: $agent_name"
+    echo "代理 TDD 检查通过：$agent_name 测试与构建均成功（Tests and build successful）" >&2
     return 0
 }
 
@@ -307,21 +307,21 @@ execute_tdd_validation() {
     # 1. Check for evidence of completed work
     if ! echo "$agent_output" | grep -qi -E "(complete|done|finished|implemented|created|generated|delivered)"; then
         validation_passed=false
-        validation_messages+=("❌ No completion evidence found")
+        validation_messages+=("No completion evidence found")
         log "TDD FAIL: No completion evidence"
     else
-        validation_messages+=("✅ Work completion evidence found")
+        validation_messages+=("Work completion evidence found")
         log "TDD PASS: Completion evidence found"
     fi
     
     # 2. For research agents, check for research deliverables
     if [[ "$agent_name" == *"research"* ]]; then
         if echo "$agent_output" | grep -qi -E "(research|analysis|findings|documentation|Context7|library)"; then
-            validation_messages+=("✅ Research deliverables validated")
+            validation_messages+=("Research deliverables validated")
             log "TDD PASS: Research deliverables found"
         else
             validation_passed=false
-            validation_messages+=("❌ Missing research deliverables")
+            validation_messages+=("Missing research deliverables")
             log "TDD FAIL: No research evidence"
         fi
     fi
@@ -329,22 +329,22 @@ execute_tdd_validation() {
     # 3. For implementation agents, check for code/file evidence
     if [[ "$agent_name" == *"implementation"* || "$agent_name" == *"component"* || "$agent_name" == *"feature"* ]]; then
         if echo "$agent_output" | grep -qi -E "(file|code|component|function|test|npm|build)"; then
-            validation_messages+=("✅ Implementation deliverables validated")
+            validation_messages+=("Implementation deliverables validated")
             log "TDD PASS: Implementation evidence found"
         else
             validation_passed=false
-            validation_messages+=("❌ Missing implementation deliverables")
+            validation_messages+=("Missing implementation deliverables")
             log "TDD FAIL: No implementation evidence"
         fi
     fi
     
     # 4. Check for handoff instruction clarity
     if echo "$agent_output" | grep -qi -E "Use the [a-z-]+ (subagent|agent) to"; then
-        validation_messages+=("✅ Clear handoff instruction provided")
+        validation_messages+=("Clear handoff instruction provided")
         log "TDD PASS: Clear handoff instruction"
     else
         # Don't fail on this, just warn
-        validation_messages+=("⚠️  Handoff instruction could be clearer")
+        validation_messages+=("Handoff instruction could be clearer")
         log "TDD WARN: Handoff instruction unclear"
     fi
     
@@ -361,23 +361,23 @@ execute_tdd_validation() {
     fi
     
     if [[ $quality_score -gt 0 ]]; then
-        validation_messages+=("✅ Quality indicators present (score: $quality_score/3)")
+        validation_messages+=("Quality indicators present (score: $quality_score/3)")
         log "TDD PASS: Quality score $quality_score/3"
     fi
     
     # Output validation results (to stderr so it doesn't interfere with stdout handoff)
-echo "🧪 TDD VALIDATION RESULTS for $agent_name:" >&2
+echo "🧪 TDD 校验结果（for $agent_name）:" >&2
     for message in "${validation_messages[@]}"; do
 echo "  $message" >&2
     done
     
     if [[ "$validation_passed" == "true" ]]; then
         log "TDD validation PASSED for agent: $agent_name"
-echo "✅ TDD VALIDATION PASSED: Agent handoff validated successfully" >&2
+echo "TDD 校验通过：代理交接已成功验证（Validated successfully）" >&2
         return 0
     else
         log "TDD validation FAILED for agent: $agent_name"
-echo "❌ TDD VALIDATION FAILED: Agent handoff validation failed" >&2
+echo "TDD 校验失败：代理交接校验未通过（Validation failed）" >&2
         return 1
     fi
 }
@@ -409,8 +409,8 @@ detect_orchestrator_phase_completion() {
         # Extract phase info if available
         local phase_info=$(echo "$output" | grep -i -o -E "(Task [0-9]+|Phase [0-9]+|[0-9]+ tasks?)" | head -1)
         
-        echo "ROUTE TO: tdd-validation-agent" >&2
-        echo "Context: Comprehensive TDD validation for phase completion: $phase_info" >&2
+        echo "路由到：tdd-validation-agent（ROUTE TO）" >&2
+        echo "上下文：对阶段完成进行全面 TDD 校验：$phase_info（Context: TDD validation for phase completion）" >&2
         
         # Use blocking mechanism for orchestrator validation
         cat <<EOF
@@ -432,7 +432,7 @@ extract_test_failures() {
     local log_file="$1"
     
     if [[ ! -f "$log_file" ]]; then
-        echo "❌ No test log available"
+        echo "No test log available"
         return
     fi
     
@@ -446,9 +446,9 @@ extract_test_failures() {
         if [[ "$line" =~ ^[[:space:]]*×[[:space:]](.+)[[:space:]]+[0-9]+ms$ ]]; then
             # Process previous test if we have one
             if [[ -n "$current_test" ]]; then
-                failures+="❌ $current_test"$'\n'
+                failures+=" $current_test"$'\n'
                 for error in "${error_lines[@]}"; do
-                    failures+="   🔹 $error"$'\n'
+                    failures+=" $error"$'\n'
                 done
                 failures+=""$'\n'
             fi
@@ -466,9 +466,9 @@ extract_test_failures() {
     
     # Process final test if we have one
     if [[ -n "$current_test" ]]; then
-        failures+="❌ $current_test"$'\n'
+        failures+=" $current_test"$'\n'
         for error in "${error_lines[@]}"; do
-            failures+="   🔹 $error"$'\n'
+            failures+=" $error"$'\n'
         done
     fi
     
@@ -479,7 +479,7 @@ extract_test_failures() {
         if [[ -n "$summary" ]]; then
             failures="$summary"
         else
-            failures="❌ Tests failed but specific failures could not be parsed. Check full log."
+            failures="Tests failed but specific failures could not be parsed. Check full log."
         fi
     fi
     
@@ -595,7 +595,7 @@ EOF
     local next_agent
     log "Checking for handoff directive in output (first 200 chars): $(echo "$AGENT_OUTPUT" | head -c 200)..."
     if next_agent=$(detect_handoff "$AGENT_OUTPUT"); then
-        log "✅ HANDOFF DETECTED: $SUBAGENT_NAME -> $next_agent"
+        log "HANDOFF DETECTED: $SUBAGENT_NAME -> $next_agent"
         
         # BREAKTHROUGH: Use Claude Code's BLOCK mechanism to force continuation
         cat <<EOF
@@ -605,7 +605,7 @@ EOF
 }
 EOF
         
-        log "✅ DECISION.md auto-delegation triggered for: $next_agent"
+        log "DECISION.md auto-delegation triggered for: $next_agent"
     else
         log "No handoff directive detected in agent output"
         

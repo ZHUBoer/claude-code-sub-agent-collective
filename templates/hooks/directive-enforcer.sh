@@ -31,9 +31,9 @@ check_direct_implementation() {
             # Check if this is coming from a specialized agent (allowed)
             if ! echo "$prompt" | grep -qi "@.*-agent"; then
                 log "DIRECTIVE 1 VIOLATION: Direct implementation detected without agent routing"
-                echo "❌ DIRECTIVE VIOLATION: Direct implementation attempted"
-                echo "🔄 REQUIRED ACTION: Route through @routing-agent for proper agent selection"
-                echo "📋 VIOLATION: NEVER IMPLEMENT DIRECTLY - Use hub-and-spoke pattern"
+                echo "指令违规：尝试直接实现（DIRECT IMPLEMENTATION ATTEMPTED）"
+                echo "必要操作：请通过 @routing-agent 进行路由选择（Route through @routing-agent）"
+                echo "违规说明：禁止直接实现，请使用辐射式（hub-and-spoke）模式（NEVER IMPLEMENT DIRECTLY）"
                 return 1
             fi
         fi
@@ -49,8 +49,8 @@ check_routing_protocol() {
     # Check for peer-to-peer agent communication violations
     if echo "$prompt" | grep -qi -E "(@[a-z-]*agent.*@[a-z-]*agent|direct.*communication|bypass.*routing)"; then
         log "DIRECTIVE 2 VIOLATION: Peer-to-peer agent communication detected"
-        echo "❌ ROUTING VIOLATION: Peer-to-peer agent communication not allowed"
-        echo "🔄 REQUIRED ACTION: Route all requests through @routing-agent hub"
+        echo "❌ 路由违规：不允许代理点对点直接通信（Peer-to-peer agent communication not allowed）"
+        echo "🔄 必要操作：请将请求统一路由到 @routing-agent（Route through hub）"
         return 1
     fi
     
@@ -67,8 +67,8 @@ check_test_driven_validation() {
     if echo "$prompt" | grep -qi -E "(handoff|hand.*off|transfer.*to|route.*to.*agent)"; then
         if ! echo "$prompt" | grep -qi -E "(test|validate|verify|contract|quality.*gate)"; then
             log "DIRECTIVE 3 WARNING: Handoff without explicit test validation mentioned"
-            echo "⚠️  TEST-DRIVEN WARNING: Handoff detected without test validation"
-            echo "📋 RECOMMENDATION: Include test contract validation in handoff"
+            echo "测试驱动警告：检测到交接但未包含测试验证（Handoff without test validation）"
+            echo "建议：在交接中加入测试契约验证（Include test contract validation）"
             # Don't block, just warn
         fi
     fi
@@ -83,7 +83,7 @@ validate_security() {
     # Check for basic command injection patterns
     if echo "$prompt" | grep -qi -E "(rm -rf|curl |wget |;s*rm|;s*curl|;s*wget)"; then
         log "SECURITY VIOLATION: Potential command injection detected"
-        echo "🚨 SECURITY VIOLATION: Potentially malicious input detected"
+        echo "SECURITY VIOLATION: Potentially malicious input detected"
         return 1
     fi
     
