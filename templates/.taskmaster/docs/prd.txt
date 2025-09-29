@@ -1,83 +1,118 @@
-# Product Requirements Document: Simple Todo Application
+<context>
+# Overview  
+本次为“火车国庆活动页面”小改版，面向两类人群：
+- 未抢到票用户：提升抢票/候补成功率的感知与转化
+- 尚未购票/临时出行用户：提供「有票路线/低价」发现入口
 
-## Overview
-Create a basic todo application with essential CRUD operations and local storage persistence.
+核心动作：微调头部标语与权益按钮文案、下线「日历」模块、在权益区下方新增火车活动资源位（XSwiper）。
 
-## Core Features
+# Core Features  
+- 头部标语统一：`.grab-count-container` 仅展示“今日帮 XXX 抢票成功”（去除“今日已有 XXX 预约成功”相关文案与资源）。
+- Slogan 扩展（占位）：在原有 2 条基础上新增 1 组滚动，UI 资源未就绪，暂不实现，仅保留占位与接口。
+- 删除「日历」模块：移除 `components/TicketCalendar` 的引入与渲染；将 `TrainRewardsContainer` 上移填补空位。
+- 权益按钮文案统一：当用户已登录且已领取权益时，按钮恒为“立刻订票”；未登录显示“登录领取”，未领取显示“立即领取”。
+- 新增火车活动资源位（XSwiper）：在 `TrainRewardsContainer` 下方新增轮播组件，首屏可见；数据来自 `getPageInfoOn2025TrainNationalDay` 的 `banners` 字段，点击跳转至对应功能。
 
-### 1. Todo Management
-- **Add New Todos**: Input field with submit button
-- **Edit Todos**: Click to edit todo text inline
-- **Delete Todos**: Delete button to remove todos
-- **Toggle Completion**: Checkbox to mark complete/incomplete
+# User Experience  
+- 首屏：顶部动画 + 抢票人数（千分位展示）+ 头部标语（“今日帮 … 抢票成功”）。
+- 权益区：展示权益与主按钮（登录领取/立即领取/立刻订票）。
+- 活动资源位（XSwiper）：一屏可见，左右滑动查看；点击 Banner 进入对应功能（有票方案/候补管家）。
+- Slogan：UI 未就绪，本期不展示改动；待资源可控后上线。
+</context>
 
-### 2. Basic Organization
-- **Filtering**: Show All, Active, Completed views
-- **Search**: Simple text search through todos
+<PRD>
+# Technical Architecture  
+- 系统组件（目录：`app/20250928-national-day-activity`）
+  - 页面：`Main.jsx`（入口渲染与模块编排）
+  - 头部：`components/TopBar`
+  - 日历（待删除）：`components/TicketCalendar`
+  - 权益区：`components/TrainRewardsContainer`
+  - 样式：`index.scss`
+  - 新增（建议）：`components/TrainActivitySwiper`（封装 XSwiper 资源位，保持页面内职责清晰，便于复用与灰度）
 
-### 3. Data Persistence
-- **Local Storage**: Save todos to browser localStorage
-- **Auto-save**: Changes saved automatically
+- 具体改动点
+  1) `Main.jsx`
+     - 仅保留“今日帮 … 抢票成功”头图，去除“今日已有 … 预约成功”分支；保留数字千分位逻辑 `formatGrabCount`。
+     - 移除 `TicketCalendar` 的 import 与 JSX 渲染；将 `TrainRewardsContainer` 上移。
+     - 在 `TrainRewardsContainer` 下追加渲染 `TrainActivitySwiper`（或内联 `XSwiper` 代码），确保首屏露出。
+  2) `components/TrainRewardsContainer/index.jsx`
+     - 统一主按钮文案规则：登录&已领取 → “立刻订票”；未登录 → “登录领取”；未领取 → “立即领取”。
+  3) `components/TicketCalendar/index.jsx`
+     - 逻辑与样式不再使用；从页面移除。保留文件以便回滚，或最终删除（由发布策略决定）。
+  4) 新增 `components/TrainActivitySwiper/index.jsx`
+     - 使用 `@ctrip/xtaro-zx-h5` 提供的 `XSwiper`、`XSwiperItem`；
+     - Props：`banners`（[{ imageUrl, appUrl, miniUrl, h5Url }]），`onClick(item)`；
+     - 标题：静态渲染两行，居中显示：“查看国庆有票出行地”“提升候补成功率”。
 
-### 4. User Experience
-- **Responsive Design**: Works on desktop and mobile
-- **Clean Interface**: Simple, intuitive design
+- 数据模型（最小必要）
+  - 页面数据 `pageData`
+    - `resultCode: number`，`resultMessage?: string`
+    - `loginFlag: boolean`
+    - `currentStage: 'stage1' | 'stage2' | 'stage3' | 'stage4' | string`
+    - `rewardInfo: { receiveStatus: 0 | 1, rewardList: Array<{ type: number, rewardId: number }> }`
+    - `curStageEndTime?: string`
+    - `banners?: Array<{ imageUrl: string, appUrl?: string, miniUrl?: string, h5Url?: string }>`
+  - 抢票大屏数据 `grabScreen` 返回：`{ resultCode, bigScreenData: { grabCount: number } }`
 
-## Technical Requirements
+- API 与集成
+  - `getPageInfoOn2025TrainNationalDay`（serviceCode=`31493`）
+    - 返回 `banners` 字段用于资源位；空/缺失需安全降级（不渲染）。
+  - `grabScreen`（serviceCode=`16312`）
+    - 每 10s 轮询更新抢票人数。
+  - 跳转：`@ctrip/xtaro-zx-h5` 提供的 `zRouter`/`miniBridge`；端内优先级：小程序 → App → H5（选择第一个非空链接）。
 
-### Frontend Architecture
-- **React 18** with modern hooks
-- **TypeScript** for better development experience
-- **CSS Modules** or styled-components for styling
+- 依赖
+  - 已有：`@ctrip/xtaro-zx-h5@2.4.83`（含 `XSwiper`/`XSwiperItem`）、`dayjs`、`@ctrip/function-nfes-helper`
+  - 样式延续 `index.scss` 约定（保持首屏露出与适配）。
 
-### Data Model
-```typescript
-interface Todo {
-  id: string;
-  text: string;
-  completed: boolean;
-  createdAt: Date;
-}
+# Development Roadmap  
+- MVP（本次交付）
+  1) 头部标语统一为“今日帮 … 抢票成功”；保留千分位与轮询；去除“今日已有 … 预约成功”。
+  2) 下线 `TicketCalendar` 并上移 `TrainRewardsContainer`。
+  3) 统一主按钮文案规则（登录/领取/订票）。
+  4) 新增 XSwiper 资源位（标题 + banner 列表 + 点击跳转）；无数据安全降级。
 
-interface AppState {
-  todos: Todo[];
-  filter: 'all' | 'active' | 'completed';
-  searchQuery: string;
-}
-```
+- Future enhancements（后续）
+  - 接入新的 Slogan UI 资源与滚动策略；
+  - 资源位曝光/点击 UBT 埋点细化；
+  - banner 兜底素材与服务端 A/B 配置。
 
-### Development Tools
-- **Vite** for fast development
-- **ESLint + Prettier** for code quality
-- **Vitest** for testing
+# Logical Dependency Chain  
+1) 移除/隐藏 `TicketCalendar` → 2) 调整 `TrainRewardsContainer` 渲染顺序 → 3) 统一按钮文案 → 4) 接入 `banners` 并渲染 `XSwiper` → 5) 样式适配与首屏校验 → 6) 回归与降级测试。
 
-## User Stories
+# Risks and Mitigations  
+- 接口 `banners` 未就绪或为空：不渲染模块，不抛错；保留页面完整可用。
+- 端内跳转差异：按小程序→App→H5 优先级选择可用链接，缺失则忽略点击。
+- Slogan 资源时程不确定：本期不实现，独立切任务与验收。
 
-1. **As a user**, I want to add new todos so I can track my tasks
-2. **As a user**, I want to edit todos so I can update task details
-3. **As a user**, I want to delete todos so I can remove completed tasks
-4. **As a user**, I want to mark todos complete so I can track progress
-5. **As a user**, I want to filter todos so I can focus on specific items
-6. **As a user**, I want to search todos so I can find specific tasks
+# Appendix  
+- 权威来源：以 `<context>` 与 `<PRD>` 两段为准。
+- 验收清单：见本文档“### 验收标准”（已细化为 TDD 勾选项）。
+- Legacy Draft（历史说明，非权威）：原「1.目标」「2.具体改动」内容已删除以避免歧义，如需查阅请参考版本历史。
+</PRD>
 
-## Success Criteria
+# 火车国庆活动修改（简版说明，详见 <PRD>）
 
-- ✅ All CRUD operations work correctly
-- ✅ Data persists across browser sessions
-- ✅ Filtering and search work properly
-- ✅ Clean, responsive interface
-- ✅ Basic test coverage
+**版本**： 1.0  
+**日期**： 2025-09-23
 
-## Implementation Plan
+- 页面目录：`app/20250928-national-day-activity`
+- 改动摘要：头部文案统一；删除 `TicketCalendar`；`TrainRewardsContainer` 上移；新增 `XSwiper` 活动位；Slogan 暂缓。
 
-### Phase 1: Core Features
-- Basic todo CRUD operations
-- Local storage persistence
-- Simple list display
+### 验收标准
 
-### Phase 2: Organization
-- Filtering system (all/active/completed)
-- Search functionality
-- Improved styling
-
-This simple todo application demonstrates modern React development practices with essential functionality.
+- [ ] 顶部标语：`.grab-count-container` 仅展示“今日帮 XXX 抢票成功”；页面与代码中不出现“今日已有”或“预约成功”相关资源/文案。
+- [ ] 抢票人数格式化：当抓取人数为 1234567 时，页面渲染为 1,234,567（千分位）。
+- [ ] 抢票人数轮询：页面挂载后每 10s 触发一次 `grabScreen`（使用 fake timers 断言 `setInterval` 10000），页面卸载清理定时器。
+- [ ] 删除日历模块：`Main.jsx` 不再 import 或渲染 `TicketCalendar`，渲染树中不存在该组件。
+- [ ] 权益区位置：`TrainRewardsContainer` 上移至日历原位置，出现在顶部区域之后、其他模块之前（通过渲染顺序/快照断言）。
+- [ ] 主按钮文案：当 `loginFlag=true && rewardInfo.receiveStatus=1` 时，按钮文案固定为“立刻订票”（与是否活动日无关）；当未登录显示“登录领取”；当 `receiveStatus=0` 显示“立即领取”。
+- [ ] 新增「火车活动」Swiper：在 `TrainRewardsContainer` 之后渲染 `XSwiper`，当 `banners.length > 0` 时展示，否则模块不渲染。
+- [ ] Swiper 数据映射：每个 banner 使用 `imageUrl` 展示图片；点击时按环境优先级跳转：小程序使用 `miniUrl`，App 使用 `appUrl`，H5 使用 `h5Url`；若某端链接缺失，选择第一个非空链接；链接缺失不报错。
+- [ ] Swiper 标题：渲染并居中显示两个标题“查看国庆有票出行地”“提升候补成功率”。
+- [ ] API 调用：调用 `getPageInfoOn2025TrainNationalDay`（`serviceCode=31493`），当返回对象存在 `banners` 字段时渲染 Swiper；`banners` 为空或缺失不渲染且页面无报错。
+- [ ] 依赖校验：项目包含并使用 `@ctrip/xtaro-zx-h5` 的 `XSwiper`、`XSwiperItem` 进行渲染。
+- [ ] 导航联动：点击第 1 张 banner 跳转到「查询有票方案功能」，点击第 2 张 banner 跳转到「候补管家」（以跳转 URL 或路由参数断言）。
+- [ ] 回归：`Main.jsx` 中不包含“今日已有”“预约成功”等历史图片 URL/文案字符串。
+- [ ] 稳定性：构建通过，无运行时异常；在空/异常数据下模块安全降级（不渲染并无报错）。
+- [ ] Slogan 变更：UI 资源未就绪，本次不纳入验收范围（占位说明），待资源到位单独提改动与验收。
