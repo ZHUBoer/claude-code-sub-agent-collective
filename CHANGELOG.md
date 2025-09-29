@@ -3,6 +3,28 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2025-09-29
+
+### Added
+
+- 集体模式一键切换：新增 `templates/scripts/collective-mode.sh`（enable/disable/status），通过 `.claude/state/collective_mode` 落地开关；`templates/settings.local.json` 加白 `Bash(./.claude/scripts/collective-mode.sh:*)`。
+
+### Changed
+
+- `templates/hooks/load-behavioral-system.sh` 支持 JIT 门控：默认仅加载最小集；当集体模式开启或使用 `/van` 时加载完整 `.claude-collective/*` 规则集。
+- `templates/hooks/test-driven-handoff.sh` 优先在 `.claude-collective` 下执行 Vitest（回退根目录），提升 TDD 校验稳定性。
+- `lib/file-mapping.js` 新增脚本映射（`getScriptsMapping()`）并纳入 `getFileMapping()`，将脚本落地到 `.claude/scripts/` 并赋执行权限。
+
+### Fixed
+
+- `templates/hooks/auto-squash.sh` 稳健化：避免 SIGPIPE（替换 head/tail）、`claude` CLI 缺失兜底、仅在存在父提交时执行 soft reset；已通过临时分支验证（退出码 0）。
+- `templates/hooks/block-destructive-commands.sh` 精确解析 `rm` 选项，仅在存在 `-r`/`-rf` 时拦截；允许 `rm -- <file>` 与 `git rm` 等安全用法；已模拟验证（允许单文件删除/拦截 `rm -rf`）。
+- `templates/settings.json.template` 修复权限条目尾随空格（deny 规则生效）。
+
+### Compatibility
+
+- 无破坏性变更；升级后建议重启 Claude Code 会话以确保 Hook/脚本生效。
+
 ## [1.0.1] - 2025-09-18
 
 ### Added
