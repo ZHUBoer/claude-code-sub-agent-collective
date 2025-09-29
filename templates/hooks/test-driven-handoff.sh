@@ -227,8 +227,14 @@ agent_tdd_checkpoint() {
     # Run vitest from .claude-collective directory where dependencies are installed
     log "Running vitest validation for $agent_name..."
     
-    # timeout 60 bash -c "cd .claude-collective && npx vitest run" > /tmp/agent-test-$agent_name.log 2>&1
-    bash -c "npm test" > /tmp/agent-test-$agent_name.log 2>&1
+    # Prefer running tests inside .claude-collective where framework deps live; fallback to repo root
+    if [ -d ".claude-collective" ] && [ -f ".claude-collective/package.json" ]; then
+        log "Detected .claude-collective test environment; running tests there"
+        (cd .claude-collective && npx vitest run) > /tmp/agent-test-$agent_name.log 2>&1 || \
+        (npm test --prefix .claude-collective) > /tmp/agent-test-$agent_name.log 2>&1
+    else
+        bash -c "npm test" > /tmp/agent-test-$agent_name.log 2>&1
+    fi
     local exit_code=$?
     
     # DUAL VALIDATION: Check both exit code AND output parsing

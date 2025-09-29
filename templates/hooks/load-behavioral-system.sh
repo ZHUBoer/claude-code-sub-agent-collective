@@ -9,33 +9,56 @@ echo "加载辐射式协作协议...（Loading Hub-Spoke Coordination Protocols�
 echo "初始化上下文工程框架...（Initializing Context Engineering Framework）"
 echo ""
 
-echo "=== 集体行为规则（.claude-collective/CLAUDE.md）==="
-cat .claude-collective/CLAUDE.md
-echo ""
+COLLECTIVE_MODE=${COLLECTIVE_MODE:-0}
 
-echo "=== 全局决策引擎（.claude-collective/DECISION.md）==="
-cat .claude-collective/DECISION.md
-echo ""
+# Read state file toggle if exists (overrides default COLLECTIVE_MODE when set)
+STATE_FILE=".claude/state/collective_mode"
+if [ -f "$STATE_FILE" ]; then
+  STATE_VAL=$(cat "$STATE_FILE" | tr -d '\n' | tr -dc '01')
+  if [ "$STATE_VAL" = "1" ] || [ "$STATE_VAL" = "0" ]; then
+    COLLECTIVE_MODE="$STATE_VAL"
+  fi
+fi
 
-echo "=== 专业化代理（.claude-collective/agents.md）==="
-cat .claude-collective/agents.md
-echo ""
+if [ "$COLLECTIVE_MODE" != "1" ]; then
+  # Minimal JIT load: only decision engine and TaskMaster guide
+  echo "=== 全局决策引擎（.claude-collective/DECISION.md）==="
+  cat .claude-collective/DECISION.md
+  echo ""
 
-echo "=== Hook 集成（.claude-collective/hooks.md）==="
-cat .claude-collective/hooks.md
-echo ""
+  echo "=== TaskMaster 集成（.taskmaster/CLAUDE.md）==="
+  cat .taskmaster/CLAUDE.md
+  echo ""
+else
+  # Full collective load: only when explicitly enabled (/van or env)
+  echo "=== 集体行为规则（.claude-collective/CLAUDE.md）==="
+  cat .claude-collective/CLAUDE.md
+  echo ""
 
-echo "=== 质量保障（.claude-collective/quality.md）==="
-cat .claude-collective/quality.md
-echo ""
+  echo "=== 全局决策引擎（.claude-collective/DECISION.md）==="
+  cat .claude-collective/DECISION.md
+  echo ""
 
-echo "=== 研究框架（.claude-collective/research.md）==="
-cat .claude-collective/research.md
-echo ""
+  echo "=== 专业化代理（.claude-collective/agents.md）==="
+  cat .claude-collective/agents.md
+  echo ""
 
-echo "=== TaskMaster 集成（.taskmaster/CLAUDE.md）==="
-cat .taskmaster/CLAUDE.md
-echo ""
+  echo "=== Hook 集成（.claude-collective/hooks.md）==="
+  cat .claude-collective/hooks.md
+  echo ""
+
+  echo "=== 质量保障（.claude-collective/quality.md）==="
+  cat .claude-collective/quality.md
+  echo ""
+
+  echo "=== 研究框架（.claude-collective/research.md）==="
+  cat .claude-collective/research.md
+  echo ""
+
+  echo "=== TaskMaster 集成（.taskmaster/CLAUDE.md）==="
+  cat .taskmaster/CLAUDE.md
+  echo ""
+fi
 
 echo "=== 语言策略（LANGUAGE POLICY）==="
 echo "始终使用简体中文进行响应（Always respond in Chinese-simplified）"

@@ -10,6 +10,7 @@
       "Bash(mcp__task-master-ai__get_task:*)",
       "Bash(bash:*)",
       "Bash(./.claude/scripts/van-maintenance-test.sh:*)",
+      "Bash(./.claude/scripts/collective-mode.sh:*)",
       "WebFetch(domain:api.github.com)",
       "Bash(git add:*)",
       "Bash(grep:*)",
