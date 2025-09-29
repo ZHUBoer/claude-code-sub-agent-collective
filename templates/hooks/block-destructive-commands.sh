@@ -63,14 +63,28 @@ block_command() {
 check_filesystem_destruction() {
     local cmd="$1"
     
-    # Recursive force deletion
-    if echo "$cmd" | grep -qiE "rm\s+.*-.*r.*f|rm\s+.*-.*f.*r"; then
-        block_command "recursive force deletion (rm -rf)" "$cmd"
-    fi
+    # Robust rm option extraction to avoid false positives from hyphens in paths
+    # Collect consecutive option tokens right after 'rm'
+    local rm_opts
+    rm_opts=$(printf "%s\n" "$cmd" | awk '{
+        for(i=1;i<=NF;i++){
+            if($i=="rm"){
+                opts=""; j=i+1;
+                while(j<=NF && substr($(j),1,1)=="-"){ opts=opts $(j); j++ }
+                print opts; exit
+            }
+        }
+    }')
     
-    # Recursive deletion without confirmation
-    if echo "$cmd" | grep -qiE "rm\s+.*-r\s+"; then
-        block_command "recursive deletion without confirmation" "$cmd"
+    # Block rm -rf (combined or separate flags)
+    if [ -n "$rm_opts" ]; then
+        if echo "$rm_opts" | grep -qi "r" && echo "$rm_opts" | grep -qi "f"; then
+            block_command "recursive force deletion (rm -rf)" "$cmd"
+        fi
+        # Block recursive deletion even without -f
+        if echo "$rm_opts" | grep -qi "r"; then
+            block_command "recursive deletion without confirmation" "$cmd"
+        fi
     fi
     
     # Format commands
